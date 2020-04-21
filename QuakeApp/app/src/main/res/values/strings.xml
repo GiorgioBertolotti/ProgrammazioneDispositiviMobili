@@ -17,6 +17,9 @@
     <string name="menu_settings">Impostazioni</string>
     <string name="menu_bugs">Segnala un problema</string>
     <string name="bug_text">Mandaci un messaggio in cui riporti il problema che hai riscontrato:</string>
+    <string name="text_input_edit_text">Inserisci qui il testo</string>
+    <string name="bug_mail">Il messaggio verra\' inviato a prova@mail.lol\nGrazie per la segnalazione!</string>
+    <string name="bug_send">INVIA</string>
 
     <string name="home_second">Home Second</string>
 </resources>

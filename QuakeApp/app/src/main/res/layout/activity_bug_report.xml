@@ -24,23 +24,58 @@
         tools:context=".bug_report">
 
         <TextView
-            style="@style/H5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
+            style="@style/H5"
             android:gravity="center"
             android:text="@string/menu_bugs" />
-
     </LinearLayout>
 
     <TextView
         android:id="@+id/msg_lbl"
-        style="@style/Body2"
         android:layout_width="344sp"
         android:layout_height="35sp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="80dp"
+        style="@style/Body2"
         android:text="@string/bug_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/textInputEditText"
+        android:layout_width="343sp"
+        android:layout_height="145sp"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="131sp"
+        style="@style/Body1"
+        android:background="@color/black_24"
+        android:gravity="top"
+        android:hint="@string/text_input_edit_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textfield.TextInputEditText>
+
+    <TextView
+        android:id="@+id/msg_lbl_two"
+        android:layout_width="262sp"
+        android:layout_height="32sp"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="292sp"
+        style="@style/Caption"
+        android:text="@string/bug_mail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/send"
+        android:layout_width="52sp"
+        android:layout_height="24sp"
+        android:layout_marginStart="308dp"
+        android:layout_marginTop="292dp"
+        style="@style/BUTTON"
+        android:gravity="center"
+        android:color="@color/primaryColorDark"
+        android:text="@string/bug_send"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
