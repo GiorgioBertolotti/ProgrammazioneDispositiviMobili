@@ -17,4 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="RobotoStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@+font/roboto-regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
 </resources>

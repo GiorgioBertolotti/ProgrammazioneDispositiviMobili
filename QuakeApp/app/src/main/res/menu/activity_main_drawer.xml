@@ -3,48 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Navigazione">
+    <item android:title="@string/navigation">
         <menu>
             <group
                 android:id="@+id/nav_top"
                 android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_home"
-                    android:icon="@drawable/ic_menu_camera"
                     android:title="@string/menu_home" />
                 <item
                     android:id="@+id/nav_all_quakes"
-                    android:icon="@drawable/ic_menu_gallery"
                     android:title="@string/menu_all_quakes" />
                 <item
                     android:id="@+id/nav_last"
-                    android:icon="@drawable/ic_menu_slideshow"
                     android:title="@string/menu_last" />
                 <item
                     android:id="@+id/nav_seismic_network"
-                    android:icon="@drawable/ic_menu_slideshow"
                     android:title="@string/menu_seismic_network" />
             </group>
         </menu>
     </item>
 
 
-    <item android:title="Altro">
+    <item android:title="@string/other">
         <menu>
             <group
                 android:id="@+id/nav_bottom"
                 android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_faq"
-                    android:icon="@drawable/ic_menu_camera"
                     android:title="@string/menu_faq" />
                 <item
                     android:id="@+id/nav_settings"
-                    android:icon="@drawable/ic_menu_gallery"
                     android:title="@string/menu_settings" />
                 <item
                     android:id="@+id/nav_bugs"
-                    android:icon="@drawable/ic_menu_gallery"
                     android:title="@string/menu_bugs" />
             </group>
         </menu>

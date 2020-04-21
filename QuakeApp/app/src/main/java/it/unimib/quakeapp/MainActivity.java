@@ -1,13 +1,17 @@
 package it.unimib.quakeapp;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,7 +20,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+import info.androidhive.fontawesome.FontDrawable;
+
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -36,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
@@ -45,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        intDrawerLayout();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -59,5 +65,44 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void intDrawerLayout() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        int[] iconsFirstGroup = {
+                R.string.fa_home_solid,
+                R.string.fa_search_solid,
+                R.string.fa_history_solid,
+                R.string.fa_project_diagram_solid
+        };
+
+        renderMenuIcons(navigationView.getMenu().getItem(0).getSubMenu(), iconsFirstGroup, true, false);
+
+        int[] iconsSecondGroup = {
+                R.string.fa_question_circle_solid,
+                R.string.fa_cog_solid,
+                R.string.fa_bug_solid
+        };
+
+        renderMenuIcons(navigationView.getMenu().getItem(1).getSubMenu(), iconsSecondGroup, true, false);
+    }
+
+    private void renderMenuIcons(Menu menu, int[] icons, boolean isSolid, boolean isBrand) {
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem menuItem = menu.getItem(i);
+            if (!menuItem.hasSubMenu()) {
+                FontDrawable drawable = new FontDrawable(this, icons[i], isSolid, isBrand);
+                drawable.setTextColor(ContextCompat.getColor(this, R.color.black));
+                drawable.setTextSize(22);
+                menu.getItem(i).setIcon(drawable);
+            }
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
