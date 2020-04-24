@@ -10,5 +10,6 @@ public class BugReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bug_report);
+        getSupportActionBar().setTitle(getString(R.string.menu_bugs));
     }
 }

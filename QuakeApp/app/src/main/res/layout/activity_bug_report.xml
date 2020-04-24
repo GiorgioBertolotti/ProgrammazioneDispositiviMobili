@@ -1,94 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".BugReport">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
+        android:id="@+id/bug_message"
+        style="@style/Body2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_height"
-        android:background="@drawable/side_nav_bar"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".bug_report">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/bug_text" />
 
-        <TextView
-            android:id="@+id/bug_text_view"
-            style="@style/H5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/menu_bugs"
-            android:textColor="@color/backgroundColor"/>
-    </LinearLayout>
+    <EditText
+        android:id="@+id/bug_edit_text"
+        style="@style/Body1"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp"
+        android:background="@drawable/corner_radius_edit_text"
+        android:gravity="top"
+        android:hint="@string/bug_edit_text"
+        android:inputType="textMultiLine" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="780sp"
-        android:layout_marginTop="64sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/bug_message"
-            style="@style/Body2"
-            android:layout_width="344sp"
-            android:layout_height="35sp"
-            android:layout_marginStart="16sp"
-            android:layout_marginTop="24sp"
-            android:text="@string/bug_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/bug_edit_text"
-            style="@style/Body1"
-            android:layout_width="343sp"
-            android:layout_height="145sp"
-            android:layout_marginStart="16sp"
-            android:layout_marginTop="75sp"
-            android:background="@drawable/corner_radius_edit_text"
-            android:gravity="top"
-            android:hint="@string/bug_edit_text"
-            android:inputType="textMultiLine"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/bug_message_two"
             style="@style/Caption"
-            android:layout_width="262sp"
-            android:layout_height="32sp"
-            android:layout_marginStart="16sp"
-            android:layout_marginTop="236sp"
-            android:text="@string/bug_mail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentStart="true"
+            android:text="@string/bug_mail" />
 
         <Button
             android:id="@+id/bug_button"
             style="@style/BUTTON"
-            android:layout_width="52sp"
-            android:layout_height="24sp"
-            android:layout_marginStart="308sp"
-            android:layout_marginTop="236sp"
+            android:layout_width="52dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/corner_radius_button"
             android:text="@string/bug_send"
             android:textColor="@color/backgroundColor"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="visible" />
     </RelativeLayout>
-
-</RelativeLayout>
+</LinearLayout>

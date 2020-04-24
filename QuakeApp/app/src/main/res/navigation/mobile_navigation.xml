@@ -28,15 +28,4 @@
             android:name="myArg"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="it.unimib.quakeapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_all_quakes"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="it.unimib.quakeapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_last"
-        tools:layout="@layout/fragment_slideshow" />
 </navigation>
