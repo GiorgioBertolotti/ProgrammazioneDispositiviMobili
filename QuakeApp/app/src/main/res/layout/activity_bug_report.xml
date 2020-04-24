@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,59 +24,71 @@
         tools:context=".bug_report">
 
         <TextView
+            android:id="@+id/bug_text_view"
+            style="@style/H5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/H5"
             android:gravity="center"
-            android:text="@string/menu_bugs" />
+            android:text="@string/menu_bugs"
+            android:textColor="@color/backgroundColor"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/msg_lbl"
-        android:layout_width="344sp"
-        android:layout_height="35sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
-        style="@style/Body2"
-        android:text="@string/bug_text"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="780sp"
+        android:layout_marginTop="64sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
-        android:layout_width="343sp"
-        android:layout_height="145sp"
-        android:layout_marginStart="16sp"
-        android:layout_marginTop="131sp"
-        style="@style/Body1"
-        android:background="@color/black_24"
-        android:gravity="top"
-        android:hint="@string/text_input_edit_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></com.google.android.material.textfield.TextInputEditText>
+        <TextView
+            android:id="@+id/bug_message"
+            style="@style/Body2"
+            android:layout_width="344sp"
+            android:layout_height="35sp"
+            android:layout_marginStart="16sp"
+            android:layout_marginTop="24sp"
+            android:text="@string/bug_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/msg_lbl_two"
-        android:layout_width="262sp"
-        android:layout_height="32sp"
-        android:layout_marginStart="16sp"
-        android:layout_marginTop="292sp"
-        style="@style/Caption"
-        android:text="@string/bug_mail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/bug_edit_text"
+            style="@style/Body1"
+            android:layout_width="343sp"
+            android:layout_height="145sp"
+            android:layout_marginStart="16sp"
+            android:layout_marginTop="75sp"
+            android:background="@drawable/corner_radius_edit_text"
+            android:gravity="top"
+            android:hint="@string/bug_edit_text"
+            android:inputType="textMultiLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/send"
-        android:layout_width="52sp"
-        android:layout_height="24sp"
-        android:layout_marginStart="308dp"
-        android:layout_marginTop="292dp"
-        style="@style/BUTTON"
-        android:gravity="center"
-        android:color="@color/primaryColorDark"
-        android:text="@string/bug_send"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/bug_message_two"
+            style="@style/Caption"
+            android:layout_width="262sp"
+            android:layout_height="32sp"
+            android:layout_marginStart="16sp"
+            android:layout_marginTop="236sp"
+            android:text="@string/bug_mail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/bug_button"
+            style="@style/BUTTON"
+            android:layout_width="52sp"
+            android:layout_height="24sp"
+            android:layout_marginStart="308sp"
+            android:layout_marginTop="236sp"
+            android:background="@drawable/corner_radius_button"
+            android:text="@string/bug_send"
+            android:textColor="@color/backgroundColor"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
+
+</RelativeLayout>
