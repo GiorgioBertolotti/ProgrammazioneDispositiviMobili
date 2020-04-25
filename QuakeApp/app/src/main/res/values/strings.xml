@@ -22,4 +22,22 @@
     <string name="bug_send">INVIA</string>
 
     <string name="home_second">Home Second</string>
+    <string name="question1">Quale associazione fornisce i <b><i>dati</i></b>?</string>
+    <string name="question_Richter">Cosa colcola l\'indice <b><i>Richter</i></b>?</string>
+    <string name="answer_Richter"><b>L\'indice Richter fornisce una valutazione obiettiva (magnitudo)
+        della quantità di energia liberata.</b> \nTale scala non ha divisioni in gradi, limiti inferiori,
+        (se non strumentali) e superiori. La valutazione dell\'energia liberata da un sisma è
+        associata ad un indice, detto magnitudo, che si ottiene rapportando il logaritmo decimale
+        dell\'ampiezza massima di una scossa e il logaritmo di una scossa campione.
+        Lo zero della scala equivale ad una energia liberata pari a 105 Joule.
+        Il massimo valore registrato, è stato di magnitudo 8.6 equivalente all\'energia di 1018 J.</string>
+    <string name="question_Mercalli">Cosa calcola la scala <b>Mercalli</b>?</string>
+    <string name="answer_Mercalli"><b>La scala Mercalli classifica l’intensità di un terremoto in base
+        ai suoi effetti visibili sulle costruzioni.</b>\nSolo a partire dal 4° grado di questa scala le
+        scosse sono avvertite dalla maggior parte delle persone e si hanno lievi lesioni
+        ai fabbricati, mentre col 7° i danni agli edifici si fanno seri. Il grado massimo, il 12°,
+        prevede la totale distruzione di ogni opera umana.</string>
+    <string name="question4">Qual è la corrispondenza tra scala <b>Mercalli</b> e indice <b>Richter</b>?</string>
+    <string name="minore"><![CDATA[<3.5]]></string>
+    <string name="maggiore"><![CDATA[>8.1]]></string>
 </resources>
