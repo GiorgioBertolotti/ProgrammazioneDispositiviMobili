@@ -110,6 +110,10 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(this, BugReport.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_faq:
+                Intent intentFaq = new Intent(this, FAQ.class);
+                startActivity(intentFaq);
+                break;
             default:
                 break;
         }
