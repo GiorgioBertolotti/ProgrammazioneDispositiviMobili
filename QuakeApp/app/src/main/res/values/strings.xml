@@ -7,21 +7,31 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="menu_home">Home</string>
+    <string name="menu_bugs">Segnala un problema</string>
+    <string name="menu_earthquakes">Terremoti</string>
+
     <string name="navigation">Navigazione</string>
     <string name="other">Altro</string>
-    <string name="menu_home">Home</string>
     <string name="menu_all_quakes">Tutti i terremoti</string>
     <string name="menu_last">Recenti</string>
     <string name="menu_seismic_network">Reti sismiche</string>
     <string name="menu_faq">FAQ</string>
     <string name="menu_settings">Impostazioni</string>
-    <string name="menu_bugs">Segnala un problema</string>
     <string name="bug_text">Mandaci un messaggio in cui riporti il problema che hai riscontrato:</string>
     <string name="bug_edit_text">Inserisci qui il testo</string>
     <string name="bug_mail">Il messaggio verra\' inviato a prova@mail.lol\nGrazie per la segnalazione!</string>
     <string name="bug_send">INVIA</string>
 
+    <string name="load">Caricamento</string>
+    <string name="loading_earthquakes">Sto caricando i terremoti</string>
+    <string name="date">Data</string>
+    <string name="location">Posizione</string>
+    <string name="richter_mag">Richter</string>
+    <string name="mercalli_mag">Mercalli</string>
+
     <string name="home_second">Home Second</string>
+<<<<<<< HEAD
     <string name="question1">Quale associazione fornisce i <b><i>dati</i></b>?</string>
     <string name="question_Richter">Cosa colcola l\'indice <b><i>Richter</i></b>?</string>
     <string name="answer_Richter"><b>L\'indice Richter fornisce una valutazione obiettiva (magnitudo)
@@ -40,4 +50,9 @@
     <string name="question4">Qual è la corrispondenza tra scala <b>Mercalli</b> e indice <b>Richter</b>?</string>
     <string name="minore"><![CDATA[<3.5]]></string>
     <string name="maggiore"><![CDATA[>8.1]]></string>
+=======
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> d63f391699a306085ae60b464ab58f0820d931c1
 </resources>

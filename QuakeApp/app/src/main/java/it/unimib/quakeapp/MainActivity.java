@@ -12,6 +12,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    public static final String TAG = "it.unimib.QuakeApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +109,12 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_home:
                 getSupportActionBar().setTitle(getString(R.string.menu_home));
+                break;
+            case R.id.nav_all_quakes:
+                getSupportActionBar().setTitle(getString(R.string.menu_earthquakes));
+                Fragment earthquakeList = new EarthquakeList();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.nav_host_fragment, earthquakeList).commit();
                 break;
             case R.id.nav_bugs:
                 Intent intent = new Intent(this, BugReport.class);

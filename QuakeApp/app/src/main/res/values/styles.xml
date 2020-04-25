@@ -18,6 +18,17 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Tag">
+        <item name="android:textColor">@color/greenDark</item>
+        <item name="backgroundColor">@color/green_16</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
     <style name="H1" parent="android:Widget.TextView">
         <item name="android:fontFamily">@+font/roboto_light</item>
         <item name="android:textSize">96sp</item>
