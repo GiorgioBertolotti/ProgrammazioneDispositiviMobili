@@ -39,10 +39,20 @@
     <string name="theme">Tema</string>
     <string name="lang">Lingua</string>
 
-
-
     <string name="home_second">Home Second</string>
 
+    <!-- DATES -->
+    <string name="monday">Lunedì</string>
+    <string name="tuesday">Martedì</string>
+    <string name="wednesday">Mercoledì</string>
+    <string name="thursday">Giovedì</string>
+    <string name="friday">Venerdì</string>
+    <string name="saturday">Sabato</string>
+    <string name="sunday">Domenica</string>
+
+    <string name="today">Oggi</string>
+
+    <!-- FAQ -->
     <string name="toggle_question">Apri/Chiudi</string>
     <string name="epicenter_image">Immagine epicentro/ipocentro</string>
     <string name="question1">Quale associazione fornisce i <b>dati</b>?</string>
@@ -72,12 +82,6 @@
     <string name="question4">Qual è la corrispondenza tra scala <b>Mercalli</b> e indice <b>Richter</b>?</string>
     <string name="minore"><![CDATA[<3.5]]></string>
     <string name="maggiore"><![CDATA[>8.1]]></string>
-    =======
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
     <string name="grado_mercalli"><b>Grado Mercalli</b></string>
     <string name="magnitudo_richter"><b>Magnitudo Richter</b></string>
     <string name="question5">Qual è la differenza tra <b>epicentro</b> e <b>ipocentro</b>?</string>
@@ -91,6 +95,4 @@
     <string name="question6">Come aggiungo una citta alla mia <b>area di interesse</b>?</string>
     <string name="question7">Come faccio a rimuovo una città dalla mia <b>area di interesse</b>?</string>
     <string name="question8">Cosa indicano gli stati <b>sicuro</b>, <b>allerta</b> e <b>emergenza</b>?</string>
-
-    >>>>>>> d63f391699a306085ae60b464ab58f0820d931c1
 </resources>

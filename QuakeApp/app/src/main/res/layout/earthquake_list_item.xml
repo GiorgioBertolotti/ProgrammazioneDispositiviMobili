@@ -1,98 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/eqi_richter_container"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/eqi_date"
-            style="@style/Body2"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/date"
-            android:textColor="@color/black_60" />
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/eqi_richter_container"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/eqi_location"
-            style="@style/Body1"
+            <TextView
+                android:id="@+id/eqi_date"
+                style="@style/Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/date"
+                android:textColor="@color/black_60" />
+
+            <TextView
+                android:id="@+id/eqi_location"
+                style="@style/Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/location" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/eqi_richter_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@string/location" />
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_toStartOf="@id/eqi_mercalli_container"
+            android:background="@drawable/magnitude_tag"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp">
 
-    <LinearLayout
-        android:id="@+id/eqi_richter_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_toStartOf="@id/eqi_mercalli_container"
-        android:background="@drawable/magnitude_tag"
-        android:paddingStart="8dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="2dp">
+            <TextView
+                android:id="@+id/eqi_richter_mag"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/richter_mag"
+                android:textColor="@color/greenDark" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/eqi_richter_mag"
-            style="@style/Caption"
+        <LinearLayout
+            android:id="@+id/eqi_mercalli_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/richter_mag"
-            android:textColor="@color/greenDark" />
-    </LinearLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/eqi_chevron_right"
+            android:background="@drawable/magnitude_tag"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp">
 
-    <LinearLayout
-        android:id="@+id/eqi_mercalli_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_toStartOf="@id/eqi_chevron_right"
-        android:background="@drawable/magnitude_tag"
-        android:paddingStart="8dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="8dp"
-        android:paddingBottom="2dp">
+            <TextView
+                android:id="@+id/eqi_mercalli_mag"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/mercalli_mag"
+                android:textColor="@color/greenDark" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/eqi_mercalli_mag"
-            style="@style/Caption"
+        <info.androidhive.fontawesome.FontTextView
+            android:id="@+id/eqi_chevron_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/mercalli_mag"
-            android:textColor="@color/greenDark" />
-    </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:text="@string/fa_chevron_right_solid"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:solid_icon="true" />
+    </RelativeLayout>
 
-    <info.androidhive.fontawesome.FontTextView
-        android:id="@+id/eqi_chevron_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="8dp"
-        android:text="@string/fa_chevron_right_solid"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:solid_icon="true" />
-</RelativeLayout>
+    <View
+        android:id="@+id/eqi_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/black_08"/>
+</LinearLayout>
