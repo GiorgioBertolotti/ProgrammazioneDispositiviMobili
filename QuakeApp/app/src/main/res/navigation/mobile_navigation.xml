@@ -15,7 +15,7 @@
     <fragment
         android:id="@+id/nav_all_quakes"
         android:name="it.unimib.quakeapp.EarthquakeList"
-        android:label="@string/menu_earthquakes"
+        android:label="@string/menu_all_quakes"
         tools:layout="@layout/fragment_earthquake_list">
     </fragment>
 </navigation>

@@ -35,7 +35,7 @@ import static it.unimib.quakeapp.MainActivity.TAG;
 
 
 public class EarthquakeList extends Fragment {
-
+    private final String EARTHQUAKE_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=100&eventtype=earthquake";
     private ArrayList<Earthquake> earthquakes = new ArrayList<>();
     private EarthquakeListAdapter listAdapter;
     private ListView earthquakeList;
@@ -46,6 +46,9 @@ public class EarthquakeList extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        EarthquakeListRetriever retriever = new EarthquakeListRetriever(EARTHQUAKE_REQUEST_URL);
+        retriever.execute();
     }
 
     @Override
@@ -88,7 +91,6 @@ public class EarthquakeList extends Fragment {
                 return null;
             }
         }
-
 
         @Override
         protected void onPostExecute(String result) {
@@ -139,7 +141,7 @@ public class EarthquakeList extends Fragment {
 
             Earthquake earthquake = earthquakes.get(position);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
             eqiDate.setText(sdf.format(earthquake.time));
 
             String[] words = earthquake.place.split(" ");
@@ -154,8 +156,11 @@ public class EarthquakeList extends Fragment {
             }
 
             eqiLocation.setText(place);
-            eqiRichterMag.setText(earthquake.richter_mag + " Richter");
-            eqiMercalliMag.setText(earthquake.mercalli + " Mercalli");
+            String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
+            String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
+            eqiRichterMag.setText(String.format("%s Richter", richter));
+            eqiMercalliMag.setText(String.format("%s Mercalli", mercalli));
+
             return convertView;
         }
 
