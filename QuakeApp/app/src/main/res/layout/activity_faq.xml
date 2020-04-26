@@ -23,25 +23,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:weightSum="1">
             <TextView
                 android:id="@+id/question1"
                 style="@style/Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="@string/question1" />
-
+                android:text="@string/question1"
+                android:layout_weight="0.95"/>
             <ImageButton
                 android:id="@+id/up_to_down"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_gravity="end|center"
                 android:background="@drawable/down_button"
                 android:clickable="true"
-                android:visibility="visible" />
-
+                android:visibility="visible"
+                android:layout_weight="0.05"/>
             <ImageButton
                 android:id="@+id/down_to_up"
                 android:layout_width="20dp"
@@ -49,10 +49,9 @@
                 android:layout_gravity="end|center"
                 android:background="@drawable/arrow_drop_up_black"
                 android:clickable="true"
-                android:visibility="gone" />
-
+                android:visibility="gone"
+                android:layout_weight="0.05"/>
         </LinearLayout>
-
         <TextView
            android:id="@+id/answer1"
             style="@style/Body2"
@@ -62,7 +61,6 @@
            android:padding="16dp"
            android:text="la risposta"
            android:visibility="gone"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +74,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/question2"
@@ -84,16 +83,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="@string/question_Richter" />
+                android:text="@string/question_Richter"
+                android:layout_weight="0.95"/>
 
             <ImageButton
                 android:id="@+id/up_to_down2"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_gravity="end|center"
                 android:background="@drawable/down_button"
                 android:clickable="true"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:layout_weight="0.05"/>
 
             <ImageButton
                 android:id="@+id/down_to_up2"
@@ -102,10 +103,9 @@
                 android:layout_gravity="end|center"
                 android:background="@drawable/arrow_drop_up_black"
                 android:clickable="true"
-                android:visibility="gone" />
-
+                android:visibility="gone"
+                android:layout_weight="0.05"/>
         </LinearLayout>
-
         <TextView
             android:id="@+id/answer2"
             android:layout_width="match_parent"
@@ -114,7 +114,6 @@
             android:padding="16dp"
             android:text="@string/answer_Richter"
             android:visibility="gone"/>
-
     </LinearLayout>
 
         <LinearLayout
@@ -128,25 +127,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:weightSum="1">
                 <TextView
                     android:id="@+id/question3"
                     style="@style/Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:text="@string/question_Mercalli" />
-
+                    android:text="@string/question_Mercalli"
+                    android:layout_weight="0.95"/>
                 <ImageButton
                     android:id="@+id/up_to_down3"
                     android:layout_width="20dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_gravity="end|center"
                     android:background="@drawable/down_button"
                     android:clickable="true"
-                    android:visibility="visible" />
-
+                    android:visibility="visible"
+                    android:layout_weight="0.05"/>
                 <ImageButton
                     android:id="@+id/down_to_up3"
                     android:layout_width="20dp"
@@ -154,10 +153,9 @@
                     android:layout_gravity="end|center"
                     android:background="@drawable/arrow_drop_up_black"
                     android:clickable="true"
-                    android:visibility="gone" />
-
+                    android:visibility="gone"
+                    android:layout_weight="0.05"/>
             </LinearLayout>
-
             <TextView
                 android:id="@+id/answer3"
                 android:layout_width="match_parent"
@@ -167,6 +165,8 @@
                 android:text="@string/answer_Mercalli"
                 android:visibility="gone"/>
 
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -175,30 +175,29 @@
             android:background = "@android:color/white"
             android:orientation="vertical"
             android:layout_marginTop="2dp"
-            android:gravity="center">
-
+            android:gravity="center"
+            android:weightSum="1">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <TextView
                     android:id="@+id/question4"
                     style="@style/Body2"
-                    android:layout_width="352dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:text="@string/question4" />
-
+                    android:text="@string/question4"
+                    android:layout_weight="0.95"/>
                 <ImageButton
                     android:id="@+id/up_to_down4"
                     android:layout_width="20dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_gravity="end|center"
                     android:background="@drawable/down_button"
                     android:clickable="true"
-                    android:visibility="visible" />
-
+                    android:visibility="visible"
+                    android:layout_weight="0.05"/>
                 <ImageButton
                     android:id="@+id/down_to_up4"
                     android:layout_width="20dp"
@@ -206,10 +205,9 @@
                     android:layout_gravity="end|center"
                     android:background="@drawable/arrow_drop_up_black"
                     android:clickable="true"
-                    android:visibility="gone" />
-
+                    android:visibility="gone"
+                    android:layout_weight="0.05"/>
             </LinearLayout>
-
             <TableLayout
                 android:id="@+id/answer4"
                 android:visibility="gone"
@@ -217,12 +215,12 @@
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
                 android:stretchColumns="*">
-
                 <TableRow
                     android:id="@+id/tableRow1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/primaryColor_08" >
+                    android:background="@color/primaryColor_08"
+                    android:weightSum="1">
                     <TextView
                         style="@style/Body2"
                         android:padding="4dp"
@@ -231,8 +229,8 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
-                        android:text="magnitudo Richter"/>
-
+                        android:gravity="center"
+                        android:text="@string/magnitudo_richter"/>
                     <TextView
                         android:padding="4dp"
                         android:layout_marginRight="20dp"
@@ -241,7 +239,8 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
-                        android:text="grado Mercalli"/>
+                        android:gravity="center"
+                        android:text="@string/grado_mercalli"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRow2"
@@ -256,6 +255,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="@string/minore"/>
                     <TextView
                         android:padding="4dp"
@@ -265,6 +265,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="I"/>
                 </TableRow>
                 <TableRow
@@ -280,6 +281,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="3.5"/>
                     <TextView
                         android:padding="4dp"
@@ -289,6 +291,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="II"/>
                 </TableRow>
                 <TableRow
@@ -304,6 +307,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="4.2"/>
                     <TextView
                         android:padding="4dp"
@@ -313,6 +317,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="III"/>
                 </TableRow>
                 <TableRow
@@ -328,6 +333,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="4.5"/>
                     <TextView
                         android:padding="4dp"
@@ -337,6 +343,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="IV"/>
                 </TableRow>
                 <TableRow
@@ -352,6 +359,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="4.8"/>
                     <TextView
                         android:padding="4dp"
@@ -361,6 +369,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="V"/>
                 </TableRow>
                 <TableRow
@@ -376,6 +385,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="5.4"/>
                     <TextView
                         android:padding="4dp"
@@ -385,6 +395,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="VI"/>
                 </TableRow>
                 <TableRow
@@ -400,6 +411,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="6.1"/>
                     <TextView
                         android:padding="4dp"
@@ -409,6 +421,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="VII"/>
                 </TableRow>
                 <TableRow
@@ -424,6 +437,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="6.5"/>
                     <TextView
                         android:padding="4dp"
@@ -433,6 +447,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="VIII"/>
                 </TableRow>
                 <TableRow
@@ -448,6 +463,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="6.9"/>
                     <TextView
                         android:padding="4dp"
@@ -457,6 +473,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="IX"/>
                 </TableRow>
                 <TableRow
@@ -472,6 +489,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="7.3"/>
                     <TextView
                         android:padding="4dp"
@@ -481,6 +499,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="X"/>
                 </TableRow>
                 <TableRow
@@ -496,6 +515,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="8.1"/>
                     <TextView
                         android:padding="4dp"
@@ -505,6 +525,7 @@
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
                         style="@style/Body2"
+                        android:gravity="center"
                         android:text="XI"/>
                 </TableRow>
                 <TableRow
@@ -520,6 +541,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:gravity="center"
                         android:text="4,8"/>
                     <TextView
                         android:padding="4dp"
@@ -528,18 +550,227 @@
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
                         android:background="@color/white"
+                        android:gravity="center"
                         style="@style/Body2"
                         android:text="XII"/>
                 </TableRow>
             </TableLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background = "@android:color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/question5"
+                    style="@style/Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/question5"
+                    android:layout_weight="0.95"/>
+                <ImageButton
+                    android:id="@+id/up_to_down5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/down_button"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    android:layout_weight="0.05"/>
+                <ImageButton
+                    android:id="@+id/down_to_up5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/arrow_drop_up_black"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/answer5"
+                style="@style/Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor_08"
+                android:padding="16dp"
+                android:text="@string/answer5"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/diagram"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ipocentro_epicentro_1"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background = "@android:color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/question6"
+                    style="@style/Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/question6"
+                    android:layout_weight="0.95"/>
+                <ImageButton
+                    android:id="@+id/up_to_down6"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/down_button"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    android:layout_weight="0.05"/>
+                <ImageButton
+                    android:id="@+id/down_to_up6"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/arrow_drop_up_black"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/answer6"
+                style="@style/Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor_08"
+                android:padding="16dp"
+                android:text="la risposta"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background = "@android:color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/question7"
+                    style="@style/Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/question7"
+                    android:layout_weight="0.95"/>
+                <ImageButton
+                    android:id="@+id/up_to_down7"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/down_button"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    android:layout_weight="0.05"/>
+                <ImageButton
+                    android:id="@+id/down_to_up7"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/arrow_drop_up_black"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/answer7"
+                style="@style/Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor_08"
+                android:padding="16dp"
+                android:text="la risposta"
+                android:visibility="gone"/>
+        </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background = "@android:color/white"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:gravity="center">
 
-
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/question8"
+                    style="@style/Body2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="@string/question8"
+                    android:layout_weight="0.95"/>
+                <ImageButton
+                    android:id="@+id/up_to_down8"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/down_button"
+                    android:clickable="true"
+                    android:visibility="visible"
+                    android:layout_weight="0.05"/>
+                <ImageButton
+                    android:id="@+id/down_to_up8"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end|center"
+                    android:background="@drawable/arrow_drop_up_black"
+                    android:clickable="true"
+                    android:visibility="gone"
+                    android:layout_weight="0.05"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/answer8"
+                style="@style/Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor_08"
+                android:padding="16dp"
+                android:text="la risposta"
+                android:visibility="gone"/>
 
         </LinearLayout>
-</LinearLayout>
+
+
+
+    </LinearLayout>
 
 </ScrollView>
