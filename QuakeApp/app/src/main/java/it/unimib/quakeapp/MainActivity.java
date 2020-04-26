@@ -120,6 +120,10 @@ public class MainActivity extends AppCompatActivity
                 Intent intentFaq = new Intent(this, FAQ.class);
                 startActivity(intentFaq);
                 break;
+            case R.id.nav_settings:
+                Intent intentSettings = new Intent(this, Settings.class);
+                startActivity(intentSettings);
+                break;
             default:
                 break;
         }
