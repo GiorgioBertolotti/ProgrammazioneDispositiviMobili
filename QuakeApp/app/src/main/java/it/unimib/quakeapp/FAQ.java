@@ -9,12 +9,17 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TableLayout;
 
+import info.androidhive.fontawesome.FontTextView;
+
 public class FAQ extends AppCompatActivity {
+
+    private boolean visibilityFaq4 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,166 +28,93 @@ public class FAQ extends AppCompatActivity {
         getSupportActionBar().setTitle("FAQ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-///////////QUESTION1
-       final TextView ans1 = findViewById(R.id.answer1);
-        final ImageButton upToDown = findViewById(R.id.up_to_down);
-        final ImageButton downToUp = findViewById(R.id.down_to_up);
+        final boolean[] visibilities = {
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+        };
+        int[] headers = {
+                R.id.faq_header1,
+                R.id.faq_header2,
+                R.id.faq_header3,
+                R.id.faq_header5,
+                R.id.faq_header6,
+                R.id.faq_header7,
+                R.id.faq_header8,
+        };
+        int[] answers = {
+                R.id.faq_answer1,
+                R.id.faq_answer2,
+                R.id.faq_answer3,
+                R.id.faq_answer5,
+                R.id.faq_answer6,
+                R.id.faq_answer7,
+                R.id.faq_answer8,
+        };
+        int[] toggles = {
+                R.id.faq_toggle1,
+                R.id.faq_toggle2,
+                R.id.faq_toggle3,
+                R.id.faq_toggle5,
+                R.id.faq_toggle6,
+                R.id.faq_toggle7,
+                R.id.faq_toggle8,
+        };
 
-     upToDown.setOnClickListener(new OnClickListener() {
-         public void onClick(View v) {
-             upToDown.setVisibility(View.GONE);
-             downToUp.setVisibility(View.VISIBLE);
-             ans1.setVisibility(View.VISIBLE);
-         }
-     });
-     downToUp.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown.setVisibility(View.VISIBLE);
-                downToUp.setVisibility(View.GONE);
-                ans1.setVisibility(View.GONE);
-            }
-        });
-/////////QUESTION2
-        final TextView ans2 = findViewById(R.id.answer2);
-        final ImageButton upToDown2 = findViewById(R.id.up_to_down2);
-        final ImageButton downToUp2 = findViewById(R.id.down_to_up2);
+        for(int i = 0; i < answers.length; i++) {
+            final TextView answer = findViewById(answers[i]);
+            final RelativeLayout header = findViewById(headers[i]);
+            final FontTextView toggle = findViewById(toggles[i]);
 
-        upToDown2.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown2.setVisibility(View.GONE);
-                downToUp2.setVisibility(View.VISIBLE);
-                ans2.setVisibility(View.VISIBLE);
-            }
-        });
-        downToUp2.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown2.setVisibility(View.VISIBLE);
-                downToUp2.setVisibility(View.GONE);
-                ans2.setVisibility(View.GONE);
-            }
-        });
-////////QUESTION3
-        final TextView ans3 = findViewById(R.id.answer3);
-        final ImageButton upToDown3 = findViewById(R.id.up_to_down3);
-        final ImageButton downToUp3 = findViewById(R.id.down_to_up3);
+            final int index = i;
 
-        upToDown3.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown3.setVisibility(View.GONE);
-                downToUp3.setVisibility(View.VISIBLE);
-                ans3.setVisibility(View.VISIBLE);
-            }
-        });
-        downToUp3.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown3.setVisibility(View.VISIBLE);
-                downToUp3.setVisibility(View.GONE);
-                ans3.setVisibility(View.GONE);
-            }
-        });
+            header.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    if(visibilities[index]){
+                        answer.setVisibility(View.GONE);
+                        toggle.setText(R.string.fa_caret_down_solid);
 
-//////QUESTION4
+                        if(index == 3) {
+                            final ImageView imageView = findViewById(R.id.faq_diagram5);
+                            imageView.setVisibility(View.GONE);
+                        }
+                    } else {
+                        answer.setVisibility(View.VISIBLE);
+                        toggle.setText(R.string.fa_caret_up_solid);
 
-        final TableLayout ans4 = findViewById(R.id.answer4);
-        final ImageButton upToDown4 = findViewById(R.id.up_to_down4);
-        final ImageButton downToUp4 = findViewById(R.id.down_to_up4);
+                        if(index == 3) {
+                            final ImageView imageView = findViewById(R.id.faq_diagram5);
+                            imageView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    visibilities[index] = !visibilities[index];
+                }
+            });
+        }
 
-        upToDown4.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown4.setVisibility(View.GONE);
-                downToUp4.setVisibility(View.VISIBLE);
-                ans4.setVisibility(View.VISIBLE);
-            }
-        });
-        downToUp4.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown4.setVisibility(View.VISIBLE);
-                downToUp4.setVisibility(View.GONE);
-                ans4.setVisibility(View.GONE);
-            }
-        });
-/////QUESTION5
-        final TextView ans5 = findViewById(R.id.answer5);
-        final ImageButton upToDown5 = findViewById(R.id.up_to_down5);
-        final ImageButton downToUp5 = findViewById(R.id.down_to_up5);
-        final ImageView diagram = findViewById(R.id.diagram);
+        /* --- FAQ 4 --- */
+        final TableLayout answer4 = findViewById(R.id.faq_answer4);
+        final RelativeLayout header4 = findViewById(R.id.faq_header4);
+        final FontTextView toggle4 = findViewById(R.id.faq_toggle4);
 
-        upToDown5.setOnClickListener(new OnClickListener() {
+        header4.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                upToDown5.setVisibility(View.GONE);
-                downToUp5.setVisibility(View.VISIBLE);
-                ans5.setVisibility(View.VISIBLE);
-                diagram.setVisibility(View.VISIBLE);
+                if(visibilityFaq4){
+                    answer4.setVisibility(View.GONE);
+                    toggle4.setText(R.string.fa_caret_down_solid);
+                } else {
+                    toggle4.setText(R.string.fa_caret_up_solid);
+                    answer4.setVisibility(View.VISIBLE);
+                }
+                visibilityFaq4 = !visibilityFaq4;
             }
         });
-        downToUp5.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown5.setVisibility(View.VISIBLE);
-                downToUp5.setVisibility(View.GONE);
-                ans5.setVisibility(View.GONE);
-                diagram.setVisibility(View.GONE);
-            }
-        });
-///////////QUESTION6
-        final TextView ans6 = findViewById(R.id.answer6);
-        final ImageButton upToDown6 = findViewById(R.id.up_to_down6);
-        final ImageButton downToUp6 = findViewById(R.id.down_to_up6);
-
-        upToDown6.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown6.setVisibility(View.GONE);
-                downToUp6.setVisibility(View.VISIBLE);
-                ans6.setVisibility(View.VISIBLE);
-            }
-        });
-        downToUp6.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown6.setVisibility(View.VISIBLE);
-                downToUp6.setVisibility(View.GONE);
-                ans6.setVisibility(View.GONE);
-            }
-        });
-///////////QUESTION7
-        final TextView ans7 = findViewById(R.id.answer7);
-        final ImageButton upToDown7 = findViewById(R.id.up_to_down7);
-        final ImageButton downToUp7 = findViewById(R.id.down_to_up7);
-
-        upToDown7.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown7.setVisibility(View.GONE);
-                downToUp7.setVisibility(View.VISIBLE);
-                ans7.setVisibility(View.VISIBLE);
-            }
-        });
-        downToUp7.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown7.setVisibility(View.VISIBLE);
-                downToUp7.setVisibility(View.GONE);
-                ans7.setVisibility(View.GONE);
-            }
-        });
-///////////QUESTION8
-        final TextView ans8 = findViewById(R.id.answer8);
-        final ImageButton upToDown8 = findViewById(R.id.up_to_down8);
-        final ImageButton downToUp8 = findViewById(R.id.down_to_up8);
-
-        upToDown8.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown8.setVisibility(View.GONE);
-                downToUp8.setVisibility(View.VISIBLE);
-                ans8.setVisibility(View.VISIBLE);
-            }
-        });
-        downToUp8.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                upToDown8.setVisibility(View.VISIBLE);
-                downToUp8.setVisibility(View.GONE);
-                ans8.setVisibility(View.GONE);
-            }
-        });
-
-
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -192,5 +124,4 @@ public class FAQ extends AppCompatActivity {
                 return true;
         }
     }
-
 }

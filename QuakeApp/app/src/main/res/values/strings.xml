@@ -32,8 +32,10 @@
 
     <string name="home_second">Home Second</string>
 
-    <string name="question1">Quale associazione fornisce i <b><i>dati</i></b>?</string>
-    <string name="question_Richter">Cosa colcola l\'indice <b><i>Richter</i></b>?</string>
+    <string name="toggle_question">Apri/Chiudi</string>
+    <string name="epicenter_image">Immagine epicentro/ipocentro</string>
+    <string name="question1">Quale associazione fornisce i <b>dati</b>?</string>
+    <string name="question_Richter">Cosa colcola l\'indice <b>Richter</b>?</string>
     <string name="answer_Richter"><b>L\'indice Richter fornisce una valutazione obiettiva (magnitudo)
         della quantità di energia liberata.</b> \n
         Per calcolare la magnitudo si usa l\'indice Richter che non si misura in gradi,
@@ -46,7 +48,7 @@
         \n\n<b>6.1-6.9</b>: Può arrivare ad essere distruttiva in aree di quasi 100 km, attraversando
         anche zone abitate. \n\n<b>7.0-7.9</b>: Terremoto maggiore. Causa seri danni su grandi aree.
         \n\n<b><![CDATA[>=8]]></b>: Grande terremoto. Può causare seri danni su vaste aree di svariate centinaia km.</string>
-    <string name="question_Mercalli">Cosa calcola la scala <b><i>Mercalli</i></b>?</string>
+    <string name="question_Mercalli">Cosa calcola la scala <b>Mercalli</b>?</string>
     <string name="answer_Mercalli">La scala Mercalli non è una grandezza ma una scala lineare che
         valuta in gradi gli effetti distruttivi del sisma, da un minimo di zero, pari a nessun
         effetto su popolazione, cose ed edifici, a un massimo di 12 gradi, pari alla distruzione totale.
@@ -56,7 +58,7 @@
         \n\n<b>I</b>: Strumentale \n<b>II</b>: Leggerissima \n<b>III</b>: Leggera \n<b>IV</b>: Mediocre \n<b>V</b>: Forte
         \n<b>VI</b>: Molto forte \n<b>VII</b>: Fortissima \n<b>VIII</b>: Rovinosa \n<b>IX</b>: Disastrosa
         \n<b>X</b>: Disastrosissima \n<b>XI</b>: Catastrofica \n<b>XII</b>: Grande catastrofe</string>
-    <string name="question4">Qual è la corrispondenza tra scala <b><i>Mercalli</i></b> e indice <b><i>Richter</i></b>?</string>
+    <string name="question4">Qual è la corrispondenza tra scala <b>Mercalli</b> e indice <b>Richter</b>?</string>
     <string name="minore"><![CDATA[<3.5]]></string>
     <string name="maggiore"><![CDATA[>8.1]]></string>
 =======
@@ -67,7 +69,7 @@
 
     <string name="grado_mercalli"><b>Grado Mercalli</b></string>
     <string name="magnitudo_richter"><b>Magnitudo Richter</b></string>
-    <string name="question5">Qual è la differenza tra <b><i>epicentro</i></b> e <b><i>ipocentro</i></b>?</string>
+    <string name="question5">Qual è la differenza tra <b>epicentro</b> e <b>ipocentro</b>?</string>
     <string name="answer5"><b>L\’ipocentro</b> è il punto, situato in profondità all\’interno della Terra,
         in cui avviene la rottura della faglia che genera il terremoto.
         E\’ il punto da cui partono, in ogni direzione, le onde sismiche responsabili di quella
@@ -75,9 +77,9 @@
         <b>L\’epicentro</b> è invece il punto della superficie terrestre situato sulla verticale
         dell\’ipocentro. Se dall\’ipocentro si tracciasse una linea verticale, questa incontrerebbe
         la superficie in quello che noi chiamiamo epicentro.</string>
-    <string name="question6">Come aggiungo una citta alla mia <b><i>area di interesse</i></b>?</string>
-    <string name="question7">Come faccio a rimuovo una città dalla mia <b><i>area di interesse</i></b>?</string>
-    <string name="question8">Cosa indicano gli stati <b><i>sicuro</i></b>, <b><i>allerta</i></b> e <b><i>emergenza</i></b>?</string>
+    <string name="question6">Come aggiungo una citta alla mia <b>area di interesse</b>?</string>
+    <string name="question7">Come faccio a rimuovo una città dalla mia <b>area di interesse</b>?</string>
+    <string name="question8">Cosa indicano gli stati <b>sicuro</b>, <b>allerta</b> e <b>emergenza</b>?</string>
 
     >>>>>>> d63f391699a306085ae60b464ab58f0820d931c1
 </resources>
