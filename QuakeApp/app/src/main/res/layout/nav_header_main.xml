@@ -18,6 +18,7 @@
         android:text="@string/nav_header_title"
         android:fontFamily="sans-serif-medium"
         style="@style/H5"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         style="@style/Caption"
+        android:textColor="@color/white"
         android:text="@string/nav_header_subtitle" />
 
 </LinearLayout>
