@@ -7,22 +7,23 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/layout_item"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp">
 
         <LinearLayout
-            android:id="@+id/layout_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@id/eqi_richter_container"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/eqi_date"
