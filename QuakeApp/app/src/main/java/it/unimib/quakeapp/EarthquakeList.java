@@ -293,7 +293,7 @@ public class EarthquakeList extends Fragment {
                     final View openBottomSheet = convertView.findViewById(R.id.layout_item);
                     openBottomSheet.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            BottomSheet bottomSheet = new BottomSheet(sdf.format(earthquake.time), p, richter, mercalli, earthquake.coordinates.lat, earthquake.coordinates.lng, earthquake.coordinates.depth);
+                            BottomSheet bottomSheet = new BottomSheet(sdf.format(earthquake.time), p, richter, mercalli, earthquake.coordinates.lat, earthquake.coordinates.lng, earthquake.coordinates.depth, earthquake.url);
                             bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
 
 

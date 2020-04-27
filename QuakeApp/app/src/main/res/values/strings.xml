@@ -107,4 +107,8 @@
     <string name="bs_epicenter">Epicentro</string>
     <string name="bs_hypocenter">Ipocentro</string>
     <string name="bs_magnitude">Magnitudo</string>
+    <string name="bs_news">Notizie</string>
+    <string name="news_one"><a href="http://www.google.com">Google</a></string>
+    <string name="news_two"><a href="http://www.corriere.it">Corriere della Sera</a></string>
+    <string name="news_three"><a href="http://www.cnn.com">CNN News</a></string>
 </resources>

@@ -70,8 +70,8 @@ public class Earthquake {
 
         JSONObject geometry = feature.getJSONObject("geometry");
         JSONArray coordinates = geometry.getJSONArray("coordinates");
-        double lat = coordinates.optDouble(0);
-        double lng = coordinates.optDouble(1);
+        double lng = coordinates.optDouble(0);
+        double lat = coordinates.optDouble(1);
         double depth = coordinates.optDouble(2);
         this.coordinates = new Point(lat, lng, depth);
 

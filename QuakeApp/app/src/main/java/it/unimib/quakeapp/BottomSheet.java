@@ -1,17 +1,18 @@
 package it.unimib.quakeapp;
 
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import org.w3c.dom.Text;
 
 public class BottomSheet extends BottomSheetDialogFragment {
     private String date;
@@ -21,8 +22,9 @@ public class BottomSheet extends BottomSheetDialogFragment {
     private String lat;
     private String lng;
     private String depth;
+    private String url;
 
-    public BottomSheet(String date, String place, String richter, String mercalli, Double lat, Double lng, Double depth) {
+    public BottomSheet(String date, String place, String richter, String mercalli, Double lat, Double lng, Double depth, String url) {
         setDate(date);
         setPlace(place);
         setRichter(richter);
@@ -30,6 +32,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
         setLat(lat);
         setLng(lng);
         setDepth(depth);
+        setUrl(url);
     }
 
     private void setDate(String date) {
@@ -91,6 +94,14 @@ public class BottomSheet extends BottomSheetDialogFragment {
         return this.depth;
     }
 
+    private void setUrl(String url) {
+        this.url = url;
+    }
+
+    private String getUrl() {
+        return this.url;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -107,6 +118,12 @@ public class BottomSheet extends BottomSheetDialogFragment {
         coordinates.setText(this.getLat() + ", " + this.getLng());
         TextView depth = view.findViewById(R.id.bs_hypocenter_depth);
         depth.setText(this.getDepth() + "km dalla superficie");
+        //Metodo 1
+        TextView link = view.findViewById(R.id.link);
+        link.setText(this.getUrl());
+        //Metodo 2
+        TextView linkNewsOne = view.findViewById(R.id.link_news_one);
+        link.setMovementMethod(LinkMovementMethod.getInstance());
         return view;
     }
 }
