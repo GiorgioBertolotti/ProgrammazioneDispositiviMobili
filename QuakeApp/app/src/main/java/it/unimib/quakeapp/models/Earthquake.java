@@ -72,7 +72,8 @@ public class Earthquake {
         JSONArray coordinates = geometry.getJSONArray("coordinates");
         double lat = coordinates.optDouble(0);
         double lng = coordinates.optDouble(1);
-        this.coordinates = new Point(lat, lng);
+        double depth = coordinates.optDouble(2);
+        this.coordinates = new Point(lat, lng, depth);
 
         double[] richterToMercalliSteps = {2, 2.5, 2.8, 3.5, 4.2, 4.8, 5.4, 6.1, 6.5, 6.9, 7.3};
         boolean found = false;

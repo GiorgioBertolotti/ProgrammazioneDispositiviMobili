@@ -7,17 +7,24 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_bugs">Segnala un problema</string>
     <string name="menu_earthquakes">Terremoti</string>
 
+    <!-- MENU GROUP DIVIDERS -->
     <string name="navigation">Navigazione</string>
     <string name="other">Altro</string>
+
+    <!-- MENU FIRST PART -->
+    <string name="menu_home">Home</string>
     <string name="menu_all_quakes">Tutti i terremoti</string>
     <string name="menu_last">Recenti</string>
     <string name="menu_seismic_network">Reti sismiche</string>
+
+    <!-- MENU SECOND PART -->
     <string name="menu_faq">FAQ</string>
     <string name="menu_settings">Impostazioni</string>
+    <string name="menu_bugs">Segnala un problema</string>
+
+    <!--BUG REPORT -->
     <string name="bug_text">Mandaci un messaggio in cui riporti il problema che hai riscontrato:</string>
     <string name="bug_edit_text">Inserisci qui il testo</string>
     <string name="bug_mail">Il messaggio verra\' inviato a prova@mail.lol\nGrazie per la segnalazione!</string>
@@ -95,4 +102,9 @@
     <string name="question6">Come aggiungo una citta alla mia <b>area di interesse</b>?</string>
     <string name="question7">Come faccio a rimuovo una città dalla mia <b>area di interesse</b>?</string>
     <string name="question8">Cosa indicano gli stati <b>sicuro</b>, <b>allerta</b> e <b>emergenza</b>?</string>
+
+    <!-- BOTTOM SHEET -->
+    <string name="bs_epicenter">Epicentro</string>
+    <string name="bs_hypocenter">Ipocentro</string>
+    <string name="bs_magnitude">Magnitudo</string>
 </resources>

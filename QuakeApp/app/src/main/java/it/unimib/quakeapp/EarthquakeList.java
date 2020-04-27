@@ -1,6 +1,7 @@
 package it.unimib.quakeapp;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ public class EarthquakeList extends Fragment {
 
         EarthquakeListRetriever retriever = new EarthquakeListRetriever(EARTHQUAKE_REQUEST_URL);
         retriever.execute();
+
     }
 
     @Override
@@ -252,7 +254,7 @@ public class EarthquakeList extends Fragment {
 
         public View getView(int position, View convertView, ViewGroup parent) {
             int rowType = getItemViewType(position);
-            Earthquake earthquake = earthquakes.get(position);
+            final Earthquake earthquake = earthquakes.get(position);
 
             switch (rowType) {
                 case TYPE_ITEM: {
@@ -264,7 +266,7 @@ public class EarthquakeList extends Fragment {
                     TextView eqiMercalliMag = convertView.findViewById(R.id.eqi_mercalli_mag);
                     View eqiDivider = convertView.findViewById(R.id.eqi_divider);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                    final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                     eqiDate.setText(sdf.format(earthquake.time));
 
                     String[] words = earthquake.place.split(" ");
@@ -278,15 +280,25 @@ public class EarthquakeList extends Fragment {
                         place = earthquake.place;
                     }
 
+                    final String p = place;
                     eqiLocation.setText(place);
-                    String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
-                    String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
+                    final String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
+                    final String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
                     eqiRichterMag.setText(String.format("%s Richter", richter));
                     eqiMercalliMag.setText(String.format("%s Mercalli", mercalli));
 
                     if (position == earthquakes.size() - 1 || (earthquakes.size() > position + 1 && getItemViewType(position + 1) == TYPE_HEADER)) {
                         eqiDivider.setVisibility(View.GONE);
                     }
+                    final View openBottomSheet = convertView.findViewById(R.id.layout_item);
+                    openBottomSheet.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            BottomSheet bottomSheet = new BottomSheet(sdf.format(earthquake.time), p, richter, mercalli, earthquake.coordinates.lat, earthquake.coordinates.lng, earthquake.coordinates.depth);
+                            bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
+
+
+                        }
+                    });
                     break;
                 }
                 case TYPE_HEADER: {

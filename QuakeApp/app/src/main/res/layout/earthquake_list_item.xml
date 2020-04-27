@@ -13,13 +13,16 @@
         android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/layout_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@id/eqi_richter_container"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:id="@+id/eqi_date"
