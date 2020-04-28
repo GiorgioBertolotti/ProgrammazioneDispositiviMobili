@@ -293,10 +293,8 @@ public class EarthquakeList extends Fragment {
                     final View openBottomSheet = convertView.findViewById(R.id.layout_item);
                     openBottomSheet.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            BottomSheet bottomSheet = new BottomSheet(sdf.format(earthquake.time), p, richter, mercalli, earthquake.coordinates.lat, earthquake.coordinates.lng, earthquake.coordinates.depth, earthquake.url);
+                            BottomSheet bottomSheet = new BottomSheet(earthquake.time, p, richter, mercalli, earthquake.coordinates.lat, earthquake.coordinates.lng, earthquake.coordinates.depth, earthquake.url);
                             bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
-
-
                         }
                     });
                     break;
@@ -338,7 +336,7 @@ public class EarthquakeList extends Fragment {
             return fmt.format(date1).equals(fmt.format(date2));
         }
 
-        String capitalizeFirst(String text){
+        String capitalizeFirst(String text) {
             return text.substring(0, 1).toUpperCase() + text.substring(1);
         }
     }

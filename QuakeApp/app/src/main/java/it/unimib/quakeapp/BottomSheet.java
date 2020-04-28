@@ -1,21 +1,35 @@
 package it.unimib.quakeapp;
 
 import android.app.ActionBar;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import info.androidhive.fontawesome.FontTextView;
+
 public class BottomSheet extends BottomSheetDialogFragment {
-    private String date;
+    private Date date;
     private String place;
     private String richter;
     private String mercalli;
@@ -24,7 +38,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
     private String depth;
     private String url;
 
-    public BottomSheet(String date, String place, String richter, String mercalli, Double lat, Double lng, Double depth, String url) {
+    public BottomSheet(Date date, String place, String richter, String mercalli, Double lat, Double lng, Double depth, String url) {
         setDate(date);
         setPlace(place);
         setRichter(richter);
@@ -35,11 +49,11 @@ public class BottomSheet extends BottomSheetDialogFragment {
         setUrl(url);
     }
 
-    private void setDate(String date) {
+    private void setDate(Date date) {
         this.date = date;
     }
 
-    private String getDate() {
+    private Date getDate() {
         return this.date;
     }
 
@@ -102,28 +116,87 @@ public class BottomSheet extends BottomSheetDialogFragment {
         return this.url;
     }
 
-    @Nullable
+    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bottom_sheet, container, false);
-        TextView dateTime = view.findViewById(R.id.bs_date_time);
-        dateTime.setText(this.getDate());
-        TextView location = view.findViewById(R.id.bs_epicenter_location);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
+
+        dialog.setContentView(R.layout.bottom_sheet);
+
+        FontTextView bsClose = dialog.findViewById(R.id.bs_close);
+        bsClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDialog d = dialog;
+                FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                if (bottomSheet != null) {
+                    BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_HIDDEN);
+                }
+            }
+        });
+
+        TextView title = dialog.findViewById(R.id.bs_location);
+        title.setText(this.getPlace());
+
+        TextView dateTime = dialog.findViewById(R.id.bs_date_time);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd/MM/yyyy HH:mm");
+        dateTime.setText(capitalizeFirst(sdf.format(this.getDate())));
+
+        TextView location = dialog.findViewById(R.id.bs_epicenter_location);
         location.setText(this.getPlace());
-        TextView richter = view.findViewById(R.id.bs_richter);
-        richter.setText(this.getRichter() + " indice Richter");
-        TextView mercalli = view.findViewById(R.id.bs_mercalli);
-        mercalli.setText(this.getMercalli() + " scala Mercalli");
-        TextView coordinates = view.findViewById(R.id.bs_coordinates);
+
+        TextView richter = dialog.findViewById(R.id.bs_richter);
+        String richterText = "<b>" + this.getRichter() + "</b> indice Richter";
+        richter.setText(Html.fromHtml(richterText));
+
+        TextView mercalli = dialog.findViewById(R.id.bs_mercalli);
+        String mercalliText = "<b>" + this.getRichter() + "</b> scala Mercalli";
+        mercalli.setText(Html.fromHtml(mercalliText));
+
+        TextView coordinates = dialog.findViewById(R.id.bs_coordinates);
         coordinates.setText(this.getLat() + ", " + this.getLng());
-        TextView depth = view.findViewById(R.id.bs_hypocenter_depth);
-        depth.setText(this.getDepth() + "km dalla superficie");
-        //Metodo 1
-        TextView link = view.findViewById(R.id.link);
-        link.setText(this.getUrl());
-        //Metodo 2
-        TextView linkNewsOne = view.findViewById(R.id.link_news_one);
-        link.setMovementMethod(LinkMovementMethod.getInstance());
-        return view;
+
+        TextView depth = dialog.findViewById(R.id.bs_hypocenter_depth);
+        String depthText = "<b>" + this.getDepth() + " km</b> dalla superficie";
+        depth.setText(Html.fromHtml(depthText));
+
+        TextView link = dialog.findViewById(R.id.bs_link);
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getUrl()));
+                startActivity(browserIntent);
+            }
+        });
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                BottomSheetDialog d = (BottomSheetDialog) dialog;
+                FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+                BottomSheetBehavior.from(bottomSheet).addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+                    @Override
+                    public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                        if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                            // TODO: Expand header with background image
+                        } else {
+                            // TODO: Collapse header with tint color
+                        }
+                    }
+
+                    @Override
+                    public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+                    }
+                });
+            }
+        });
+
+        return dialog;
+    }
+
+    private String capitalizeFirst(String text) {
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
 }
