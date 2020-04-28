@@ -1,19 +1,18 @@
 package it.unimib.quakeapp;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,12 +22,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -42,9 +37,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static it.unimib.quakeapp.MainActivity.TAG;
+import static java.lang.Boolean.TRUE;
 
 
 public class EarthquakeList extends Fragment {
+
     enum SortBy {
         DATE,
         RICHTER,
@@ -63,9 +60,8 @@ public class EarthquakeList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        EarthquakeListRetriever retriever = new EarthquakeListRetriever(EARTHQUAKE_REQUEST_URL);
+        final EarthquakeListRetriever retriever = new EarthquakeListRetriever(EARTHQUAKE_REQUEST_URL);
         retriever.execute();
-
     }
 
     @Override
@@ -79,14 +75,31 @@ public class EarthquakeList extends Fragment {
 
         this.listAdapter = new EarthquakeAdapter(getContext());
         this.earthquakeList.setAdapter(this.listAdapter);
+
+        final SwipeRefreshLayout pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                final EarthquakeListRetriever retriever = new EarthquakeListRetriever(EARTHQUAKE_REQUEST_URL, false);
+                retriever.execute();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
     }
 
     private class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
         private String url;
+        private boolean loading;
         ProgressDialog progressDialog;
 
         public EarthquakeListRetriever(String url) {
             this.url = url;
+            this.loading = TRUE;
+        }
+
+        public EarthquakeListRetriever(String url, boolean loading) {
+            this.url = url;
+            this.loading = loading;
         }
 
         @Override
@@ -189,15 +202,18 @@ public class EarthquakeList extends Fragment {
                     Log.e(TAG, e.getMessage());
                 }
             }
-
-            progressDialog.dismiss();
+            if (this.loading == true) {
+                progressDialog.dismiss();
+            }
         }
 
         @Override
         protected void onPreExecute() {
-            progressDialog = ProgressDialog.show(getContext(),
-                    getString(R.string.load),
-                    getString(R.string.loading_earthquakes));
+            if (this.loading == true) {
+                progressDialog = ProgressDialog.show(getContext(),
+                        getString(R.string.load),
+                        getString(R.string.loading_earthquakes));
+            }
         }
     }
 
