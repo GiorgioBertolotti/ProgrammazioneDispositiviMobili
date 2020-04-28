@@ -29,6 +29,7 @@
             style="@style/H5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/bs_epicenter"
@@ -41,25 +42,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
         android:gravity="center_horizontal"
         android:textColor="@color/black_60" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <info.androidhive.fontawesome.FontTextView
+            android:id="@+id/bs_icon_epicenter"
+            style="@style/H6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_bullseye_solid"
+            app:solid_icon="true" />
+
+        <TextView
+            android:id="@+id/bs_epicenter"
+            style="@style/H6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/bs_epicenter" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/bs_epicenter_location"
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/bs_coordinates"
+        style="@style/Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black_60" />
+
     <RelativeLayout
-        android:id="@+id/bs_epicenter_hypocenter_row"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_marginTop="16dp"
-        android:paddingHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@id/bs_date_time">
+        android:paddingHorizontal="16dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_centerHorizontal="true"
             android:layout_toStartOf="@id/bs_separator"
             android:orientation="vertical">
 
@@ -71,42 +116,34 @@
                 android:orientation="horizontal">
 
                 <info.androidhive.fontawesome.FontTextView
-                    android:id="@+id/bs_icon_epicenter"
                     style="@style/H6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fa_bullseye_solid"
+                    android:text="@string/fa_bolt_solid"
                     app:solid_icon="true" />
 
                 <TextView
-                    android:id="@+id/bs_epicenter"
+                    android:id="@+id/bs_magnitude"
                     style="@style/H6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/bs_epicenter" />
+                    android:text="@string/bs_magnitude" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/bs_epicenter_location"
+                android:id="@+id/bs_richter"
                 style="@style/Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:maxLines="1" />
+                android:layout_marginTop="4dp" />
 
             <TextView
-                android:id="@+id/bs_coordinates"
-                style="@style/Caption"
+                android:id="@+id/bs_mercalli"
+                style="@style/Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/black_60" />
+                android:layout_marginTop="4dp" />
         </LinearLayout>
 
         <View
@@ -166,47 +203,6 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
-
-        <info.androidhive.fontawesome.FontTextView
-            style="@style/H6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fa_bolt_solid"
-            app:solid_icon="true" />
-
-        <TextView
-            android:id="@+id/bs_magnitude"
-            style="@style/H6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="@string/bs_magnitude" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/bs_richter"
-        style="@style/Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp" />
-
-    <TextView
-        android:id="@+id/bs_mercalli"
-        style="@style/Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp" />
-
     <TextView
         android:id="@+id/bs_link"
         style="@style/Body2"
@@ -228,6 +224,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingHorizontal="16dp">

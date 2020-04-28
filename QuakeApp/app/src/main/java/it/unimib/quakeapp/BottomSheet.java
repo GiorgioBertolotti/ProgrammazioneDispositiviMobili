@@ -1,23 +1,16 @@
 package it.unimib.quakeapp;
 
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -27,93 +20,45 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import info.androidhive.fontawesome.FontTextView;
+import it.unimib.quakeapp.models.Earthquake;
 
 public class BottomSheet extends BottomSheetDialogFragment {
-    private Date date;
-    private String place;
-    private String richter;
-    private String mercalli;
-    private String lat;
-    private String lng;
-    private String depth;
-    private String url;
+    private Earthquake earthquake;
 
-    public BottomSheet(Date date, String place, String richter, String mercalli, Double lat, Double lng, Double depth, String url) {
-        setDate(date);
-        setPlace(place);
-        setRichter(richter);
-        setMercalli(mercalli);
-        setLat(lat);
-        setLng(lng);
-        setDepth(depth);
-        setUrl(url);
+    public BottomSheet(Earthquake earthquake) {
+        setEarthquake(earthquake);
     }
 
-    private void setDate(Date date) {
-        this.date = date;
+    private void setEarthquake(Earthquake earthquake) {
+        this.earthquake = earthquake;
     }
 
     private Date getDate() {
-        return this.date;
-    }
-
-    private void setPlace(String place) {
-        this.place = place;
-    }
-
-    private String getPlace() {
-        return this.place;
-    }
-
-    private void setRichter(String richter) {
-        this.richter = richter;
+        return this.earthquake.time;
     }
 
     private String getRichter() {
-        return this.richter;
-    }
-
-    private void setMercalli(String mercalli) {
-        this.mercalli = mercalli;
+        return Double.toString(this.earthquake.richter_mag);
     }
 
     private String getMercalli() {
-        return this.mercalli;
-    }
-
-    private void setLat(Double lat) {
-        String l = String.valueOf(lat);
-        this.lat = l;
+        return Double.toString(this.earthquake.mercalli);
     }
 
     private String getLat() {
-        return this.lat;
-    }
-
-    private void setLng(Double lng) {
-        String ln = String.valueOf(lng);
-        this.lng = ln;
+        return Double.toString(this.earthquake.coordinates.lat);
     }
 
     private String getLng() {
-        return this.lng;
-    }
-
-    private void setDepth(Double depth) {
-        String d = String.valueOf(depth);
-        this.depth = d;
+        return Double.toString(this.earthquake.coordinates.lng);
     }
 
     private String getDepth() {
-        return this.depth;
-    }
-
-    private void setUrl(String url) {
-        this.url = url;
+        return Double.toString(this.earthquake.coordinates.depth);
     }
 
     private String getUrl() {
-        return this.url;
+        return this.earthquake.url;
     }
 
     @NonNull
@@ -136,21 +81,29 @@ public class BottomSheet extends BottomSheetDialogFragment {
         });
 
         TextView title = dialog.findViewById(R.id.bs_location);
-        title.setText(this.getPlace());
+        title.setText(earthquake.getPlaceDescWithoutKm());
 
         TextView dateTime = dialog.findViewById(R.id.bs_date_time);
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE dd/MM/yyyy HH:mm");
         dateTime.setText(capitalizeFirst(sdf.format(this.getDate())));
 
         TextView location = dialog.findViewById(R.id.bs_epicenter_location);
-        location.setText(this.getPlace());
+        if (earthquake.place != null && earthquake.place.addressDetails.size() > 0) {
+            if (earthquake.place.addressDetails.size() > 1) {
+                location.setText(Html.fromHtml(String.format("<b>%s</b>, %s", earthquake.place.addressDetails.get(0), earthquake.place.addressDetails.get(1))));
+            } else {
+                location.setText(earthquake.place.addressDetails.get(0));
+            }
+        } else {
+            location.setText(earthquake.getPlaceDescWithoutKm());
+        }
 
         TextView richter = dialog.findViewById(R.id.bs_richter);
         String richterText = "<b>" + this.getRichter() + "</b> indice Richter";
         richter.setText(Html.fromHtml(richterText));
 
         TextView mercalli = dialog.findViewById(R.id.bs_mercalli);
-        String mercalliText = "<b>" + this.getRichter() + "</b> scala Mercalli";
+        String mercalliText = "<b>" + this.getMercalli() + "</b> scala Mercalli";
         mercalli.setText(Html.fromHtml(mercalliText));
 
         TextView coordinates = dialog.findViewById(R.id.bs_coordinates);

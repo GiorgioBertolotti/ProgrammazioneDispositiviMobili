@@ -1,16 +1,34 @@
 package it.unimib.quakeapp.models;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+
+import it.unimib.quakeapp.EarthquakeList;
+import it.unimib.quakeapp.R;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static it.unimib.quakeapp.MainActivity.TAG;
 
 public class Earthquake {
     public String id;
     public double richter_mag;
     public double mercalli;
-    public String place;
+    public String placeDesc;
+    public Place place;
     public Date time;
     public Date updated;
     public String url;
@@ -44,7 +62,7 @@ public class Earthquake {
 
         JSONObject properties = feature.getJSONObject("properties");
         this.richter_mag = properties.optDouble("mag");
-        this.place = properties.getString("place");
+        this.placeDesc = properties.getString("place");
         this.time = new Date(properties.getLong("time"));
         this.updated = new Date(properties.getLong("updated"));
         this.url = properties.getString("url");
@@ -87,5 +105,23 @@ public class Earthquake {
         if (!found) {
             this.mercalli = richterToMercalliSteps.length + 1;
         }
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    public String getPlaceDescWithoutKm() {
+        String[] words = this.placeDesc.split(" ");
+        String toReturn = this.placeDesc;
+
+        if (words.length > 3) {
+            toReturn = "";
+            for (int i = 3; i < words.length; i++) {
+                toReturn += words[i] + " ";
+            }
+        }
+
+        return toReturn;
     }
 }

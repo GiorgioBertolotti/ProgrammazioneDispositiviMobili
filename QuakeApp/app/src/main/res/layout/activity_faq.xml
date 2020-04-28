@@ -575,7 +575,7 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:padding="4dp"
-                        android:text="4,8" />
+                        android:text="8.4" />
 
                     <TextView
                         style="@style/Body2"

@@ -32,6 +32,8 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 import it.unimib.quakeapp.models.Earthquake;
+import it.unimib.quakeapp.models.Place;
+import it.unimib.quakeapp.models.Point;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -48,7 +50,10 @@ public class EarthquakeList extends Fragment {
         MERCALLI
     }
 
-    private final String EARTHQUAKE_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=230&eventtype=earthquake";
+    private final String REVERSE_GEOCODING_URL = "https://nominatim.openstreetmap.org/reverse?format=json";
+    private final String EARTHQUAKE_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake";
+    private final int EARTHQUAKE_PER_REQUEST = 20;
+    private int earthquakesLoaded = 0;
     private EarthquakeAdapter listAdapter;
     private ListView earthquakeList;
     private SortBy sortMethod = SortBy.DATE;
@@ -60,7 +65,12 @@ public class EarthquakeList extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final EarthquakeListRetriever retriever = new EarthquakeListRetriever(EARTHQUAKE_REQUEST_URL);
+        String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, EARTHQUAKE_PER_REQUEST);
+        if (earthquakesLoaded > 0) {
+            url += String.format("&offset=%s", earthquakesLoaded);
+        }
+
+        final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
         retriever.execute();
     }
 
@@ -133,12 +143,15 @@ public class EarthquakeList extends Fragment {
 
                     for (int i = 0; i < features.length(); i++) {
                         JSONObject feature = features.getJSONObject(i);
-                        earthquakes.add(new Earthquake(feature));
+                        Earthquake earthquake = new Earthquake(feature);
+                        PlaceRetriever placeRetriever = new PlaceRetriever(earthquake);
+                        placeRetriever.execute();
+                        earthquakes.add(earthquake);
                     }
 
                     switch (sortMethod) {
                         case DATE: {
-                            Collections.sort(earthquakes, new DateComparator());
+                            Collections.sort(earthquakes, new EarthquakeList.DateComparator());
                             List<Date> days = new ArrayList<>();
 
                             for (int i = 0; i < earthquakes.size(); i++) {
@@ -162,7 +175,7 @@ public class EarthquakeList extends Fragment {
                             break;
                         }
                         case RICHTER: {
-                            Collections.sort(earthquakes, new RichterComparator());
+                            Collections.sort(earthquakes, new EarthquakeList.RichterComparator());
                             List<String> richters = new ArrayList<>();
 
                             for (int i = 0; i < earthquakes.size(); i++) {
@@ -179,7 +192,7 @@ public class EarthquakeList extends Fragment {
                             break;
                         }
                         case MERCALLI: {
-                            Collections.sort(earthquakes, new MercalliComparator());
+                            Collections.sort(earthquakes, new EarthquakeList.MercalliComparator());
                             List<String> mercallis = new ArrayList<>();
 
                             for (int i = 0; i < earthquakes.size(); i++) {
@@ -202,14 +215,15 @@ public class EarthquakeList extends Fragment {
                     Log.e(TAG, e.getMessage());
                 }
             }
-            if (this.loading == true) {
+
+            if (this.loading) {
                 progressDialog.dismiss();
             }
         }
 
         @Override
         protected void onPreExecute() {
-            if (this.loading == true) {
+            if (this.loading) {
                 progressDialog = ProgressDialog.show(getContext(),
                         getString(R.string.load),
                         getString(R.string.loading_earthquakes));
@@ -217,8 +231,49 @@ public class EarthquakeList extends Fragment {
         }
     }
 
-    public class EarthquakeAdapter extends BaseAdapter {
+    private class PlaceRetriever extends AsyncTask<Void, Void, String> {
+        private Earthquake earthquake;
 
+        public PlaceRetriever(Earthquake earthquake) {
+            this.earthquake = earthquake;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                    .url(String.format("%s&lat=%s&lon=%s", REVERSE_GEOCODING_URL, earthquake.coordinates.lat, earthquake.coordinates.lng))
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+                if (response.isSuccessful()) {
+                    return response.body().string();
+                } else {
+                    return null;
+                }
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result != null) {
+                try {
+                    JSONObject root = new JSONObject(result);
+                    earthquake.setPlace(new Place(root));
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+
+            listAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public class EarthquakeAdapter extends BaseAdapter {
         private static final int TYPE_ITEM = 0;
         private static final int TYPE_HEADER = 1;
 
@@ -285,19 +340,8 @@ public class EarthquakeList extends Fragment {
                     final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
                     eqiDate.setText(sdf.format(earthquake.time));
 
-                    String[] words = earthquake.place.split(" ");
-                    String place = "";
+                    eqiLocation.setText(earthquake.getPlaceDescWithoutKm());
 
-                    if (words.length > 3) {
-                        for (int i = 3; i < words.length; i++) {
-                            place += words[i] + " ";
-                        }
-                    } else {
-                        place = earthquake.place;
-                    }
-
-                    final String p = place;
-                    eqiLocation.setText(place);
                     final String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
                     final String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
                     eqiRichterMag.setText(String.format("%s Richter", richter));
@@ -309,7 +353,7 @@ public class EarthquakeList extends Fragment {
                     final View openBottomSheet = convertView.findViewById(R.id.layout_item);
                     openBottomSheet.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            BottomSheet bottomSheet = new BottomSheet(earthquake.time, p, richter, mercalli, earthquake.coordinates.lat, earthquake.coordinates.lng, earthquake.coordinates.depth, earthquake.url);
+                            BottomSheet bottomSheet = new BottomSheet(earthquake);
                             bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
                         }
                     });
