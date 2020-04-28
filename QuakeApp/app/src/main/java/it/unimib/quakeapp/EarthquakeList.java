@@ -57,6 +57,7 @@ public class EarthquakeList extends Fragment {
     private EarthquakeAdapter listAdapter;
     private ListView earthquakeList;
     private SortBy sortMethod = SortBy.DATE;
+    private SwipeRefreshLayout pullToRefresh;
 
     public EarthquakeList() {
     }
@@ -66,12 +67,11 @@ public class EarthquakeList extends Fragment {
         super.onCreate(savedInstanceState);
 
         String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, EARTHQUAKE_PER_REQUEST);
-        if (earthquakesLoaded > 0) {
-            url += String.format("&offset=%s", earthquakesLoaded);
-        }
 
         final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
         retriever.execute();
+
+        earthquakesLoaded += EARTHQUAKE_PER_REQUEST;
     }
 
     @Override
@@ -86,13 +86,14 @@ public class EarthquakeList extends Fragment {
         this.listAdapter = new EarthquakeAdapter(getContext());
         this.earthquakeList.setAdapter(this.listAdapter);
 
-        final SwipeRefreshLayout pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
+        this.pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                final EarthquakeListRetriever retriever = new EarthquakeListRetriever(EARTHQUAKE_REQUEST_URL, false);
+                String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, earthquakesLoaded);
+
+                final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url, false);
                 retriever.execute();
-                pullToRefresh.setRefreshing(false);
             }
         });
     }
@@ -104,7 +105,7 @@ public class EarthquakeList extends Fragment {
 
         public EarthquakeListRetriever(String url) {
             this.url = url;
-            this.loading = TRUE;
+            this.loading = true;
         }
 
         public EarthquakeListRetriever(String url, boolean loading) {
@@ -148,6 +149,8 @@ public class EarthquakeList extends Fragment {
                         placeRetriever.execute();
                         earthquakes.add(earthquake);
                     }
+
+                    listAdapter.clear();
 
                     switch (sortMethod) {
                         case DATE: {
@@ -215,6 +218,8 @@ public class EarthquakeList extends Fragment {
                     Log.e(TAG, e.getMessage());
                 }
             }
+
+            pullToRefresh.setRefreshing(false);
 
             if (this.loading) {
                 progressDialog.dismiss();
@@ -285,6 +290,11 @@ public class EarthquakeList extends Fragment {
         public EarthquakeAdapter(Context context) {
             mInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        public void clear() {
+            earthquakes.clear();
+            sectionHeader.clear();
         }
 
         public void addItem(final Earthquake item) {
