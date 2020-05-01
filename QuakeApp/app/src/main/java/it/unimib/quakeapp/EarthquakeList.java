@@ -14,10 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -46,7 +49,8 @@ import static it.unimib.quakeapp.MainActivity.TAG;
 import static java.lang.Boolean.TRUE;
 
 
-public class EarthquakeList extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class EarthquakeList extends Fragment implements AdapterView.OnItemSelectedListener {
+
 
     enum SortBy {
         DATE,
@@ -62,7 +66,7 @@ public class EarthquakeList extends Fragment implements DatePickerDialog.OnDateS
     private ListView earthquakeList;
     private SortBy sortMethod = SortBy.DATE;
     private SwipeRefreshLayout pullToRefresh;
-    private RelativeLayout date;
+
 
     public EarthquakeList() {
     }
@@ -96,14 +100,12 @@ public class EarthquakeList extends Fragment implements DatePickerDialog.OnDateS
         this.listAdapter = new EarthquakeAdapter(getContext());
         this.earthquakeList.setAdapter(this.listAdapter);
 
-        this.date = getView().findViewById(R.id.date);
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialogue();
-
-            }
-        });
+        Spinner orderBY = getView().findViewById(R.id.order) ;
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
+                R.array.order_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        orderBY.setAdapter(adapter);
+        orderBY.setOnItemSelectedListener(this);
 
 
         this.pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
@@ -117,19 +119,25 @@ public class EarthquakeList extends Fragment implements DatePickerDialog.OnDateS
             }
         });
     }
-    private void showDatePickerDialogue(){
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(),
-                this, Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show();
-    }
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String dateToShow = dayOfMonth + "/" + month + "/" + year;
-        final TextView dateText = getView().findViewById(R.id.date_text);
-        dateText.setText(dateToShow);
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        if(position == 0){
+            sortMethod = SortBy.DATE;
+        }else if(position == 1){
+            sortMethod = SortBy.RICHTER;
+
+        }else{
+            sortMethod = SortBy.MERCALLI;
+        }
+        String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, earthquakesLoaded);
+
+        final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
+        retriever.execute();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
@@ -212,6 +220,7 @@ public class EarthquakeList extends Fragment implements DatePickerDialog.OnDateS
                             }
                             break;
                         }
+
                         case RICHTER: {
                             Collections.sort(earthquakes, new EarthquakeList.RichterComparator());
                             List<String> richters = new ArrayList<>();
@@ -259,6 +268,7 @@ public class EarthquakeList extends Fragment implements DatePickerDialog.OnDateS
             if (this.loading) {
                 progressDialog.dismiss();
             }
+
         }
 
         @Override

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="order_options">
+        <item>Data</item>
+        <item>Richter</item>
+        <item>Mercalli</item>
+    </string-array>
+
+</resources>

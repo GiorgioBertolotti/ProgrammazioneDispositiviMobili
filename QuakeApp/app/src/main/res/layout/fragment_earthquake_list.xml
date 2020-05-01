@@ -7,23 +7,27 @@
     tools:context=".EarthquakeList"
     android:orientation="vertical">
 
+
+
+
     <RelativeLayout
-        android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:clickable="true"
         android:focusable="true">
-        <TextView
-            android:id="@+id/date_text"
+
+        <Spinner
+            android:id= "@+id/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="18dp"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            style="@style/Body2"
-            android:text="Data"/>
+            android:paddingTop="12dp"
+            android:paddingRight="24dp"
+            android:background="@color/white"
+            android:spinnerMode="dropdown"/>
+
+
         <info.androidhive.fontawesome.FontTextView
             android:id="@+id/fragment_earthquake_list_toggle1"
             android:layout_width="wrap_content"
@@ -36,6 +40,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:solid_icon="true" />
+
     </RelativeLayout>
 
 
