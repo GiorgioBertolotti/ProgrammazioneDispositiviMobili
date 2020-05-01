@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/Body2"
+        style="@style/Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,14 +30,14 @@
 
         <RadioButton
             android:id="@+id/s_mercalli"
-            style="@style/Body2"
+            style="@style/Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/s_mercalli" />
 
         <RadioButton
             android:id="@+id/i_richter"
-            style="@style/Body2"
+            style="@style/Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/i_richter" />
@@ -55,7 +55,7 @@
 
     <Switch
         android:id="@+id/switch1"
-        style="@style/Body2"
+        style="@style/Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -78,7 +78,7 @@
 
     <TextView
         android:id="@+id/notify"
-        style="@style/Body2"
+        style="@style/Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -109,7 +109,7 @@
 
     <TextView
         android:id="@+id/theme"
-        style="@style/Body2"
+        style="@style/Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -132,7 +132,7 @@
 
     <TextView
         android:id="@+id/lang"
-        style="@style/Body2"
+        style="@style/Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

@@ -1,5 +1,6 @@
 package it.unimib.quakeapp;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,7 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.DatePicker;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -29,6 +32,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TreeSet;
 
 import it.unimib.quakeapp.models.Earthquake;
@@ -42,7 +46,7 @@ import static it.unimib.quakeapp.MainActivity.TAG;
 import static java.lang.Boolean.TRUE;
 
 
-public class EarthquakeList extends Fragment {
+public class EarthquakeList extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     enum SortBy {
         DATE,
@@ -58,9 +62,11 @@ public class EarthquakeList extends Fragment {
     private ListView earthquakeList;
     private SortBy sortMethod = SortBy.DATE;
     private SwipeRefreshLayout pullToRefresh;
+    private RelativeLayout date;
 
     public EarthquakeList() {
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +78,11 @@ public class EarthquakeList extends Fragment {
         retriever.execute();
 
         earthquakesLoaded += EARTHQUAKE_PER_REQUEST;
+
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +96,16 @@ public class EarthquakeList extends Fragment {
         this.listAdapter = new EarthquakeAdapter(getContext());
         this.earthquakeList.setAdapter(this.listAdapter);
 
+        this.date = getView().findViewById(R.id.date);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialogue();
+
+            }
+        });
+
+
         this.pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -96,6 +116,21 @@ public class EarthquakeList extends Fragment {
                 retriever.execute();
             }
         });
+    }
+    private void showDatePickerDialogue(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(),
+                this, Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String dateToShow = dayOfMonth + "/" + month + "/" + year;
+        final TextView dateText = getView().findViewById(R.id.date_text);
+        dateText.setText(dateToShow);
+
     }
 
     private class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
