@@ -43,4 +43,7 @@
     <color name="backgroundColorDark">#E3E9F8</color>
     <color name="backgroundColor">#F4F6FB</color>
     <color name="white">#FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_32">#50FFFFFF</color>
 </resources>

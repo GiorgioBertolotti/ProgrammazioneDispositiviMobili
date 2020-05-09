@@ -1,7 +1,12 @@
 package it.unimib.quakeapp;
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -32,31 +38,42 @@ public class Home extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         TextView todayEQ = root.findViewById(R.id.home_number_tremors);
         //todayEQ.setText();
         TextView weekEQ = root.findViewById(R.id.home_number_tremors_week);
         //weekEQ.setText();
 
-        View iconGlobe = root.findViewById(R.id.home_icon_globe);
-        FontDrawable drawableGlobe = new FontDrawable(root.getContext(), R.string.fa_globe_solid, true, false);
-        drawableGlobe.setTextColor(ContextCompat.getColor(root.getContext(), android.R.color.white));
-        iconGlobe.setBackgroundDrawable(drawableGlobe);
+        Typeface fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fa-solid-900.ttf");
 
-        View iconHat = root.findViewById(R.id.home_icon_safety);
-        FontDrawable drawableHat = new FontDrawable(root.getContext(), R.string.fa_hard_hat_solid, true, false);
-        drawableHat.setTextColor(ContextCompat.getColor(root.getContext(), android.R.color.white));
-        iconHat.setBackgroundDrawable(drawableHat);
+        TextView iconGlobe = root.findViewById(R.id.home_icon_globe);
+        iconGlobe.setTypeface(fontAwesome);
+
+        TextView iconHat = root.findViewById(R.id.home_icon_safety);
+        iconHat.setTypeface(fontAwesome);
+
+        String text = getString(R.string.home_more_about);
+
+        Spannable s = new SpannableString(getString(R.string.fa_plus_solid) + " " + text);
+        s.setSpan(new TypefaceSpan(fontAwesome), 0, 2,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new TypefaceSpan("roboto_medium"), 2, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         Button buttonMoreAbout = root.findViewById(R.id.home_button_more_about);
-        FontDrawable drawablePlus = new FontDrawable(root.getContext(), R.string.fa_plus_solid, true, false);
-        drawablePlus.setTextColor(ContextCompat.getColor(root.getContext(), android.R.color.white));
-        buttonMoreAbout.setBackgroundDrawable(drawablePlus);
+        buttonMoreAbout.setText(s);
+
+        String text2 = getString(R.string.home_view);
+
+        Spannable s2 = new SpannableString(getString(R.string.fa_eye_solid) + " " + text2);
+        s2.setSpan(new TypefaceSpan(fontAwesome), 0, 2,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s2.setSpan(new TypefaceSpan("roboto_medium"), 2, s2.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         Button buttonView = root.findViewById(R.id.home_button_view);
-        FontDrawable drawableEye = new FontDrawable(root.getContext(), R.string.fa_eye_solid, true, false);
-        drawableEye.setTextColor(ContextCompat.getColor(root.getContext(), android.R.color.white));
-        buttonView.setBackgroundDrawable(drawableEye);
+        buttonView.setText(s2);
 
         buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
