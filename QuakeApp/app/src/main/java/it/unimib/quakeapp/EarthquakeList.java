@@ -51,7 +51,6 @@ import static java.lang.Boolean.TRUE;
 
 public class EarthquakeList extends Fragment implements AdapterView.OnItemSelectedListener {
 
-
     enum SortBy {
         DATE,
         RICHTER,
@@ -82,11 +81,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         retriever.execute();
 
         earthquakesLoaded += EARTHQUAKE_PER_REQUEST;
-
-
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +95,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         this.listAdapter = new EarthquakeAdapter(getContext());
         this.earthquakeList.setAdapter(this.listAdapter);
 
-        Spinner orderBY = getView().findViewById(R.id.order) ;
+        Spinner orderBY = getView().findViewById(R.id.order);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(),
                 R.array.order_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -119,17 +114,22 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             }
         });
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        if(position == 0){
-            sortMethod = SortBy.DATE;
-        }else if(position == 1){
-            sortMethod = SortBy.RICHTER;
-
-        }else{
-            sortMethod = SortBy.MERCALLI;
+        switch (position) {
+            default:
+            case 0:
+                sortMethod = SortBy.DATE;
+                break;
+            case 1:
+                sortMethod = SortBy.RICHTER;
+                break;
+            case 2:
+                sortMethod = SortBy.MERCALLI;
+                break;
         }
+
         String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, earthquakesLoaded);
 
         final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
@@ -138,7 +138,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     private class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
@@ -154,6 +153,15 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         public EarthquakeListRetriever(String url, boolean loading) {
             this.url = url;
             this.loading = loading;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (this.loading) {
+                progressDialog = ProgressDialog.show(getContext(),
+                        getString(R.string.load),
+                        getString(R.string.loading_earthquakes));
+            }
         }
 
         @Override
@@ -188,8 +196,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                     for (int i = 0; i < features.length(); i++) {
                         JSONObject feature = features.getJSONObject(i);
                         Earthquake earthquake = new Earthquake(feature);
-                        PlaceRetriever placeRetriever = new PlaceRetriever(earthquake);
-                        placeRetriever.execute();
                         earthquakes.add(earthquake);
                     }
 
@@ -268,58 +274,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             if (this.loading) {
                 progressDialog.dismiss();
             }
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            if (this.loading) {
-                progressDialog = ProgressDialog.show(getContext(),
-                        getString(R.string.load),
-                        getString(R.string.loading_earthquakes));
-            }
-        }
-    }
-
-    private class PlaceRetriever extends AsyncTask<Void, Void, String> {
-        private Earthquake earthquake;
-
-        public PlaceRetriever(Earthquake earthquake) {
-            this.earthquake = earthquake;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            OkHttpClient client = new OkHttpClient();
-
-            Request request = new Request.Builder()
-                    .url(String.format("%s&lat=%s&lon=%s", REVERSE_GEOCODING_URL, earthquake.coordinates.lat, earthquake.coordinates.lng))
-                    .build();
-
-            try (Response response = client.newCall(request).execute()) {
-                if (response.isSuccessful()) {
-                    return response.body().string();
-                } else {
-                    return null;
-                }
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result != null) {
-                try {
-                    JSONObject root = new JSONObject(result);
-                    earthquake.setPlace(new Place(root));
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-
-            listAdapter.notifyDataSetChanged();
         }
     }
 

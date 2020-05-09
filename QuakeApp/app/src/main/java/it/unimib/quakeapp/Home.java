@@ -1,4 +1,4 @@
-package it.unimib.quakeapp.ui.home;
+package it.unimib.quakeapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,29 +8,36 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 
 import info.androidhive.fontawesome.FontDrawable;
-import it.unimib.quakeapp.FAQ;
-import it.unimib.quakeapp.R;
 
-public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+public class Home extends Fragment {
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+    public Home() {
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
         TextView todayEQ = root.findViewById(R.id.home_number_tremors);
         //todayEQ.setText();
         TextView weekEQ = root.findViewById(R.id.home_number_tremors_week);
         //weekEQ.setText();
+
         View iconGlobe = root.findViewById(R.id.home_icon_globe);
         FontDrawable drawableGlobe = new FontDrawable(root.getContext(), R.string.fa_globe_solid, true, false);
         drawableGlobe.setTextColor(ContextCompat.getColor(root.getContext(), android.R.color.white));
@@ -65,6 +72,5 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
-        return root;
     }
 }

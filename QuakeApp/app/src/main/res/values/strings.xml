@@ -122,4 +122,7 @@
     <string name="home_safety_measures">Misure di sicurezza</string>
     <string name="home_behaviors">Comportamenti da adottare\n in caso di terremoto</string>
     <string name="home_view">Visualizza</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
