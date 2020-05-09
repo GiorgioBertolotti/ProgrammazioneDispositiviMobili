@@ -122,4 +122,8 @@
     <string name="home_safety_measures">Misure di sicurezza</string>
     <string name="home_behaviors">Comportamenti da adottare\nin caso di terremoto</string>
     <string name="home_view">Visualizza</string>
+    <string name="home_areas_of_interest">Aree di interesse</string>
+    <string name="home_safe" >SICURO</string>
+    <string name="home_critic">ALLERTA</string>
+    <string name="home_emergency">EMERGENZA</string>
 </resources>
