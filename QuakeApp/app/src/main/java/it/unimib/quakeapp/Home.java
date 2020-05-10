@@ -53,7 +53,7 @@ public class Home extends Fragment {
         TextView iconHat = root.findViewById(R.id.home_icon_safety);
         iconHat.setTypeface(fontAwesome);
 
-        String text = getString(R.string.home_more_about);
+      /*  String text = getString(R.string.home_more_about);
 
         Spannable s = new SpannableString(getString(R.string.fa_plus_solid) + " " + text);
         s.setSpan(new TypefaceSpan(fontAwesome), 0, 2,
@@ -81,7 +81,7 @@ public class Home extends Fragment {
                 Intent i = new Intent(getActivity(), FAQ.class);
                 startActivity(i);
             }
-        });
+        });*/
         /*final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

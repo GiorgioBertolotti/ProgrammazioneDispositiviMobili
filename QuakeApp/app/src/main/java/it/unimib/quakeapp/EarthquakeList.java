@@ -5,12 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,10 +16,16 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONArray;
@@ -43,7 +43,6 @@ import java.util.Locale;
 import java.util.TreeSet;
 
 import it.unimib.quakeapp.models.Earthquake;
-import it.unimib.quakeapp.models.Place;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -52,6 +51,7 @@ import static it.unimib.quakeapp.MainActivity.TAG;
 
 
 public class EarthquakeList extends Fragment implements AdapterView.OnItemSelectedListener,DatePickerDialog.OnDateSetListener{
+
 
     enum SortBy {
         DATE,
@@ -68,6 +68,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     private SortBy sortMethod = SortBy.DATE;
     private SwipeRefreshLayout pullToRefresh;
     private RangeSeekBar rangeSeekbar;
+    int cur = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         orderBY.setOnItemSelectedListener(this);
 
         final DrawerLayout filtersDrawer = getView().findViewById(R.id.drawer_layout_earthquake_list);
-        final RelativeLayout filterButton = getView().findViewById(R.id.filter_button);
+        final LinearLayout filterButton = getView().findViewById(R.id.filter_button);
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +119,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
 
                     minMagnitude.setText("Min: " + bar.getSelectedMinValue());
                     maxMagnitude.setText("Max: " + bar.getSelectedMaxValue());
+                    //DA IMPLEMENTARE
                     //this.filterByMagnitude((double)bar.getSelectedMinValue(),(double)bar.getSelectedMaxValue())
 
            }
@@ -148,51 +150,24 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                    }
                }
            });
-           date.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   showDatePickerDialogue();
-               }
-           });
        }
-/*
-        final CheckBox checkBoxFrom = getView().findViewById(R.id.elf_checkbox_from_date);
-        final CheckBox checkBoxTill = getView().findViewById(R.id.elfs_checkbox_till_date);
-        final TextView dateFrom =  getView().findViewById(R.id.elfs_from);
-       final CalendarView dateTill = getView().findViewById(R.id.elfs_calendar_till);
-
-        checkBoxFrom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       final TextView dateFrom =  getView().findViewById(R.id.elfs_from);
+        final TextView dateTill =  getView().findViewById(R.id.elfs_till);
+        dateFrom.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    String dateToShow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
-                                        Calendar.getInstance().get(Calendar.MONTH) + "/"+
-                                        Calendar.getInstance().get(Calendar.YEAR);
-                    dateFrom.setText(dateToShow);
-                    dateFrom.setVisibility(View.VISIBLE);
-                    //Date dateF = dateFrom.getCalDate();
-                    //this.filterByDateFrom(dateF);
-                } else {
-                    dateFrom.setVisibility(View.GONE);
-                    //refresh();
-                }
+            public void onClick(View v) {
+                showDatePickerDialogue();
+                cur = 1;
             }
         });
-        checkBoxTill.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        dateTill.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    dateTill.setVisibility(View.VISIBLE);
-                    //Date dateF = dateFrom.getCalDate();
-                    //this.filterByDateFrom(dateF);
-                }else {
-                    dateTill.setVisibility(View.GONE);
-                    //refresh();
-                }
-
+            public void onClick(View v) {
+                showDatePickerDialogue();
+                cur = 2;
             }
         });
-*/
+
 ///////////////////////////////////////////////////////////////////////////
 
         this.pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
@@ -235,7 +210,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-
     private void showDatePickerDialogue(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(),this,
                 Calendar.getInstance().get(Calendar.YEAR),
@@ -244,26 +218,22 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         );
         datePickerDialog.show();
     }
-//?????????????????????????????????????????????????????????????????????????????????????
- /*   @Override
-    public String onDateSet() {
-        return onDateSet(, , , );
-    }
-    DatePickerDialog.OnDateSetListener from_dateListener,to_dateListener;
-
-    public void setFrom_dateListener(DatePickerDialog.OnDateSetListener from_dateListener) {
-        this.from_dateListener = from_dateListener;
-        onDateSet()
-    }*/
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String dateToShow = dayOfMonth + "/" + month + "/" + year;
-        final TextView dateText = getView().findViewById(R.id.elfs_from);
-        dateText.setVisibility(View.VISIBLE);
-        dateText.setText(dateToShow);
+        if(cur == 1){
+            String dateToShow = dayOfMonth + "/" + month + "/" + year;
+            final TextView dateText = getView().findViewById(R.id.elfs_from);
+            dateText.setText(dateToShow);
+        }
+        if(cur == 2){
+            String dateToShow = dayOfMonth + "/" + month + "/" + year;
+            final TextView dateText = getView().findViewById(R.id.elfs_till);
+            dateText.setText(dateToShow);
+        }
 
     }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
