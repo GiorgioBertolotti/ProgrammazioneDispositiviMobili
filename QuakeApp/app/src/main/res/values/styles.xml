@@ -114,4 +114,10 @@
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="CaptionMedium" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

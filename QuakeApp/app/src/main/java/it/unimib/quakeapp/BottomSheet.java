@@ -95,7 +95,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
                 location.setText(earthquake.place.addressDetails.get(0));
             }
         } else {
-            location.setText(earthquake.getPlaceDescWithoutKm());
+            location.setText(earthquake.placeDesc);
         }
 
         TextView richter = dialog.findViewById(R.id.bs_richter);

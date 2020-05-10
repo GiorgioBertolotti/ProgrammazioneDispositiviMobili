@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,7 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import info.androidhive.fontawesome.FontDrawable;
-import it.unimib.quakeapp.ui.home.HomeFragment;
+import it.unimib.quakeapp.Home;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,17 +48,12 @@ public class MainActivity extends AppCompatActivity
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_all_quakes)
                 .setDrawerLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
         initDrawerLayout();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
     @Override
@@ -106,7 +102,7 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_home:
                 getSupportActionBar().setTitle(getString(R.string.menu_home));
-                navigateTo(new HomeFragment());
+                navigateTo(new Home());
                 break;
             case R.id.nav_all_quakes:
                 getSupportActionBar().setTitle(getString(R.string.menu_earthquakes));
@@ -136,8 +132,8 @@ public class MainActivity extends AppCompatActivity
     private void navigateTo(Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         FragmentManager fm = getSupportFragmentManager();
-        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-            fm.popBackStack();
+        for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStackImmediate();
         }
         ft.replace(R.id.nav_host_fragment, fragment);
         //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

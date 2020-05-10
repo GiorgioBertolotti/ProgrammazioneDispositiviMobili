@@ -112,4 +112,18 @@
     <string name="news_two"><a href="http://www.corriere.it">Corriere della Sera</a></string>
     <string name="news_three"><a href="http://www.cnn.com">CNN News</a></string>
     <string name="more_about"><u>Scopri di più su questo terremoto!</u></string>
+
+    <!-- DASHBOARD -->
+    <string name="home_last">Recenti</string>
+    <string name="home_today">oggi</string>
+    <string name="home_tremors">scosse</string>
+    <string name="home_this_week">questa settimana</string>
+    <string name="home_more_about">Scopri di più</string>
+    <string name="home_safety_measures">Misure di sicurezza</string>
+    <string name="home_behaviors">Comportamenti da adottare\nin caso di terremoto</string>
+    <string name="home_view">Visualizza</string>
+    <string name="home_areas_of_interest">Aree di interesse</string>
+    <string name="home_safe" >SICURO</string>
+    <string name="home_critic">ALLERTA</string>
+    <string name="home_emergency">EMERGENZA</string>
 </resources>
