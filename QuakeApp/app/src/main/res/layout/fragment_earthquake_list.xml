@@ -1,62 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".EarthquakeList"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/drawer_layout_earthquake_list">
 
 
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Spinner
-            android:id= "@+id/order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:paddingTop="12dp"
-            android:paddingRight="24dp"
-            android:background="@color/white"
-            android:spinnerMode="dropdown"/>
-
-
-        <info.androidhive.fontawesome.FontTextView
-            android:id="@+id/fragment_earthquake_list_toggle1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="@string/toggle_question"
-            android:padding="16dp"
-            android:text="@string/fa_chevron_down_solid"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:solid_icon="true" />
-
-    </RelativeLayout>
-
-
-
-
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pull_to_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ListView
-            android:id="@+id/earthquake_list"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:dividerHeight="0dp" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:id="@+id/filter_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="34dp"
+                    style="@style/Body1"
+                    android:text="Filtri"/>
+            <info.androidhive.fontawesome.FontTextView
+                android:id="@+id/fragment_earthquake_list_filter_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="filter"
+                android:paddingTop="16dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="16dp"
+                android:text="@string/fa_filter_solid"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:solid_icon="true" />
+            </RelativeLayout>
+
+            <Spinner
+                android:id= "@+id/order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:background="@color/white"
+                android:spinnerMode="dropdown"/>
+            <info.androidhive.fontawesome.FontTextView
+                android:id="@+id/fragment_earthquake_list_toggle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/toggle_question"
+                android:layout_alignParentStart="true"
+                android:paddingTop="16dp"
+                android:paddingStart="56dp"
+                android:text="@string/fa_chevron_down_solid"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:solid_icon="true" />
+
+
+
+        </RelativeLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/pull_to_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ListView
+                android:id="@+id/earthquake_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:dividerHeight="0dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/filters_window"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_gravity= "right">
+
+        <include layout="@layout/eartquake_list_filters"/>
+    </com.google.android.material.navigation.NavigationView>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

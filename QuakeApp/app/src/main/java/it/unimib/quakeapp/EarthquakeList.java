@@ -7,22 +7,27 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -35,21 +40,18 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.TreeSet;
 
 import it.unimib.quakeapp.models.Earthquake;
 import it.unimib.quakeapp.models.Place;
-import it.unimib.quakeapp.models.Point;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import static it.unimib.quakeapp.MainActivity.TAG;
-import static java.lang.Boolean.TRUE;
 
 
-public class EarthquakeList extends Fragment implements AdapterView.OnItemSelectedListener {
+public class EarthquakeList extends Fragment implements AdapterView.OnItemSelectedListener,DatePickerDialog.OnDateSetListener{
 
 
     enum SortBy {
@@ -66,11 +68,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     private ListView earthquakeList;
     private SortBy sortMethod = SortBy.DATE;
     private SwipeRefreshLayout pullToRefresh;
-
-
-    public EarthquakeList() {
-    }
-
+    private RangeSeekBar rangeSeekbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,11 +80,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         retriever.execute();
 
         earthquakesLoaded += EARTHQUAKE_PER_REQUEST;
-
-
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,6 +101,100 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         orderBY.setAdapter(adapter);
         orderBY.setOnItemSelectedListener(this);
 
+        final DrawerLayout filtersDrawer = getView().findViewById(R.id.drawer_layout_earthquake_list);
+        final RelativeLayout filterButton = getView().findViewById(R.id.filter_button);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               filtersDrawer.openDrawer(Gravity.RIGHT, false);
+            }
+        });
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+       rangeSeekbar = getView().findViewById(R.id.elfs_range_seekbar);
+        final TextView minMagnitude = getView().findViewById(R.id.elfs_seekbar_min);
+        final TextView maxMagnitude = getView().findViewById(R.id.elfs_seekbar_max);
+       rangeSeekbar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+           @Override
+           public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+
+                    minMagnitude.setText("Min: " + bar.getSelectedMinValue());
+                    maxMagnitude.setText("Max: " + bar.getSelectedMaxValue());
+                    //this.filterByMagnitude((double)bar.getSelectedMinValue(),(double)bar.getSelectedMaxValue())
+
+           }
+       });
+
+       int[] checkBoxes = {
+               R.id.elfs_checkbox_till_date,
+               R.id.elf_checkbox_from_date,
+       };
+       int[] dateViews = {
+               R.id.elfs_till,
+               R.id.elfs_from,
+       };
+       for (int i = 0; i < checkBoxes.length; i++){
+           final TextView date = getView().findViewById(dateViews[i]);
+           final CheckBox checkBox = getView().findViewById(checkBoxes[i]);
+           checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+               @Override
+               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                   if (isChecked) {
+                       String dateToShow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
+                               Calendar.getInstance().get(Calendar.MONTH) + "/"+
+                               Calendar.getInstance().get(Calendar.YEAR);
+                       date.setText(dateToShow);
+                       date.setVisibility(View.VISIBLE);
+                   } else {
+                       date.setVisibility(View.GONE);
+                   }
+               }
+           });
+           date.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   showDatePickerDialogue();
+               }
+           });
+       }
+/*
+        final CheckBox checkBoxFrom = getView().findViewById(R.id.elf_checkbox_from_date);
+        final CheckBox checkBoxTill = getView().findViewById(R.id.elfs_checkbox_till_date);
+        final TextView dateFrom =  getView().findViewById(R.id.elfs_from);
+       final CalendarView dateTill = getView().findViewById(R.id.elfs_calendar_till);
+
+        checkBoxFrom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    String dateToShow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
+                                        Calendar.getInstance().get(Calendar.MONTH) + "/"+
+                                        Calendar.getInstance().get(Calendar.YEAR);
+                    dateFrom.setText(dateToShow);
+                    dateFrom.setVisibility(View.VISIBLE);
+                    //Date dateF = dateFrom.getCalDate();
+                    //this.filterByDateFrom(dateF);
+                } else {
+                    dateFrom.setVisibility(View.GONE);
+                    //refresh();
+                }
+            }
+        });
+        checkBoxTill.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    dateTill.setVisibility(View.VISIBLE);
+                    //Date dateF = dateFrom.getCalDate();
+                    //this.filterByDateFrom(dateF);
+                }else {
+                    dateTill.setVisibility(View.GONE);
+                    //refresh();
+                }
+
+            }
+        });
+*/
+///////////////////////////////////////////////////////////////////////////
 
         this.pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -119,6 +207,8 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             }
         });
     }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -140,6 +230,48 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+ /*   public Date getCalDate(CalendarView c){
+        final Date date = Calendar.getInstance();
+        c.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                date.set(year, month, dayOfMonth, 0, 0);
+            }
+
+        });
+        return date;
+    }*/
+
+    private void showDatePickerDialogue(){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(),this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+?????????????????????????????????????????????????????????????????????????????????????
+    @Override
+    public String onDateSet() {
+        return onDateSet(, , , );
+    }
+    DatePickerDialog.OnDateSetListener from_dateListener,to_dateListener;
+
+    public void setFrom_dateListener(DatePickerDialog.OnDateSetListener from_dateListener) {
+        this.from_dateListener = from_dateListener;
+        onDateSet()
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String dateToShow = dayOfMonth + "/" + month + "/" + year;
+        final TextView dateText = getView().findViewById(R.id.elfs_from);
+        dateText.setVisibility(View.VISIBLE);
+        dateText.setText(dateToShow);
+
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
         private String url;
