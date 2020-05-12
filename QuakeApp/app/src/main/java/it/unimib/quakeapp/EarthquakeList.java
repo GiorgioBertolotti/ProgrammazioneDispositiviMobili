@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,6 +70,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     private SwipeRefreshLayout pullToRefresh;
     private RangeSeekBar rangeSeekbar;
     int cur = 0;
+    private Date DateFrom, DateTill;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,12 +115,27 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
        rangeSeekbar = getView().findViewById(R.id.elfs_range_seekbar);
         final TextView minMagnitude = getView().findViewById(R.id.elfs_seekbar_min);
         final TextView maxMagnitude = getView().findViewById(R.id.elfs_seekbar_max);
+        final TextView filterMin = getView().findViewById(R.id.tag_richter_maggiore);
+        final TextView filterMax = getView().findViewById(R.id.tag_filtri_richter_minore);
        rangeSeekbar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
            @Override
            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
 
                     minMagnitude.setText("Min: " + bar.getSelectedMinValue());
                     maxMagnitude.setText("Max: " + bar.getSelectedMaxValue());
+                    if((int)bar.getSelectedMinValue()!= 0) {
+                        filterMin.setVisibility(View.VISIBLE);
+                        filterMin.setText("Richter > " + (int) bar.getSelectedMinValue());
+                    }else {
+                        filterMin.setVisibility(View.GONE);
+                    }
+                    if((int)bar.getSelectedMaxValue() != 10) {
+                        filterMax.setVisibility(View.VISIBLE);
+                        filterMax.setText("Richter < " + (int) bar.getSelectedMaxValue());
+                    }else {
+                        filterMax.setVisibility(View.GONE);
+                    }
+
                     //DA IMPLEMENTARE
                     //this.filterByMagnitude((double)bar.getSelectedMinValue(),(double)bar.getSelectedMaxValue())
 
@@ -151,20 +168,22 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                }
            });
        }
-       final TextView dateFrom =  getView().findViewById(R.id.elfs_from);
-        final TextView dateTill =  getView().findViewById(R.id.elfs_till);
-        dateFrom.setOnClickListener(new View.OnClickListener() {
+       final TextView dateFromV =  getView().findViewById(R.id.elfs_from);
+        final TextView dateTillV =  getView().findViewById(R.id.elfs_till);
+        dateFromV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialogue();
                 cur = 1;
+                showDatePickerDialogue();
+                filterByDate(DateFrom, null);
             }
         });
-        dateTill.setOnClickListener(new View.OnClickListener() {
+        dateTillV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialogue();
                 cur = 2;
+                showDatePickerDialogue();
+                filterByDate(null, DateTill);
             }
         });
 
@@ -225,11 +244,37 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             String dateToShow = dayOfMonth + "/" + month + "/" + year;
             final TextView dateText = getView().findViewById(R.id.elfs_from);
             dateText.setText(dateToShow);
+            final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
+            dateTag.setText("Da: " + dateToShow);
+            dateTag.setVisibility(View.VISIBLE);
+            DateFrom = new Date(getLongDate(dateToShow));
         }
         if(cur == 2){
             String dateToShow = dayOfMonth + "/" + month + "/" + year;
             final TextView dateText = getView().findViewById(R.id.elfs_till);
             dateText.setText(dateToShow);
+            final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
+            dateTag.setText("Da: " + dateToShow);
+            dateTag.setVisibility(View.VISIBLE);
+            DateTill = new Date(getLongDate(dateToShow));
+
+        }
+    }
+    public long getLongDate(String stringDate){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyy");
+        try {
+            Date date = (Date) formatter.parse(stringDate);
+            long milliseconds = date.getTime();
+            return milliseconds;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public void filterByDate(Date dateFrom, Date dateTill){
+        if (dateTill == null){
+
         }
 
     }

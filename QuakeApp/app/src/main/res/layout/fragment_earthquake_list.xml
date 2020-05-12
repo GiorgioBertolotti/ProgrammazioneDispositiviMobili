@@ -71,7 +71,7 @@
                     android:paddingTop="14dp"
                     android:paddingEnd="4dp"
                     style="@style/Body1"
-                    android:text="Filtri"/>
+                    android:text="@string/fragent_earthquake_list_filtri"/>
             <info.androidhive.fontawesome.FontTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,6 +86,78 @@
 
         </RelativeLayout>
     </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_tags"
+                android:layout_marginEnd="6dp">
+                <TextView
+                    android:id="@+id/tag_richter_maggiore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_tags"
+                android:layout_marginEnd="6dp">
+                <TextView
+                    android:id="@+id/tag_filtri_richter_minore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_tags"
+                android:layout_marginEnd="6dp">
+                <TextView
+                    android:id="@+id/tag_filtri_from_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_tags"
+                android:layout_marginEnd="6dp">
+                <TextView
+                    android:id="@+id/tag_filtri_till_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_tags"
+                android:layout_marginEnd="6dp">
+                <TextView
+                    android:id="@+id/tag_filtri_luogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+        </HorizontalScrollView>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/pull_to_refresh"
