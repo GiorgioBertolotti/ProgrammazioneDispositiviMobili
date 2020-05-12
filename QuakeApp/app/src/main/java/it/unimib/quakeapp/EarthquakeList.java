@@ -30,6 +30,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -70,7 +71,8 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     private SwipeRefreshLayout pullToRefresh;
     private RangeSeekBar rangeSeekbar;
     int cur = 0;
-    private Date DateFrom, DateTill;
+    private String DateFrom= "", DateTill = "";
+    int minMag = 0, maxMag = 10;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,9 +137,9 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                     }else {
                         filterMax.setVisibility(View.GONE);
                     }
-
-                    //DA IMPLEMENTARE
-                    //this.filterByMagnitude((double)bar.getSelectedMinValue(),(double)bar.getSelectedMaxValue())
+                    minMag = (int)bar.getSelectedMinValue();
+                    maxMag = (int)bar.getSelectedMaxValue();
+                    filter();
 
            }
        });
@@ -150,20 +152,30 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                R.id.elfs_till,
                R.id.elfs_from,
        };
+       int[] filterTags = {
+               R.id.tag_filtri_till_date,
+               R.id.tag_filtri_from_date,
+       };
        for (int i = 0; i < checkBoxes.length; i++){
            final TextView date = getView().findViewById(dateViews[i]);
            final CheckBox checkBox = getView().findViewById(checkBoxes[i]);
+           final TextView dateTag = getView().findViewById(filterTags[i]);
+           final int finalI = i;
            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                @Override
                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                    if (isChecked) {
                        String dateToShow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
-                               Calendar.getInstance().get(Calendar.MONTH) + "/"+
+                               (Calendar.getInstance().get(Calendar.MONTH) +1) + "/"+
                                Calendar.getInstance().get(Calendar.YEAR);
                        date.setText(dateToShow);
                        date.setVisibility(View.VISIBLE);
                    } else {
                        date.setVisibility(View.GONE);
+                       dateTag.setVisibility(View.GONE);
+                       //if(finalI == 1) DateFrom = "";
+                       //if(finalI == 0) DateTill = "";
+                       filter();
                    }
                }
            });
@@ -175,7 +187,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             public void onClick(View v) {
                 cur = 1;
                 showDatePickerDialogue();
-                filterByDate(DateFrom, null);
             }
         });
         dateTillV.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +194,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             public void onClick(View v) {
                 cur = 2;
                 showDatePickerDialogue();
-                filterByDate(null, DateTill);
             }
         });
 
@@ -201,9 +211,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         });
     }
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
@@ -218,9 +225,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                 sortMethod = SortBy.MERCALLI;
                 break;
         }
-
         String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, earthquakesLoaded);
-
         final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
         retriever.execute();
     }
@@ -228,7 +233,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void showDatePickerDialogue(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(),this,
                 Calendar.getInstance().get(Calendar.YEAR),
@@ -240,25 +245,24 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String dateToShow = year + "-" + (month+1) + "-" + dayOfMonth;
         if(cur == 1){
-            String dateToShow = dayOfMonth + "/" + month + "/" + year;
             final TextView dateText = getView().findViewById(R.id.elfs_from);
             dateText.setText(dateToShow);
             final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
             dateTag.setText("Da: " + dateToShow);
             dateTag.setVisibility(View.VISIBLE);
-            DateFrom = new Date(getLongDate(dateToShow));
+            DateFrom = year + "-" + (month+1) + "-" + dayOfMonth;
         }
         if(cur == 2){
-            String dateToShow = dayOfMonth + "/" + month + "/" + year;
             final TextView dateText = getView().findViewById(R.id.elfs_till);
             dateText.setText(dateToShow);
             final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
-            dateTag.setText("Da: " + dateToShow);
+            dateTag.setText("A: " + dateToShow);
             dateTag.setVisibility(View.VISIBLE);
-            DateTill = new Date(getLongDate(dateToShow));
-
+            DateTill = year + "-" + (month+1) + "-" + (dayOfMonth);
         }
+        filter();
     }
     public long getLongDate(String stringDate){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyy");
@@ -272,11 +276,14 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         return 0;
     }
 
-    public void filterByDate(Date dateFrom, Date dateTill){
-        if (dateTill == null){
 
-        }
+    public void filter(){
+        String url;
+        url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime%s",
+                EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill);
 
+        final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
+        retriever.execute();
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
