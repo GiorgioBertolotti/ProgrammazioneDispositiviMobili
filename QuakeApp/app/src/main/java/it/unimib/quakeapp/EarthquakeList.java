@@ -1,8 +1,10 @@
 package it.unimib.quakeapp;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,9 +20,9 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -30,10 +32,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,9 +70,9 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     private SortBy sortMethod = SortBy.DATE;
     private SwipeRefreshLayout pullToRefresh;
     private RangeSeekBar rangeSeekbar;
-    int cur = 0;
+    private int cur = 0;
     private String DateFrom= "", DateTill = "";
-    int minMag = 0, maxMag = 10;
+    private int minMag = 0, maxMag = 10;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -173,8 +173,8 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                    } else {
                        date.setVisibility(View.GONE);
                        dateTag.setVisibility(View.GONE);
-                       //if(finalI == 1) DateFrom = "";
-                       //if(finalI == 0) DateTill = "";
+                       if(finalI == 1) DateFrom = "";
+                       if(finalI == 0) DateTill = "";
                        filter();
                    }
                }
@@ -194,6 +194,13 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             public void onClick(View v) {
                 cur = 2;
                 showDatePickerDialogue();
+            }
+        });
+        final LinearLayout info = getView().findViewById(R.id.elfs_information);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
             }
         });
 
@@ -225,9 +232,8 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                 sortMethod = SortBy.MERCALLI;
                 break;
         }
-        String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, earthquakesLoaded);
-        final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
-        retriever.execute();
+        //dovrei toglierlo
+        filter();
     }
 
     @Override
@@ -260,11 +266,12 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
             dateTag.setText("A: " + dateToShow);
             dateTag.setVisibility(View.VISIBLE);
-            DateTill = year + "-" + (month+1) + "-" + (dayOfMonth);
+            DateTill = year + "-" + (month+1) + "-" + (dayOfMonth + 1);
         }
         filter();
     }
-    public long getLongDate(String stringDate){
+
+  /*  public long getLongDate(String stringDate){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyy");
         try {
             Date date = (Date) formatter.parse(stringDate);
@@ -274,16 +281,31 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             e.printStackTrace();
         }
         return 0;
-    }
+    }*/
 
 
     public void filter(){
         String url;
-        url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime%s",
-                EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill);
-
+        url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
+                EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill, 700);
+        System.out.println(url);
         final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
         retriever.execute();
+    }
+    public void showDialog(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this.getActivity());
+        View mView = getLayoutInflater().inflate(R.layout.filter_dialog, null, false);
+        mBuilder.setView(mView);
+        mBuilder.setTitle("Corrisposndenza Magnitudo Richter e Grado Mercalli");
+        mBuilder.setPositiveButton("CHIUDI", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
