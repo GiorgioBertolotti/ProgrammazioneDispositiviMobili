@@ -39,7 +39,7 @@ public class Home extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.P)
-    public void onViewCreated(View root, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View root, @Nullable Bundle savedInstanceState) {
         TextView todayEQ = root.findViewById(R.id.home_number_tremors);
         //todayEQ.setText();
         TextView weekEQ = root.findViewById(R.id.home_number_tremors_week);
@@ -53,6 +53,13 @@ public class Home extends Fragment {
         TextView iconHat = root.findViewById(R.id.home_icon_safety);
         iconHat.setTypeface(fontAwesome);
 
+        TextView iconPlus = root.findViewById(R.id.home_icon_safety);
+        /*iconPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Home.this, CountryList);
+            }
+        });*/
       /*  String text = getString(R.string.home_more_about);
 
         Spannable s = new SpannableString(getString(R.string.fa_plus_solid) + " " + text);
