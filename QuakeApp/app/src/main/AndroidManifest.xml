@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Settings"></activity>
+        <activity android:name=".CountryList"
+            android:exported="true"/>
+        <activity android:name=".Settings" />
         <activity android:name=".FAQ" />
-        <activity
-            android:name=".BugReport" />
+        <activity android:name=".BugReport" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
