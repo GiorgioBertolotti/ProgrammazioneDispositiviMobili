@@ -40,11 +40,15 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TreeSet;
 
+import info.androidhive.fontawesome.FontTextView;
 import it.unimib.quakeapp.models.Earthquake;
+import it.unimib.quakeapp.models.Place;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -63,14 +67,14 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
 
     private final String REVERSE_GEOCODING_URL = "https://nominatim.openstreetmap.org/reverse?format=json";
     private final String EARTHQUAKE_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake";
-    private final int EARTHQUAKE_PER_REQUEST = 20;
+    private final int EARTHQUAKE_PER_REQUEST = 700;
     private int earthquakesLoaded = 0;
     private EarthquakeAdapter listAdapter;
     private ListView earthquakeList;
     private SortBy sortMethod = SortBy.DATE;
     private SwipeRefreshLayout pullToRefresh;
     private RangeSeekBar rangeSeekbar;
-    private int cur = 0;
+    private int cur = 0, filterNum = 0;
     private String DateFrom= "", DateTill = "";
     private int minMag = 0, maxMag = 10;
 
@@ -123,22 +127,24 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
            @Override
            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
 
+
+               minMag = (int)bar.getSelectedMinValue();
+               maxMag = (int)bar.getSelectedMaxValue();
+
                     minMagnitude.setText("Min: " + bar.getSelectedMinValue());
                     maxMagnitude.setText("Max: " + bar.getSelectedMaxValue());
-                    if((int)bar.getSelectedMinValue()!= 0) {
+                    if(minMag!= 0) {
                         filterMin.setVisibility(View.VISIBLE);
-                        filterMin.setText("Richter > " + (int) bar.getSelectedMinValue());
+                        filterMin.setText("Richter > " + minMag);
                     }else {
                         filterMin.setVisibility(View.GONE);
                     }
-                    if((int)bar.getSelectedMaxValue() != 10) {
+                    if(maxMag != 10) {
                         filterMax.setVisibility(View.VISIBLE);
-                        filterMax.setText("Richter < " + (int) bar.getSelectedMaxValue());
+                        filterMax.setText("Richter < " + maxMag);
                     }else {
                         filterMax.setVisibility(View.GONE);
                     }
-                    minMag = (int)bar.getSelectedMinValue();
-                    maxMag = (int)bar.getSelectedMaxValue();
                     filter();
 
            }
@@ -165,18 +171,34 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                @Override
                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                    if (isChecked) {
-                       String dateToShow = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/" +
-                               (Calendar.getInstance().get(Calendar.MONTH) +1) + "/"+
-                               Calendar.getInstance().get(Calendar.YEAR);
+                       String dateToShow = Calendar.getInstance().get(Calendar.YEAR) + "-" +
+                               (Calendar.getInstance().get(Calendar.MONTH) +1) + "-"+
+                               Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
                        date.setText(dateToShow);
+                       filterNum++;
                        date.setVisibility(View.VISIBLE);
+                       if(finalI== 1) {
+                           DateFrom = dateToShow;
+                           final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
+                           dateTag.setText("Da: " + dateToShow);
+                           dateTag.setVisibility(View.VISIBLE);
+                       }
+                       if(finalI == 0) {
+                           DateTill = Calendar.getInstance().get(Calendar.YEAR) + "-" +
+                                   (Calendar.getInstance().get(Calendar.MONTH) +1) + "-"+
+                                   (Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+1);
+                           final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
+                           dateTag.setText("A: " + dateToShow);
+                           dateTag.setVisibility(View.VISIBLE);
+                       }
                    } else {
                        date.setVisibility(View.GONE);
                        dateTag.setVisibility(View.GONE);
                        if(finalI == 1) DateFrom = "";
                        if(finalI == 0) DateTill = "";
-                       filter();
+                       filterNum--;
                    }
+                   filter();
                }
            });
        }
@@ -203,14 +225,14 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                 showDialog();
             }
         });
-
 ///////////////////////////////////////////////////////////////////////////
 
         this.pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, earthquakesLoaded);
+                String url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
+                        EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill, earthquakesLoaded);
 
                 final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url, false);
                 retriever.execute();
@@ -232,7 +254,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                 sortMethod = SortBy.MERCALLI;
                 break;
         }
-        //dovrei toglierlo
         filter();
     }
 
@@ -271,24 +292,22 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         filter();
     }
 
-  /*  public long getLongDate(String stringDate){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyy");
-        try {
-            Date date = (Date) formatter.parse(stringDate);
-            long milliseconds = date.getTime();
-            return milliseconds;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }*/
-
-
     public void filter(){
-        String url;
-        url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
-                EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill, 700);
-        System.out.println(url);
+        TextView filtersNum = getView().findViewById(R.id.number_filters_applied);
+        int temp_filters = filterNum;
+        FontTextView filterIcon = getView().findViewById(R.id.filter_icon);
+        String url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
+                EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill, earthquakesLoaded);
+        if(minMag != 0) temp_filters++;
+        if(maxMag != 10) temp_filters++;
+      if(temp_filters != 0){
+            filterIcon.setVisibility(View.GONE);
+            filtersNum.setText("" + temp_filters);
+            filtersNum.setVisibility(View.VISIBLE);
+        }else{
+            filterIcon.setVisibility(View.VISIBLE);
+            filtersNum.setVisibility(View.GONE);
+        }
         final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
         retriever.execute();
     }
@@ -302,10 +321,8 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                 dialog.dismiss();
             }
         });
-
         AlertDialog dialog = mBuilder.create();
         dialog.show();
-
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -368,7 +385,6 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                         Earthquake earthquake = new Earthquake(feature);
                         earthquakes.add(earthquake);
                     }
-
                     listAdapter.clear();
 
                     switch (sortMethod) {
