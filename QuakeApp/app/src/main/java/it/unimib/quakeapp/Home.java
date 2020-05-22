@@ -1,14 +1,11 @@
 package it.unimib.quakeapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +14,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-import info.androidhive.fontawesome.FontDrawable;
-
 
 public class Home extends Fragment {
 
-    public Home() {
-    }
-
+    Button next;
+    TextView countryOne;
+    TextView countryTwo;
+    TextView countryThree;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +50,32 @@ public class Home extends Fragment {
         iconHat.setTypeface(fontAwesome);
 
         TextView iconPlus = root.findViewById(R.id.home_icon_safety);
+
+        next = root.findViewById(R.id.home_button);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), CountryList.class);
+                startActivity(i);
+            }
+        });
+
+        countryOne = root.findViewById(R.id.home_area_one);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+        String strCountryOne = preferences.getString("0", "");
+        countryOne.setText(strCountryOne);
+
+        countryTwo = root.findViewById(R.id.home_area_two);
+        String strCountryTwo =  preferences.getString("1", "");
+        countryTwo.setText(strCountryTwo);
+
+       /* String strCountryThree =  sharedPreferences.getString("2", "Germany");
+        countryThree = root.findViewById(R.id.home_area_three);
+        countryThree.setText(strCountryThree);*/
+
         /*iconPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

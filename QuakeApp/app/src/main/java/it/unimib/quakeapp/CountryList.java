@@ -2,8 +2,11 @@ package it.unimib.quakeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,18 +24,18 @@ public class CountryList extends AppCompatActivity {
 
     SearchableSpinner countryListSpinner;
     String[] arrCountries = new String[3];
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     TextView countryOne;
     TextView countryTwo;
     TextView countryThree;
-
-    public String[] getArrCountries() {
-        return this.arrCountries;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_list);
+        getSupportActionBar().setTitle("Aree di interesse");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         countryListSpinner = findViewById(R.id.country_list_spinner);
         countryListSpinner.setTitle("Seleziona un paese");
@@ -48,22 +51,7 @@ public class CountryList extends AppCompatActivity {
         iconTrashOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (arrCountries[1] != null) {
-                    arrCountries[0] = arrCountries[1];
-                    countryOne.setText(arrCountries[0]);
-                    if (arrCountries[2] != null) {
-                        arrCountries[1] = arrCountries[2];
-                        countryTwo.setText(arrCountries[1]);
-                        arrCountries[2] = null;
-                        countryThree.setText("");
-                    } else {
-                        arrCountries[1] = null;
-                        countryTwo.setText("");
-                    }
-                } else {
-                    arrCountries[0] = null;
-                    countryOne.setText("");
-                }
+                deleteArea(0);
             }
         });
         TextView iconTrashTwo = findViewById(R.id.aof_icon_trash_two);
@@ -71,15 +59,7 @@ public class CountryList extends AppCompatActivity {
         iconTrashTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (arrCountries[2] != null) {
-                    arrCountries[1] = arrCountries[2];
-                    countryTwo.setText(arrCountries[1]);
-                    arrCountries[2] = null;
-                    countryThree.setText("");
-                } else {
-                    arrCountries[1] = null;
-                    countryTwo.setText("");
-                }
+                deleteArea(1);
             }
         });
         TextView iconTrashThree = findViewById(R.id.aof_icon_trash_three);
@@ -87,8 +67,7 @@ public class CountryList extends AppCompatActivity {
         iconTrashThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrCountries[2] = null;
-                countryThree.setText("");
+                deleteArea(2);
             }
         });
         getCountryList();
@@ -112,11 +91,12 @@ public class CountryList extends AppCompatActivity {
         countryListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                int i = 0;
                 if (position == 0) {
-                    Toast.makeText(getApplicationContext(), "Inserisci un paese", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Seleziona un paese", Toast.LENGTH_SHORT).show();
                 } else {
                     String country = (String) parentView.getItemAtPosition(position);
-                    saveCountry(country);
+                    savePreferences(country);
                 }
             }
 
@@ -127,14 +107,13 @@ public class CountryList extends AppCompatActivity {
         });
     }
 
-    public void saveCountry(String country) {
-        int[] ids = {R.id.country_one, R.id.country_two, R.id.country_three};
+    public void savePreferences(String value) {
         int i = 0;
         int pos = -1;
         boolean add = false;
         while (i < arrCountries.length && !add) {
             if (arrCountries[i] == null) {
-                arrCountries[i] = country;
+                arrCountries[i] = value;
                 pos = i;
                 add = true;
             } else {
@@ -142,22 +121,50 @@ public class CountryList extends AppCompatActivity {
             }
         }
         if (add) {
-            TextView t = findViewById(ids[pos]);
-            t.setText(country);
-           /* if (pos == 0) {
-                TextView t1 = findViewById(R.id.home_area_one);
-                t1.setText(country);
+            SharedPreferences sharedPreferences = getSharedPreferences(String.valueOf(pos), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(String.valueOf(pos), value);
+            editor.apply();
+            if (pos == 0) {
+                countryOne.setText(value);
             } else if (pos == 1) {
-                TextView t2 = findViewById(R.id.home_area_two);
-                t2.setText(country);
+                countryTwo.setText(value);
             } else {
-                TextView t3 = findViewById(R.id.home_area_three);
-                t3.setText(country);
-            }*/
-        } else {
-            /*
-            System.out.println("FULL");
-             */
+                countryThree.setText(value);
+            }
+        }
+    }
+
+    public void deleteArea(int pos) {
+        int i = 0;
+        boolean delete = false;
+        while (i < arrCountries.length && !delete) {
+            if (i == pos) {
+                arrCountries[pos] = null;
+                delete = true;
+            } else {
+                i++;
+            }
+        }
+        if (delete) {
+            if (pos == 0) {
+                countryOne.setText("");
+            } else if (pos == 1) {
+                countryTwo.setText("");
+            } else {
+                countryThree.setText("");
+            }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return true;
         }
     }
 }
