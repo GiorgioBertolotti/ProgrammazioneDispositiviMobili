@@ -1,5 +1,6 @@
 package it.unimib.quakeapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -9,19 +10,26 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Home extends Fragment {
 
-    Button next;
-    TextView countryOne;
-    TextView countryTwo;
-    TextView countryThree;
+    AOIAdapter aoiAdapter;
+    Set<String> arrCountries = new TreeSet<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +57,8 @@ public class Home extends Fragment {
         TextView iconHat = root.findViewById(R.id.home_icon_safety);
         iconHat.setTypeface(fontAwesome);
 
-        TextView iconPlus = root.findViewById(R.id.home_icon_safety);
-
-        next = root.findViewById(R.id.home_button);
-        next.setOnClickListener(new View.OnClickListener() {
+        TextView iconPlus = root.findViewById(R.id.home_icon_plus);
+        iconPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), CountryList.class);
@@ -60,17 +66,12 @@ public class Home extends Fragment {
             }
         });
 
-        countryOne = root.findViewById(R.id.home_area_one);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
-        String strCountryOne = preferences.getString("0", "");
-        countryOne.setText(strCountryOne);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.TAG, Context.MODE_PRIVATE);
+        arrCountries = sharedPreferences.getStringSet("areasOfInterest", new TreeSet<String>());
 
-        countryTwo = root.findViewById(R.id.home_area_two);
-        String strCountryTwo =  preferences.getString("1", "");
-        countryTwo.setText(strCountryTwo);
+        aoiAdapter = new AOIAdapter(getContext(), arrCountries);
+        ListView aoiList = root.findViewById(R.id.home_aoi_list);
+        aoiList.setAdapter(aoiAdapter);
 
        /* String strCountryThree =  sharedPreferences.getString("2", "Germany");
         countryThree = root.findViewById(R.id.home_area_three);
@@ -118,5 +119,80 @@ public class Home extends Fragment {
                 textView.setText(s);
             }
         });*/
+    }
+
+    public void deleteAoi(String country) {
+        arrCountries.remove(country);
+        aoiAdapter.setCountries(arrCountries);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.TAG, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet("areasOfInterest", arrCountries);
+        editor.apply();
+
+        aoiAdapter.notifyDataSetChanged();
+    }
+
+    public class AOIAdapter extends ArrayAdapter<String> {
+        private Context mContext;
+        List<String> countries;
+
+        public AOIAdapter(@NonNull Context context, Set<String> countries) {
+            super(context, 0, new ArrayList<>(countries));
+
+            this.countries = new ArrayList<>(countries);
+            mContext = context;
+        }
+
+        public void setCountries(Set<String> countries) {
+            this.countries = new ArrayList<>(countries);
+        }
+
+        @Override
+        public int getCount() {
+            return this.countries.size();
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            View listItem = convertView;
+            if (listItem == null) {
+                listItem = LayoutInflater.from(mContext).inflate(R.layout.home_aoi_list_item, parent, false);
+            }
+
+            final String country = countries.get(position);
+
+            TextView name = listItem.findViewById(R.id.home_aoi_country);
+            name.setText(country);
+
+            LinearLayout tagContainer = listItem.findViewById(R.id.home_aoi_tag);
+            tagContainer.setBackground(getActivity().getDrawable(R.drawable.tag_green_safe));
+
+            TextView tagText = listItem.findViewById(R.id.home_aoi_tag_text);
+            tagText.setText("SICURO");
+
+            Typeface fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fa-solid-900.ttf");
+
+            TextView deleteButton = listItem.findViewById(R.id.home_aoi_delete_btn);
+            deleteButton.setTypeface(fontAwesome);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    deleteAoi(country);
+                }
+            });
+
+            TextView infoButton = listItem.findViewById(R.id.home_aoi_info_btn);
+            infoButton.setTypeface(fontAwesome);
+            infoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO: Show info button
+                }
+            });
+
+            return listItem;
+        }
     }
 }

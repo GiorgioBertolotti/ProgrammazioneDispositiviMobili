@@ -16,97 +16,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/favourites_countries"
-            style="@style/Body1"
+        <ListView
+            android:id="@+id/aoi_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/home_areas_of_interest" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/country_one"
-                    style="@style/Body2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <info.androidhive.fontawesome.FontTextView
-                    android:id="@+id/aof_icon_trash_one"
-                    style="@style/Overline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:padding="8dp"
-                    android:text="@string/fa_trash_alt_solid"
-                    android:textColor="@color/red"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:solid_icon="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/country_two"
-                    style="@style/Body2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <info.androidhive.fontawesome.FontTextView
-                    android:id="@+id/aof_icon_trash_two"
-                    style="@style/Overline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:padding="8dp"
-                    android:text="@string/fa_trash_alt_solid"
-                    android:textColor="@color/red"
-                    app:solid_icon="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/country_three"
-                    style="@style/Body2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <info.androidhive.fontawesome.FontTextView
-                    android:id="@+id/aof_icon_trash_three"
-                    style="@style/Overline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:padding="8dp"
-                    android:text="@string/fa_trash_alt_solid"
-                    android:textColor="@color/red"
-                    app:solid_icon="true" />
-            </RelativeLayout>
-        </LinearLayout>
+            android:divider="@null"
+            android:dividerHeight="0dp" />
     </LinearLayout>
 </LinearLayout>
