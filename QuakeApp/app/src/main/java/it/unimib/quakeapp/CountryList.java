@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -44,7 +47,7 @@ public class CountryList extends AppCompatActivity {
         countryListSpinner.setTitle("Seleziona un paese");
         countryListSpinner.setPositiveButton("OK");
 
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.TAG, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         arrCountries = sharedPreferences.getStringSet("areasOfInterest", new TreeSet<String>());
 
         aoiAdapter = new AOIAdapter(this, arrCountries);
@@ -72,12 +75,9 @@ public class CountryList extends AppCompatActivity {
         countryListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position == 0) {
-                    Toast.makeText(getApplicationContext(), "Seleziona un paese", Toast.LENGTH_SHORT).show();
-                } else {
-                    String country = (String) parentView.getItemAtPosition(position);
-                    savePreferences(country);
-                }
+                // TODO: Check bug Afghanistan
+                String country = (String) parentView.getItemAtPosition(position);
+                savePreferences(country);
             }
 
             @Override
@@ -91,10 +91,11 @@ public class CountryList extends AppCompatActivity {
         arrCountries.add(country);
         aoiAdapter.setCountries(arrCountries);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.TAG, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("areasOfInterest", arrCountries);
         editor.apply();
+        editor.commit();
 
         aoiAdapter.notifyDataSetChanged();
     }
@@ -103,10 +104,11 @@ public class CountryList extends AppCompatActivity {
         arrCountries.remove(country);
         aoiAdapter.setCountries(arrCountries);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.TAG, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("areasOfInterest", arrCountries);
         editor.apply();
+        editor.commit();
 
         aoiAdapter.notifyDataSetChanged();
     }

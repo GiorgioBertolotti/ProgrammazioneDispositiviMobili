@@ -10,6 +10,7 @@
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/country_list_spinner"
+        app:hintText="Seleziona un paese..."
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

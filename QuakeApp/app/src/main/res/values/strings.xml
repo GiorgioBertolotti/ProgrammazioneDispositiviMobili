@@ -127,6 +127,9 @@
     <string name="home_critic">ALLERTA</string>
     <string name="home_emergency">EMERGENZA</string>
     <string name="fragent_earthquake_list_filtri">Filtri</string>
+    <string name="safe">SICURO</string>
+    <string name="alert">ALLERTA</string>
+    <string name="emergency">EMERGENZA</string>
 
     <!-- DEFAULT COUNTRY -->
     <string name="default_country">Francia</string>

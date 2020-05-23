@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -26,14 +26,39 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Home extends Fragment {
+import it.unimib.quakeapp.models.Earthquake;
 
-    AOIAdapter aoiAdapter;
-    Set<String> arrCountries = new TreeSet<>();
+public class Home extends Fragment {
+    final private int AOI_CODE = 1;
+    private AOIAdapter aoiAdapter;
+    private Set<String> arrCountries = new TreeSet<>();
+    private EarthquakeListRetriever retriever;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AOI_CODE) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            arrCountries = sharedPreferences.getStringSet("areasOfInterest", new TreeSet<String>());
+            aoiAdapter.setCountries(arrCountries);
+
+            aoiAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        retriever = EarthquakeListRetriever.getInstance();
+        retriever.retrieve(getContext(), null, new Function() {
+            @Override
+            public Object apply(Object input) {
+                aoiAdapter.notifyDataSetChanged();
+                return null;
+            }
+        });
     }
 
     @Override
@@ -62,73 +87,27 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), CountryList.class);
-                startActivity(i);
+                startActivityForResult(i, AOI_CODE);
             }
         });
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.TAG, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         arrCountries = sharedPreferences.getStringSet("areasOfInterest", new TreeSet<String>());
 
         aoiAdapter = new AOIAdapter(getContext(), arrCountries);
         ListView aoiList = root.findViewById(R.id.home_aoi_list);
         aoiList.setAdapter(aoiAdapter);
-
-       /* String strCountryThree =  sharedPreferences.getString("2", "Germany");
-        countryThree = root.findViewById(R.id.home_area_three);
-        countryThree.setText(strCountryThree);*/
-
-        /*iconPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Home.this, CountryList);
-            }
-        });*/
-      /*  String text = getString(R.string.home_more_about);
-
-        Spannable s = new SpannableString(getString(R.string.fa_plus_solid) + " " + text);
-        s.setSpan(new TypefaceSpan(fontAwesome), 0, 2,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new TypefaceSpan("roboto_medium"), 2, s.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        Button buttonMoreAbout = root.findViewById(R.id.home_button_more_about);
-        buttonMoreAbout.setText(s);
-
-        String text2 = getString(R.string.home_view);
-
-        Spannable s2 = new SpannableString(getString(R.string.fa_eye_solid) + " " + text2);
-        s2.setSpan(new TypefaceSpan(fontAwesome), 0, 2,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s2.setSpan(new TypefaceSpan("roboto_medium"), 2, s2.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        Button buttonView = root.findViewById(R.id.home_button_view);
-        buttonView.setText(s2);
-
-        buttonView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), FAQ.class);
-                startActivity(i);
-            }
-        });*/
-        /*final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
     }
 
     public void deleteAoi(String country) {
         arrCountries.remove(country);
         aoiAdapter.setCountries(arrCountries);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MainActivity.TAG, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet("areasOfInterest", arrCountries);
         editor.apply();
+        editor.commit();
 
         aoiAdapter.notifyDataSetChanged();
     }
@@ -166,11 +145,42 @@ public class Home extends Fragment {
             TextView name = listItem.findViewById(R.id.home_aoi_country);
             name.setText(country);
 
-            LinearLayout tagContainer = listItem.findViewById(R.id.home_aoi_tag);
-            tagContainer.setBackground(getActivity().getDrawable(R.drawable.tag_green_safe));
-
             TextView tagText = listItem.findViewById(R.id.home_aoi_tag_text);
-            tagText.setText("SICURO");
+            LinearLayout tagContainer = listItem.findViewById(R.id.home_aoi_tag);
+
+            List<Earthquake> earthquakes = retriever.earthquakes;
+
+            if (earthquakes != null) {
+                int counter = 0;
+                double maxRichter = 0;
+
+                for (Earthquake earthquake : earthquakes) {
+                    String[] words = country.split(" ");
+
+                    for (String word : words) {
+                        if (earthquake.placeDesc.contains(word)) {
+                            counter++;
+
+                            if (earthquake.richter_mag > maxRichter) {
+                                maxRichter = earthquake.richter_mag;
+                            }
+                        }
+                    }
+                }
+
+                if (counter > 0) {
+                    if (maxRichter < 6) {
+                        tagText.setText(getString(R.string.alert));
+                        tagContainer.setBackground(getActivity().getDrawable(R.drawable.tag_yellow_critic));
+                    } else {
+                        tagText.setText(getString(R.string.emergency));
+                        tagContainer.setBackground(getActivity().getDrawable(R.drawable.tag_red_emergency));
+                    }
+                } else {
+                    tagText.setText(getString(R.string.safe));
+                    tagContainer.setBackground(getActivity().getDrawable(R.drawable.tag_green_safe));
+                }
+            }
 
             Typeface fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fa-solid-900.ttf");
 
