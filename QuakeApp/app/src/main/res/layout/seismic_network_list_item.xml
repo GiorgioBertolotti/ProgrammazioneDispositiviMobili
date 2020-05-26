@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_item_sn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/sni_chevron_right"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sni_doi"
+                style="@style/Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="31dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/sn_doi"
+                android:textColor="@color/black_60" />
+
+            <TextView
+                android:id="@+id/sni_fdsn_code"
+                style="@style/Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/sn_fdsn_code" />
+        </LinearLayout>
+
+        <info.androidhive.fontawesome.FontTextView
+            android:id="@+id/sni_chevron_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:text="@string/fa_chevron_right_solid"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:solid_icon="true" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/sni_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/black_08" />
+</LinearLayout>

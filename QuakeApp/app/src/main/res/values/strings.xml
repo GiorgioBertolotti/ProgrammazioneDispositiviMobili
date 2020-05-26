@@ -133,4 +133,8 @@
 
     <!-- SEISMIC NETWORKS -->
     <string name="loading_seismic_networks">Sto caricando le reti sismiche</string>
+    <string name="fragment_seismic_network_list_filtri">Filtri</string>
+    <string name="sn_doi">DOI</string>
+    <string name="sn_fdsn_code">FDSN_CODE</string>
+    <string name="numb_seismic_networks">3 reti sismiche</string>
 </resources>
