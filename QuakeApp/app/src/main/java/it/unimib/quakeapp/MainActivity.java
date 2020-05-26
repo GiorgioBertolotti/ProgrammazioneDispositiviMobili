@@ -120,6 +120,10 @@ public class MainActivity extends AppCompatActivity
                 Intent intentSettings = new Intent(this, Settings.class);
                 startActivity(intentSettings);
                 break;
+            case R.id.nav_seismic_network:
+                getSupportActionBar().setTitle(getString(R.string.menu_seismic_network));
+                navigateTo(new SeismicNetworkList());
+                break;
             default:
                 break;
         }

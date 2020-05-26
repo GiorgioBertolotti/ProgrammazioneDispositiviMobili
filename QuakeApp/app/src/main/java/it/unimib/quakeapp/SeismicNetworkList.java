@@ -2,6 +2,7 @@ package it.unimib.quakeapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
@@ -35,7 +36,7 @@ import okhttp3.Response;
 
 import static it.unimib.quakeapp.MainActivity.TAG;
 
-public class SeismicNetworkList extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private final String SEISMIC_NETWORK_REQUEST_URL = "https://www.fdsn.org/ws/networks/1/query?format=geojson";
     private final int SEISMIC_NETWORK_PER_REQUEST = 20;
@@ -45,9 +46,8 @@ public class SeismicNetworkList extends AppCompatActivity implements AdapterView
     private ListView seismicNetworkList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_seismic_network_list);
 
         String url = String.format("%s&limit=%s", SEISMIC_NETWORK_REQUEST_URL, SEISMIC_NETWORK_PER_REQUEST);
 
@@ -63,9 +63,9 @@ public class SeismicNetworkList extends AppCompatActivity implements AdapterView
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        this.seismicNetworkList = getView().findViewById(R.id.seismic_network_list);
+        this.seismicNetworkList = view.findViewById(R.id.seismic_network_list);
 
-        this.listAdapter = new SeismicNetworkAdapter(getContext());
+        this.listAdapter = new SeismicNetworkAdapter(view.getContext());
         this.seismicNetworkList.setAdapter(this.listAdapter);
     }
 
@@ -140,9 +140,6 @@ public class SeismicNetworkList extends AppCompatActivity implements AdapterView
 
                     listAdapter.clear();
 
-                    if (adapter != null) {
-                        adapter.notifyDataSetChanged();
-                    }
                 } catch (Exception e) {
                     Log.e(TAG, e.getMessage());
                 }
@@ -150,10 +147,6 @@ public class SeismicNetworkList extends AppCompatActivity implements AdapterView
 
             if (this.loading && progressDialog != null) {
                 progressDialog.dismiss();
-            }
-
-            if (callback != null) {
-                callback.apply(null);
             }
         }
     }
