@@ -131,6 +131,6 @@
     <string name="alert">ALLERTA</string>
     <string name="emergency">EMERGENZA</string>
 
-    <!-- DEFAULT COUNTRY -->
-    <string name="default_country">Francia</string>
+    <!-- SEISMIC NETWORKS -->
+    <string name="loading_seismic_networks">Sto caricando le reti sismiche</string>
 </resources>
