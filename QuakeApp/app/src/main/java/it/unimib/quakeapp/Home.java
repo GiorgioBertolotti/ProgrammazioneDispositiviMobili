@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -97,6 +98,17 @@ public class Home extends Fragment {
         aoiAdapter = new AOIAdapter(getContext(), arrCountries);
         ListView aoiList = root.findViewById(R.id.home_aoi_list);
         aoiList.setAdapter(aoiAdapter);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        Button behaviorBtn = getView().findViewById(R.id.home_button_view);
+        behaviorBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Behavior.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     public void deleteAoi(String country) {

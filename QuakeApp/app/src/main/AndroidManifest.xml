@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Behavior"></activity>
         <activity android:name=".SeismicNetworkList" />
         <activity
             android:name=".CountryList"
