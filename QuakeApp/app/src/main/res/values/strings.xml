@@ -63,6 +63,13 @@
     <string name="toggle_question">Apri/Chiudi</string>
     <string name="epicenter_image">Immagine epicentro/ipocentro</string>
     <string name="question1">Quale associazione fornisce i <b>dati</b>?</string>
+    <string name="answer1">I dati presenti nell\'applicazione sono forniti da <b>USGS</b>.
+        Lo <b>United States Geological Survey (USGS)</b> è un\'agenzia scientifica del Governo degli USA.
+        L\'USGS è un organismo operativo e di ricerca, privo di poteri legali (non ha responsabilità normative)
+        che esegue ricerche sui fatti oggettivi relativi all\'ambiente.
+        L\'USGS gestisce il <b>National Earthquake Information Center</b> con sede a Golden (Colorado),
+        organismo in grado di individuare la posizione e la magnitudo dei terremoti di tutto il mondo.
+        Il motto dell\'USGS è <i>\"science for a changing world\"</i> (la scienza per un mondo in cambiamento).</string>
     <string name="question_Richter">Cosa colcola l\'indice <b>Richter</b>?</string>
     <string name="answer_Richter"><b>L\'indice Richter fornisce una valutazione obiettiva (magnitudo)
         della quantità di energia liberata.</b> \n
@@ -99,9 +106,19 @@
         <b>L\’epicentro</b> è invece il punto della superficie terrestre situato sulla verticale
         dell\’ipocentro. Se dall\’ipocentro si tracciasse una linea verticale, questa incontrerebbe
         la superficie in quello che noi chiamiamo epicentro.</string>
-    <string name="question6">Come aggiungo una citta alla mia <b>area di interesse</b>?</string>
-    <string name="question7">Come faccio a rimuovo una città dalla mia <b>area di interesse</b>?</string>
+    <string name="question6">Come aggiungo un Paese alla sezione <b>aree di interesse</b>?</string>
+    <string name="answer6" >Per <b>aggiungere</b> un Paese alle proprie <i>Aree di interesse</i> bisogna cliccare
+        sul pulsante \'<b>+</b>\' accanto alla scritta \"<i>Aree di interesse</i>\" all\'interno della Home; a questo
+        punto si aprirà una pagina che permetterà la ricerca del Paese da <b>aggiungere</b> desiderato.</string>
+    <string name="question7">Come faccio a rimuovere un Paese dalla sezione <b>aree di interesse</b>?</string>
+    <string name="answer7">Per <b>rimuovere</b> un Paese dalla sezione riguardante le proprie <i>Aree di interesse</i>
+    bisogna cliccare sull\'icona a forma di cestino accanto al Paese che si vuole <b>eliminare</b> direttamente
+        dalla Home; in alternativa, è possibile cliccare sul pulsante \'<b>+</b>\' accanto alla scritta \"<i>Aree di interesse</i>\"
+    sempre all\'interno della Home; a questo punto si può <b>cancellare</b> dalla propria <i>Aree di interesse</i>
+    il Paese desiderato semplicemente selezionando l\'icona a forma di cestino che compare in corrispondenza
+        del Paese in questione.</string>
     <string name="question8">Cosa indicano gli stati <b>sicuro</b>, <b>allerta</b> e <b>emergenza</b>?</string>
+    <string name="answer8" />
 
     <!-- BOTTOM SHEET -->
     <string name="bs_epicenter">Epicentro</string>
@@ -138,7 +155,7 @@
     <string name="sn_fdsn_code">FDSN_CODE</string>
     <string name="numb_seismic_networks">3 reti sismiche</string>
 
-    <!-- Misure di Sicurezza -->
+    <!-- SAFETY MEASURES -->
     <string name="outdoor_behavior"><b>Allontanati da costruzioni e linee elettriche.</b>\n\n<b>Stai lontano da impianti industriali.</b>\n\n<b>Stai lontano dai margini</b> dei laghi e delle spiaggie marinne, si possono verificare onde di tsunami.\n\n<b>Raggiungi le aree di attesa</b> individuate dal piano di emmergenza comunale.\n\n<b>Evita di usare il telefono e l\'automobile</b>, è necessario lasciare le linee telefoniche e le strade libere per non intralciare i soccorsi.\n\n<b>In auto non sostare in prossimità di ponti, terreni franosi e spiagge</b></string>
     <string name="indoor_behavior"><b>Cerca riparo nel vano di una porta</b> inserita in un muro portante o sotto una trave che ti può proteggere da eventuali crolli.\n\n<b>Riparati sotto un tavolo</b>, è pericoloso stare vicino a mobili, oggetti pesanti e vetri che potrebbero cadere.\n\n<b>Non precipitarti verso le scale o l\'ascensore</b>, talvolte le scale sono la parte più debole dell\'edificio. L\'ascensore può bloccarsi.\n\n<b>Tieni in casa una cassetta di primo soccorso</b> e assicurati che ogni componente della famiglia sappia dove è riposta</string>
     <string name="behavior_aperto">Se ti trovi in un luogo <b>aperto</b></string>

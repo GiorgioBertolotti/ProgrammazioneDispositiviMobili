@@ -53,12 +53,12 @@
 
             <TextView
                 android:id="@+id/faq_answer1"
+                style="@style/Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
-                style="@style/Body1"
                 android:padding="16dp"
-                android:text="la risposta"
+                android:text="@string/answer1"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -104,10 +104,10 @@
 
             <TextView
                 android:id="@+id/faq_answer2"
+                style="@style/Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
-                style="@style/Body1"
                 android:padding="16dp"
                 android:text="@string/answer_Richter"
                 android:visibility="gone" />
@@ -155,10 +155,10 @@
 
             <TextView
                 android:id="@+id/faq_answer3"
+                style="@style/Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
-                style="@style/Body1"
                 android:padding="16dp"
                 android:text="@string/answer_Mercalli"
                 android:visibility="gone" />
@@ -633,10 +633,10 @@
 
             <TextView
                 android:id="@+id/faq_answer5"
+                style="@style/Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
-                style="@style/Body1"
                 android:padding="16dp"
                 android:text="@string/answer5"
                 android:visibility="gone" />
@@ -693,12 +693,12 @@
 
             <TextView
                 android:id="@+id/faq_answer6"
+                style="@style/Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
-                style="@style/Body1"
                 android:padding="16dp"
-                android:text="la risposta"
+                android:text="@string/answer6"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -744,12 +744,12 @@
 
             <TextView
                 android:id="@+id/faq_answer7"
+                style="@style/Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
-                style="@style/Body1"
                 android:padding="16dp"
-                android:text="la risposta"
+                android:text="@string/answer7"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -796,16 +796,13 @@
 
             <TextView
                 android:id="@+id/faq_answer8"
+                style="@style/Body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primaryColor_08"
-                style="@style/Body1"
                 android:padding="16dp"
-                android:text="la risposta"
+                android:text="@string/answer8"
                 android:visibility="gone" />
-
         </LinearLayout>
-
     </LinearLayout>
-
 </ScrollView>
