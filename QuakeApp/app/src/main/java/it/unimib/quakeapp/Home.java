@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,8 +23,12 @@ import androidx.annotation.RequiresApi;
 import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -33,7 +38,9 @@ public class Home extends Fragment {
     final private int AOI_CODE = 1;
     private AOIAdapter aoiAdapter;
     private Set<String> arrCountries = new TreeSet<>();
+    private ListView earthquakeList;
     private EarthquakeListRetriever retriever;
+    private EarthquakeAdapter listAdapter;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -57,8 +64,13 @@ public class Home extends Fragment {
             @Override
             public Object apply(Object input) {
                 aoiAdapter.notifyDataSetChanged();
+                for (int i =0; i < Math.min(10,retriever.earthquakes.size()); i++){
+                    listAdapter.addItem(retriever.earthquakes.get(i));
+                }
+                listAdapter.notifyDataSetChanged();
                 return null;
             }
+
         });
     }
 
@@ -92,13 +104,13 @@ public class Home extends Fragment {
             }
         });
 
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         arrCountries = sharedPreferences.getStringSet("areasOfInterest", new TreeSet<String>());
 
         aoiAdapter = new AOIAdapter(getContext(), arrCountries);
         ListView aoiList = root.findViewById(R.id.home_aoi_list);
         aoiList.setAdapter(aoiAdapter);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         Button behaviorBtn = getView().findViewById(R.id.home_button_view);
         behaviorBtn.setOnClickListener(new View.OnClickListener(){
@@ -108,6 +120,12 @@ public class Home extends Fragment {
                 startActivity(intent);
             }
         });
+
+        this.earthquakeList = getView().findViewById(R.id.home_earthquake_list);
+
+        this.listAdapter = new EarthquakeAdapter(getContext());
+        this.earthquakeList.setAdapter(this.listAdapter);
+
     }
 
     public void deleteAoi(String country) {
@@ -216,4 +234,81 @@ public class Home extends Fragment {
             return listItem;
         }
     }
+    public class EarthquakeAdapter extends BaseAdapter {
+
+        private ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
+        private LayoutInflater mInflater;
+
+        public EarthquakeAdapter(Context context) {
+            mInflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        public void clear() {
+            earthquakes.clear();
+        }
+
+        public void addItem(final Earthquake item) {
+            earthquakes.add(item);
+            notifyDataSetChanged();
+        }
+
+
+        @Override
+        public int getCount() {
+            return earthquakes.size();
+        }
+
+        @Override
+        public Earthquake getItem(int position) {
+            return earthquakes.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final Earthquake earthquake = earthquakes.get(position);
+
+                    convertView = mInflater.inflate(R.layout.earthquake_list_item, null);
+
+                    TextView eqiDate = convertView.findViewById(R.id.eqi_date);
+                    TextView eqiLocation = convertView.findViewById(R.id.eqi_location);
+                    TextView eqiRichterMag = convertView.findViewById(R.id.eqi_richter_mag);
+                    TextView eqiMercalliMag = convertView.findViewById(R.id.eqi_mercalli_mag);
+                    View eqiDivider = convertView.findViewById(R.id.eqi_divider);
+
+                    final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                    eqiDate.setText(sdf.format(earthquake.time));
+
+                    eqiLocation.setText(earthquake.getPlaceDescWithoutKm());
+
+                    final String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
+                    final String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
+                    eqiRichterMag.setText(String.format("%s Richter", richter));
+                    eqiMercalliMag.setText(String.format("%s Mercalli", mercalli));
+
+                  final View openBottomSheet = convertView.findViewById(R.id.layout_item);
+                    openBottomSheet.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            BottomSheet bottomSheet = new BottomSheet(earthquake);
+                            bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
+                        }
+                    });
+
+            return convertView;
+        }
+
+        boolean isSameDay(Date date1, Date date2) {
+            SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+            return fmt.format(date1).equals(fmt.format(date2));
+        }
+
+        String capitalizeFirst(String text) {
+            return text.substring(0, 1).toUpperCase() + text.substring(1);
+        }
+    }
+
 }

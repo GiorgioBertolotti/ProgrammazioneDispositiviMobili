@@ -150,6 +150,7 @@
     <string name="safe">SICURO</string>
     <string name="alert">ALLERTA</string>
     <string name="emergency">EMERGENZA</string>
+    <string name="home_recent_list_view">Recenti</string>
 
     <!-- SEISMIC NETWORKS -->
     <string name="loading_seismic_networks">Sto caricando le reti sismiche</string>

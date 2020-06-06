@@ -117,7 +117,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                filtersDrawer.openDrawer(Gravity.RIGHT, false);
             }
         });
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
        rangeSeekbar = getView().findViewById(R.id.elfs_range_seekbar);
         final TextView minMagnitude = getView().findViewById(R.id.elfs_seekbar_min);
         final TextView maxMagnitude = getView().findViewById(R.id.elfs_seekbar_max);
@@ -225,7 +225,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                 showDialog();
             }
         });
-///////////////////////////////////////////////////////////////////////////
+
 
         this.pullToRefresh = getView().findViewById(R.id.pull_to_refresh);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -260,7 +260,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private void showDatePickerDialogue(){
         DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(),this,
                 Calendar.getInstance().get(Calendar.YEAR),
@@ -325,9 +325,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         dialog.show();
     }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
+    class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
         private String url;
         private boolean loading;
         ProgressDialog progressDialog;

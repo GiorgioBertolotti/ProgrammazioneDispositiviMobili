@@ -32,7 +32,7 @@ public class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
     public List<Earthquake> earthquakes = new ArrayList<>();
     private BaseAdapter adapter;
     private Context context;
-    private String url;
+    protected String url;
     private boolean loading;
     private ProgressDialog progressDialog;
     private Function callback;
