@@ -52,7 +52,7 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        retriever = EarthquakeListRetriever.getInstance();
+        retriever = new EarthquakeListRetriever();
         retriever.retrieve(getContext(), null, new Function() {
             @Override
             public Object apply(Object input) {
@@ -106,7 +106,6 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Behavior.class);
                 startActivity(intent);
-
             }
         });
     }

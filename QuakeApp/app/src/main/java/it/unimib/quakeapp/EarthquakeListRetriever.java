@@ -37,16 +37,6 @@ public class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
     private ProgressDialog progressDialog;
     private Function callback;
 
-    private static EarthquakeListRetriever instance = null;
-
-    public static EarthquakeListRetriever getInstance() {
-        if (instance == null) {
-            instance = new EarthquakeListRetriever();
-        }
-
-        return instance;
-    }
-
     public void retrieve(@NonNull Context context, BaseAdapter adapter, Function callback) {
         this.adapter = adapter;
         this.context = context;
