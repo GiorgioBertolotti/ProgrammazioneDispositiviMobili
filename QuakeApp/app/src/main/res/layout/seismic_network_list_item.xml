@@ -14,11 +14,30 @@
         android:padding="16dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/sni_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/sni_icon_background"
+            android:gravity="center">
+
+            <info.androidhive.fontawesome.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fa_project_diagram_solid"
+                android:textColor="@color/primaryColor"
+                android:textSize="14sp"
+                app:solid_icon="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toStartOf="@id/sni_chevron_right"
+            android:layout_toEndOf="@id/sni_icon"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
