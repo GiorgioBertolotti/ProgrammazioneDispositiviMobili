@@ -153,7 +153,9 @@
     <string name="fragment_seismic_network_list_filtri">Filtri</string>
     <string name="sn_doi">DOI</string>
     <string name="sn_fdsn_code">FDSN_CODE</string>
-    <string name="numb_seismic_networks">3 reti sismiche</string>
+    <string name="sn_fdsn_code_inline">FDSN: %s</string>
+    <string name="num_seismic_networks">%s reti sismiche</string>
+    <string name="sn_search_hint">Cerca...</string>
 
     <!-- SAFETY MEASURES -->
     <string name="outdoor_behavior"><b>Allontanati da costruzioni e linee elettriche.</b>\n\n<b>Stai lontano da impianti industriali.</b>\n\n<b>Stai lontano dai margini</b> dei laghi e delle spiaggie marinne, si possono verificare onde di tsunami.\n\n<b>Raggiungi le aree di attesa</b> individuate dal piano di emmergenza comunale.\n\n<b>Evita di usare il telefono e l\'automobile</b>, è necessario lasciare le linee telefoniche e le strade libere per non intralciare i soccorsi.\n\n<b>In auto non sostare in prossimità di ponti, terreni franosi e spiagge</b></string>

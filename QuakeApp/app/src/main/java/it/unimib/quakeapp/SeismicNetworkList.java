@@ -1,20 +1,28 @@
 package it.unimib.quakeapp;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,8 +35,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TreeSet;
 
+import it.unimib.quakeapp.models.Earthquake;
 import it.unimib.quakeapp.models.SeismicNetwork;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,23 +48,29 @@ import static it.unimib.quakeapp.MainActivity.TAG;
 
 public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private final String SEISMIC_NETWORK_REQUEST_URL = "https://www.fdsn.org/ws/networks/1/query?format=geojson";
-    private final int SEISMIC_NETWORK_PER_REQUEST = 20;
-    private int snLoaded = 0;
-    private SeismicNetworkList.SeismicNetworkAdapter listAdapter;
+    private SeismicNetworkAdapter listAdapter;
     private SwipeRefreshLayout pullToRefresh;
     private ListView seismicNetworkList;
+    private SeismicNetworkListRetriever retriever;
+    private TextView tvNumSN;
+    private String filterText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String url = String.format("%s&limit=%s", SEISMIC_NETWORK_REQUEST_URL, SEISMIC_NETWORK_PER_REQUEST);
+        retriever = new SeismicNetworkListRetriever();
+        retriever.retrieve(getContext(), null, new Function() {
+            @Override
+            public Object apply(Object input) {
+                if (tvNumSN != null) {
+                    tvNumSN.setText(String.format(getString(R.string.num_seismic_networks), String.valueOf(retriever.seismicNetworks().size())));
+                }
 
-        final SeismicNetworkListRetriever retriever = new SeismicNetworkListRetriever(url);
-        retriever.execute();
-
-        snLoaded += SEISMIC_NETWORK_PER_REQUEST;
+                listAdapter.notifyDataSetChanged();
+                return null;
+            }
+        });
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,10 +79,56 @@ public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSe
     }
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        this.tvNumSN = getActivity().findViewById(R.id.sn_num_seismic_networks);
+        tvNumSN.setText(String.format(getString(R.string.num_seismic_networks), "0"));
+
         this.seismicNetworkList = view.findViewById(R.id.seismic_network_list);
 
         this.listAdapter = new SeismicNetworkAdapter(view.getContext());
         this.seismicNetworkList.setAdapter(this.listAdapter);
+
+        this.pullToRefresh = getView().findViewById(R.id.sn_pull_to_refresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                retriever = new SeismicNetworkListRetriever();
+                retriever.retrieve(getContext(), null, false, new Function() {
+                    @Override
+                    public Object apply(Object input) {
+                        if (tvNumSN != null) {
+                            tvNumSN.setText(String.format(getString(R.string.num_seismic_networks), String.valueOf(retriever.seismicNetworks().size())));
+                        }
+
+                        listAdapter.notifyDataSetChanged();
+
+                        pullToRefresh.setRefreshing(false);
+                        return null;
+                    }
+                });
+            }
+        });
+
+        EditText snSearch = getView().findViewById(R.id.sn_search);
+        snSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                retriever.setFilter(charSequence.toString());
+                if (tvNumSN != null) {
+                    tvNumSN.setText(String.format(getString(R.string.num_seismic_networks), String.valueOf(retriever.seismicNetworks().size())));
+                }
+                listAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
@@ -79,126 +141,29 @@ public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSe
 
     }
 
-    private class SeismicNetworkListRetriever extends AsyncTask<Void, Void, String> {
-        private String url;
-        private boolean loading;
-        ProgressDialog progressDialog;
-
-        public SeismicNetworkListRetriever(String url) {
-            this.url = url;
-            this.loading = true;
-        }
-
-        public SeismicNetworkListRetriever(String url, boolean loading) {
-            this.url = url;
-            this.loading = loading;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            if (this.loading) {
-                progressDialog = ProgressDialog.show(getContext(),
-                        getString(R.string.load),
-                        getString(R.string.loading_seismic_networks));
-            }
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            OkHttpClient client = new OkHttpClient();
-
-            Request request = new Request.Builder()
-                    .url(this.url)
-                    .build();
-
-            try (Response response = client.newCall(request).execute()) {
-                if (response.isSuccessful()) {
-                    return response.body().string();
-                } else {
-                    return null;
-                }
-            } catch (IOException e) {
-                Log.e(TAG, e.getMessage());
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result != null) {
-                try {
-                    JSONObject root = new JSONObject(result);
-                    JSONArray networks = root.getJSONArray("network");
-
-                    List<SeismicNetwork> seismicNetworks = new ArrayList<>();
-
-                    for (int i = 0; i < networks.length(); i++) {
-                        JSONObject network = networks.getJSONObject(i);
-                        SeismicNetwork sn = new SeismicNetwork(network);
-                        seismicNetworks.add(sn);
-                    }
-
-                    listAdapter.clear();
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                }
-            }
-
-            if (this.loading && progressDialog != null) {
-                progressDialog.dismiss();
-            }
-        }
-    }
-
     public class SeismicNetworkAdapter extends BaseAdapter {
-        private static final int TYPE_ITEM = 0;
-        private static final int TYPE_HEADER = 1;
-
-        private ArrayList<SeismicNetwork> seismicNetworks = new ArrayList<>();
-        private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
-
         private LayoutInflater mInflater;
+        private Context mContext;
 
         public SeismicNetworkAdapter(Context context) {
             mInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-
-        public void clear() {
-            seismicNetworks.clear();
-            sectionHeader.clear();
-        }
-
-        public void addItem(final SeismicNetwork item) {
-            seismicNetworks.add(item);
-            notifyDataSetChanged();
-        }
-
-        public void addSectionHeaderItem(final SeismicNetwork item) {
-            seismicNetworks.add(item);
-            sectionHeader.add(seismicNetworks.size() - 1);
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            return sectionHeader.contains(position) ? TYPE_HEADER : TYPE_ITEM;
+            mContext = context;
         }
 
         @Override
         public int getViewTypeCount() {
-            return 2;
+            return 1;
         }
 
         @Override
         public int getCount() {
-            return seismicNetworks.size();
+            return retriever.seismicNetworks().size();
         }
 
         @Override
         public SeismicNetwork getItem(int position) {
-            return seismicNetworks.get(position);
+            return retriever.seismicNetworks().get(position);
         }
 
         @Override
@@ -207,35 +172,32 @@ public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSe
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            int rowType = getItemViewType(position);
-            final SeismicNetwork seismicNetwork = seismicNetworks.get(position);
+            View listItem = convertView;
+            if (listItem == null) {
+                listItem = LayoutInflater.from(mContext).inflate(R.layout.seismic_network_list_item, parent, false);
+            }
 
-            switch (rowType) {
-                case TYPE_ITEM: {
-                    convertView = mInflater.inflate(R.layout.seismic_network_list_item, null);
+            final SeismicNetwork seismicNetwork = getItem(position);
 
-                    TextView snDoi = convertView.findViewById(R.id.sni_doi);
-                    TextView snFdsnCode = convertView.findViewById(R.id.sni_fdsn_code);
-
-                    View eqiDivider = convertView.findViewById(R.id.sni_divider);
-
-                    snDoi.setText(seismicNetwork.doi);
-                    snFdsnCode.setText(seismicNetwork.fdsnCode);
-
-                    if (position == seismicNetworks.size() - 1 || (seismicNetworks.size() > position + 1 && getItemViewType(position + 1) == TYPE_HEADER)) {
-                        eqiDivider.setVisibility(View.GONE);
-                    }
-                    break;
-                }
-                case TYPE_HEADER: {
-                    convertView = mInflater.inflate(R.layout.earthquake_list_header, null);
-
-                    TextView snHeaderTitle = convertView.findViewById(R.id.sn_header_title);
-                    snHeaderTitle.setText("????");
-                    break;
+            if (filterText != null && !filterText.isEmpty()) {
+                if (!seismicNetwork.doi.contains(filterText) && !seismicNetwork.fdsnCode.contains(filterText)) {
+                    return null;
                 }
             }
-            return convertView;
+
+            TextView snDoi = listItem.findViewById(R.id.sni_doi);
+            TextView snFdsnCode = listItem.findViewById(R.id.sni_fdsn_code);
+
+            View eqiDivider = listItem.findViewById(R.id.sni_divider);
+
+            snDoi.setText(seismicNetwork.doi);
+            snFdsnCode.setText(String.format(getString(R.string.sn_fdsn_code_inline), seismicNetwork.fdsnCode));
+
+            if (position == retriever.seismicNetworks().size() - 1) {
+                eqiDivider.setVisibility(View.GONE);
+            }
+
+            return listItem;
         }
     }
 }

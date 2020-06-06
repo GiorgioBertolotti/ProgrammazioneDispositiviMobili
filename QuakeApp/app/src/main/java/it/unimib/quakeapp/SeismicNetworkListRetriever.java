@@ -31,7 +31,8 @@ public class SeismicNetworkListRetriever extends AsyncTask<Void, Void, String> {
     private final int SEISMIC_NETWORK_PER_REQUEST = 20;
     private int snLoaded = 0;
 
-    public List<SeismicNetwork> seismicNetworks = new ArrayList<>();
+    private List<SeismicNetwork> _seismicNetworks = new ArrayList<>();
+    private List<SeismicNetwork> _filteredSeismicNetworks = null;
     private BaseAdapter adapter;
     private Context context;
     private String url;
@@ -39,14 +40,28 @@ public class SeismicNetworkListRetriever extends AsyncTask<Void, Void, String> {
     private ProgressDialog progressDialog;
     private Function callback;
 
-
-    private static SeismicNetworkListRetriever instance = null;
-
-    public static SeismicNetworkListRetriever getInstance() {
-        if (instance == null) {
-            instance = new SeismicNetworkListRetriever();
+    public List<SeismicNetwork> seismicNetworks() {
+        if (_filteredSeismicNetworks != null) {
+            return _filteredSeismicNetworks;
         }
-        return instance;
+
+        return _seismicNetworks;
+    }
+
+    public void setFilter(String filterText) {
+        if (filterText == null || filterText.isEmpty()) {
+            _filteredSeismicNetworks = null;
+            return;
+        }
+
+        _filteredSeismicNetworks = new ArrayList<>();
+
+        for (SeismicNetwork seismicNetwork : _seismicNetworks) {
+            if (seismicNetwork.doi.toLowerCase().contains(filterText.toLowerCase())
+                    || seismicNetwork.fdsnCode.toLowerCase().contains(filterText.toLowerCase())) {
+                _filteredSeismicNetworks.add(seismicNetwork);
+            }
+        }
     }
 
     public void retrieve(@NonNull Context context, BaseAdapter adapter, androidx.arch.core.util.Function callback) {
@@ -54,6 +69,15 @@ public class SeismicNetworkListRetriever extends AsyncTask<Void, Void, String> {
         this.context = context;
         this.url = String.format("%s&limit=%s", SEISMIC_NETWORK_REQUEST_URL, SEISMIC_NETWORK_PER_REQUEST);
         this.loading = true;
+        this.callback = callback;
+        this.execute();
+    }
+
+    public void retrieve(@NonNull Context context, BaseAdapter adapter, boolean loading, androidx.arch.core.util.Function callback) {
+        this.adapter = adapter;
+        this.context = context;
+        this.url = String.format("%s&limit=%s", SEISMIC_NETWORK_REQUEST_URL, SEISMIC_NETWORK_PER_REQUEST);
+        this.loading = loading;
         this.callback = callback;
         this.execute();
     }
@@ -90,14 +114,14 @@ public class SeismicNetworkListRetriever extends AsyncTask<Void, Void, String> {
         if (result != null) {
             try {
                 JSONObject root = new JSONObject(result);
-                JSONArray networks = root.getJSONArray("network");
+                JSONArray networks = root.getJSONArray("networks");
 
-                seismicNetworks = new ArrayList<>();
+                _seismicNetworks = new ArrayList<>();
 
                 for (int i = 0; i < networks.length(); i++) {
                     JSONObject network = networks.getJSONObject(i);
                     SeismicNetwork sn = new SeismicNetwork(network);
-                    seismicNetworks.add(sn);
+                    _seismicNetworks.add(sn);
                 }
 
                 if (adapter != null) {

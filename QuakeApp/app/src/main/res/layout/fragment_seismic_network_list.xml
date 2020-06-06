@@ -1,124 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout_seismic_network_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".SeismicNetworkList">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        tools:context=".SeismicNetworkList">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:background="@color/white"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingStart="10dp">
-
-                    <Spinner
-                        android:id="@+id/order"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingTop="12dp"
-                        android:paddingEnd="30dp"
-                        android:spinnerMode="dropdown" />
-
-                    <info.androidhive.fontawesome.FontTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="16dp"
-                        android:paddingStart="66dp"
-                        android:text="@string/fa_chevron_down_solid"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        app:solid_icon="true" />
-
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/filter_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingEnd="6dp">
-
-                    <TextView
-                        style="@style/Body1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="14dp"
-                        android:paddingEnd="4dp"
-                        android:text="@string/fragment_seismic_network_list_filtri" />
-
-                    <info.androidhive.fontawesome.FontTextView
-                        android:id="@+id/filter_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="4dp"
-                        android:paddingTop="16dp"
-                        android:paddingEnd="16dp"
-                        android:text="@string/fa_filter_solid"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        app:solid_icon="true" />
-
-                    <TextView
-                        android:id="@+id/number_filters_applied"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/filter_numbers_circle"
-                        android:paddingStart="4dp"
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/sn_pull_to_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ListView
-                android:id="@+id/seismic_network_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:dividerHeight="0dp" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    </LinearLayout>
-
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/filters_window"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
 
-        <include layout="@layout/eartquake_list_filters" />
-    </com.google.android.material.navigation.NavigationView>
-</androidx.drawerlayout.widget.DrawerLayout>
+        <TextView
+            android:id="@+id/sn_num_seismic_networks"
+            style="@style/Body1Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:paddingTop="14dp"
+            android:paddingEnd="4dp"
+            android:text="@string/num_seismic_networks" />
+
+        <EditText
+            android:id="@+id/sn_search"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:hint="@string/sn_search_hint"
+            android:inputType="text" />
+    </RelativeLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sn_pull_to_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/seismic_network_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

@@ -3,7 +3,10 @@ package it.unimib.quakeapp.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class SeismicNetwork {
     public String doi;
@@ -12,15 +15,17 @@ public class SeismicNetwork {
     public String fdsnCode;
     public Date startDate;
 
-    public SeismicNetwork(JSONObject network) throws NullPointerException, JSONException {
+    public SeismicNetwork(JSONObject network) throws NullPointerException, JSONException, ParseException {
         if (network == null) {
             throw new NullPointerException("Feature JSON should not be null");
         }
 
         this.doi = network.getString("doi");
-        this.endDate = new Date(network.getLong("end_date"));
+        if (!network.isNull("end_date")) {
+            this.endDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(network.getString("end_date"));
+        }
         this.name = network.getString("name");
         this.fdsnCode = network.getString("fdsn_code");
-        this.startDate = new Date(network.getLong("start_date"));
+        this.startDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(network.getString("start_date"));
     }
 }
