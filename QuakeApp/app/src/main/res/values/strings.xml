@@ -165,4 +165,6 @@
     <string name="behavior_chiuso">Se ti trovi in un luogo <b>chiuso</b></string>
     <string name="behavior_after"><b>Dopo</b> un terremoto</string>
     <string name="behavior_dopo">Assicurati della salute delle persone intorno a te, se necessario, presta i primi soccorsi.\n\nEsci con prudenza, indossando le scarpe: in strada potresti ferirti con i vetri rotti.\n\nSe sei in una zona a rischio maremoto, allontanati dalla spiaggia e raggiungi un posto elevato.\n\nRaggiungi le aree di attesa previste dal Piano di protezione civile del tuo Comune.\n\nLimita, per quanto possibile, l’uso del telefono. Limita l’uso dell’auto per evitare di intralciare il passaggio dei mezzi di soccorso.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

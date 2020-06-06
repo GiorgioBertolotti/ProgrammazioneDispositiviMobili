@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Maps"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -25,6 +25,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
+        <activity android:name=".SeismicNetworkDetail" />
         <activity android:name=".Behavior" />
         <activity android:name=".CountryList" />
         <activity android:name=".Settings" />

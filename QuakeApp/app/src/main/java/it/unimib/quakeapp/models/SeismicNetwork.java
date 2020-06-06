@@ -3,12 +3,13 @@ package it.unimib.quakeapp.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class SeismicNetwork {
+public class SeismicNetwork implements Serializable {
     public String doi;
     public Date endDate;
     public String name;

@@ -5,10 +5,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -53,7 +57,6 @@ public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSe
     private ListView seismicNetworkList;
     private SeismicNetworkListRetriever retriever;
     private TextView tvNumSN;
-    private String filterText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,15 +83,26 @@ public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSe
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.tvNumSN = getActivity().findViewById(R.id.sn_num_seismic_networks);
-        tvNumSN.setText(String.format(getString(R.string.num_seismic_networks), "0"));
+        this.tvNumSN.setText(String.format(getString(R.string.num_seismic_networks), "0"));
 
         this.seismicNetworkList = view.findViewById(R.id.seismic_network_list);
 
         this.listAdapter = new SeismicNetworkAdapter(view.getContext());
         this.seismicNetworkList.setAdapter(this.listAdapter);
+        this.seismicNetworkList.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SeismicNetwork seismicNetwork = retriever.seismicNetworks().get(position);
+
+                Intent intentDetail = new Intent(getActivity(), SeismicNetworkDetail.class);
+                intentDetail.putExtra("seismicNetwork", seismicNetwork);
+                startActivity(intentDetail);
+            }
+        });
+
 
         this.pullToRefresh = getView().findViewById(R.id.sn_pull_to_refresh);
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        this.pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 retriever = new SeismicNetworkListRetriever();
@@ -178,12 +192,6 @@ public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSe
             }
 
             final SeismicNetwork seismicNetwork = getItem(position);
-
-            if (filterText != null && !filterText.isEmpty()) {
-                if (!seismicNetwork.doi.contains(filterText) && !seismicNetwork.fdsnCode.contains(filterText)) {
-                    return null;
-                }
-            }
 
             TextView snDoi = listItem.findViewById(R.id.sni_doi);
             TextView snFdsnCode = listItem.findViewById(R.id.sni_fdsn_code);
