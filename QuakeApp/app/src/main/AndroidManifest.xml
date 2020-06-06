@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.unimib.quakeapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,11 +13,20 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Behavior"></activity>
-        <activity android:name=".SeismicNetworkList" />
         <activity
-            android:name=".CountryList"
-            android:exported="true" />
+            android:name=".Maps"
+            android:exported="true"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".Behavior" />
+        <activity android:name=".CountryList" />
         <activity android:name=".Settings" />
         <activity android:name=".FAQ" />
         <activity android:name=".BugReport" />
