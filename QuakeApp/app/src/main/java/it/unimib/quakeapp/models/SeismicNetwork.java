@@ -18,7 +18,7 @@ public class SeismicNetwork implements Serializable {
 
     public SeismicNetwork(JSONObject network) throws NullPointerException, JSONException, ParseException {
         if (network == null) {
-            throw new NullPointerException("Feature JSON should not be null");
+            throw new NullPointerException("Network JSON should not be null");
         }
 
         this.doi = network.getString("doi");

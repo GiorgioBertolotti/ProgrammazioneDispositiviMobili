@@ -25,36 +25,31 @@ public class BugReport extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Editable body = input.getText();
-                inviaEmail(body);
+                sendEmail(body);
                 input.setText("");
             }
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-            default:
-                return true;
-        }
-    }
-
-
-    private void inviaEmail(Editable body) {
+    private void sendEmail(Editable body) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         String[] recipient = {"try@example.lol"};
-        // per assicurare che vengano utilizzate solo le email apps per inviare il report
+        // To be sure that the intent will open only email clients
         intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, recipient);
         intent.putExtra(Intent.EXTRA_SUBJECT, "Bug Report");
         intent.putExtra(Intent.EXTRA_TEXT, body);
-        // l'utente rientra nell'applicazione dopo aver usato email app
+        // The user gets back to the app after sending the mail
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        }
+        return true;
     }
 }

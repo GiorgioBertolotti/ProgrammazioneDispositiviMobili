@@ -14,7 +14,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import it.unimib.quakeapp.models.Earthquake;
@@ -58,7 +60,8 @@ public class SeismicNetworkListRetriever extends AsyncTask<Void, Void, String> {
 
         for (SeismicNetwork seismicNetwork : _seismicNetworks) {
             if (seismicNetwork.doi.toLowerCase().contains(filterText.toLowerCase())
-                    || seismicNetwork.fdsnCode.toLowerCase().contains(filterText.toLowerCase())) {
+                    || seismicNetwork.fdsnCode.toLowerCase().contains(filterText.toLowerCase())
+                    || seismicNetwork.name.toLowerCase().contains(filterText.toLowerCase())) {
                 _filteredSeismicNetworks.add(seismicNetwork);
             }
         }
@@ -116,13 +119,32 @@ public class SeismicNetworkListRetriever extends AsyncTask<Void, Void, String> {
                 JSONObject root = new JSONObject(result);
                 JSONArray networks = root.getJSONArray("networks");
 
-                _seismicNetworks = new ArrayList<>();
+                Map<String, SeismicNetwork> seismicNetworksMap = new HashMap<>();
 
                 for (int i = 0; i < networks.length(); i++) {
                     JSONObject network = networks.getJSONObject(i);
                     SeismicNetwork sn = new SeismicNetwork(network);
-                    _seismicNetworks.add(sn);
+
+                    if (seismicNetworksMap.containsKey(sn.fdsnCode)) {
+                        SeismicNetwork alreadyPresent = seismicNetworksMap.get(sn.fdsnCode);
+
+                        if (alreadyPresent.endDate == null
+                                && sn.endDate == null
+                                && alreadyPresent.startDate.before(sn.startDate)) {
+                            seismicNetworksMap.put(sn.fdsnCode, sn);
+                        } else if (alreadyPresent.endDate != null
+                                && sn.endDate == null) {
+                            seismicNetworksMap.put(sn.fdsnCode, sn);
+                        } else if (alreadyPresent.endDate.before(sn.endDate)) {
+                            seismicNetworksMap.put(sn.fdsnCode, sn);
+                        }
+                    } else {
+                        seismicNetworksMap.put(sn.fdsnCode, sn);
+                    }
                 }
+
+                _seismicNetworks = new ArrayList<>();
+                _seismicNetworks.addAll(seismicNetworksMap.values());
 
                 if (adapter != null) {
                     adapter.notifyDataSetChanged();

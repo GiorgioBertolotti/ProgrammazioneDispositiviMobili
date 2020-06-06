@@ -162,6 +162,29 @@
     <string name="num_seismic_networks">%s reti sismiche</string>
     <string name="sn_search_hint">Cerca...</string>
 
+    <!-- SEISMIC NETWORK DETAIL -->
+    <string name="loading_seismic_network">Sto caricando i dati della rete</string>
+    <string name="snd_title_default">Nome rete sismica</string>
+    <string name="snd_start_date">data inizio:</string>
+    <string name="snd_start_date_default">01/01/2000</string>
+    <string name="snd_end_date">data fine:</string>
+    <string name="snd_end_date_default">01/01/2000</string>
+    <string name="snd_end_date_empty">---</string>
+    <string name="snd_seismographs">Sismografi</string>
+    <string name="snd_seismographs_empty">Non ci sono informazioni riguardo i sismografi di questa rete…</string>
+    <string name="sndi_identify">Identifica</string>
+    <string name="sndi_latitude">Latitudine:</string>
+    <string name="sndi_latitude_default">0.0</string>
+    <string name="sndi_longitude">Longitudine:</string>
+    <string name="sndi_longitude_default">0.0</string>
+    <string name="sndi_elevation">Altitudine:</string>
+    <string name="sndi_elevation_default">0.0</string>
+    <string name="sndi_start_date">Data inizio:</string>
+    <string name="sndi_start_date_default">01/01/2000</string>
+    <string name="sndi_end_date">Data fine:</string>
+    <string name="sndi_end_date_default">01/01/2000</string>
+    <string name="sndi_end_date_empty">---</string>
+
     <!-- EARTHQUAKE LIST -->
     <string name="filtri">Filtri</string>
     <string name="m_richter">Magnitudo Richter</string>
@@ -186,7 +209,6 @@
     <string name="title_behavior">Misure di Sicurezza</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 
 </resources>
