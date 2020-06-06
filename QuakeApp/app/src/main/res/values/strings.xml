@@ -207,8 +207,15 @@
     <string name="behavior_after"><b>Dopo</b> un terremoto</string>
     <string name="behavior_dopo">Assicurati della salute delle persone intorno a te, se necessario, presta i primi soccorsi.\n\nEsci con prudenza, indossando le scarpe: in strada potresti ferirti con i vetri rotti.\n\nSe sei in una zona a rischio maremoto, allontanati dalla spiaggia e raggiungi un posto elevato.\n\nRaggiungi le aree di attesa previste dal Piano di protezione civile del tuo Comune.\n\nLimita, per quanto possibile, l’uso del telefono. Limita l’uso dell’auto per evitare di intralciare il passaggio dei mezzi di soccorso.</string>
     <string name="title_behavior">Misure di Sicurezza</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- RECENTI -->
+    <string name="recent_text_info">Tocca sull\'immagine per saperne di più.</string>
+    <string name="recent_today">Oggi</string>
+    <string name="recent_show_all_quakes">Visuallizza più terremoti</string>
+    <string name="recent_notable" >Degno di nota</string>
+    <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epcientro a</string>
+    <string name="recent_magnitude_eq" >Magnitudo: x scala Mercalli e y scala Richter</string>
+    <string name="recent_ipocenter_eq" >L\'ipocentro è stato a profondità di x km dalla superficie</string>
 
 
 </resources>

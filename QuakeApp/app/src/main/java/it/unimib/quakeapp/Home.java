@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,6 +87,14 @@ public class Home extends Fragment {
         //todayEQ.setText();
         TextView weekEQ = root.findViewById(R.id.home_number_tremors_week);
         //weekEQ.setText();
+
+        Button moreAbout = root.findViewById(R.id.home_button_more_about);
+        moreAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open recent!!
+            }
+        });
 
         Typeface fontAwesome = Typeface.createFromAsset(getActivity().getAssets(), "fa-solid-900.ttf");
 
