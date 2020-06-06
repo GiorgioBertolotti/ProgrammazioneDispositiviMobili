@@ -99,18 +99,18 @@ public class BottomSheet extends BottomSheetDialogFragment {
         }
 
         TextView richter = dialog.findViewById(R.id.bs_richter);
-        String richterText = "<b>" + this.getRichter() + "</b> indice Richter";
+        String richterText = "<b>" + this.getRichter() + "</b>" + getString(R.string.richter);
         richter.setText(Html.fromHtml(richterText));
 
         TextView mercalli = dialog.findViewById(R.id.bs_mercalli);
-        String mercalliText = "<b>" + this.getMercalli() + "</b> scala Mercalli";
+        String mercalliText = "<b>" + this.getMercalli() + "</b>" + getString(R.string.mercalli);
         mercalli.setText(Html.fromHtml(mercalliText));
 
         TextView coordinates = dialog.findViewById(R.id.bs_coordinates);
         coordinates.setText(this.getLat() + ", " + this.getLng());
 
         TextView depth = dialog.findViewById(R.id.bs_hypocenter_depth);
-        String depthText = "<b>" + this.getDepth() + " km</b> dalla superficie";
+        String depthText = "<b>" + this.getDepth() + " km</b>" + getString(R.string.from_surface);
         depth.setText(Html.fromHtml(depthText));
 
         TextView link = dialog.findViewById(R.id.bs_link);

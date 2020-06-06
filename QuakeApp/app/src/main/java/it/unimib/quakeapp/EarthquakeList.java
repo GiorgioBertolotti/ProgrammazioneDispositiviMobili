@@ -180,7 +180,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                        if(finalI== 1) {
                            DateFrom = dateToShow;
                            final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
-                           dateTag.setText("Da: " + dateToShow);
+                           dateTag.setText(getString(R.string.from)+ ": " + dateToShow);
                            dateTag.setVisibility(View.VISIBLE);
                        }
                        if(finalI == 0) {
@@ -188,7 +188,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
                                    (Calendar.getInstance().get(Calendar.MONTH) +1) + "-"+
                                    (Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+1);
                            final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
-                           dateTag.setText("A: " + dateToShow);
+                           dateTag.setText(getString(R.string.till)+ ": " + dateToShow);
                            dateTag.setVisibility(View.VISIBLE);
                        }
                    } else {
@@ -277,7 +277,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             final TextView dateText = getView().findViewById(R.id.elfs_from);
             dateText.setText(dateToShow);
             final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
-            dateTag.setText("Da: " + dateToShow);
+            dateTag.setText(getString(R.string.from) +": " + dateToShow);
             dateTag.setVisibility(View.VISIBLE);
             DateFrom = year + "-" + (month+1) + "-" + dayOfMonth;
         }
@@ -285,7 +285,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
             final TextView dateText = getView().findViewById(R.id.elfs_till);
             dateText.setText(dateToShow);
             final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
-            dateTag.setText("A: " + dateToShow);
+            dateTag.setText(getString(R.string.till)+ ": " + dateToShow);
             dateTag.setVisibility(View.VISIBLE);
             DateTill = year + "-" + (month+1) + "-" + (dayOfMonth + 1);
         }
@@ -315,8 +315,8 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this.getActivity());
         View mView = getLayoutInflater().inflate(R.layout.filter_dialog, null, false);
         mBuilder.setView(mView);
-        mBuilder.setTitle("Corrisposndenza Magnitudo Richter e Grado Mercalli");
-        mBuilder.setPositiveButton("CHIUDI", new DialogInterface.OnClickListener() {
+        mBuilder.setTitle(getString(R.string.richter_to_mercalli));
+        mBuilder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }

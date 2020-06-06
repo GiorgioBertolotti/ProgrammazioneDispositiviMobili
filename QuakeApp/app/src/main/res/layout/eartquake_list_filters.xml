@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Body1"
-        android:text="Filtri"/>
+        android:text="@string/filtri"/>
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         style="@style/Body1"
         android:padding="16dp"
-        android:text="Magnitudo Richter"/>
+        android:text="@string/m_richter"/>
 
         <LinearLayout
             android:id="@+id/elfs_information"
@@ -115,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Body1"
-        android:text="Da data"/>
+        android:text="@string/da_data"/>
 
 
     </LinearLayout>
@@ -126,7 +126,7 @@
         android:paddingStart="48dp"
         android:visibility="gone"
         android:clickable="true"
-        android:text="data"/>
+        android:text="@string/data"/>
 
     <View
         android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Body1"
-            android:text="A data" />
+            android:text="@string/a_data" />
     </LinearLayout>
     <TextView
         android:id="@+id/elfs_till"

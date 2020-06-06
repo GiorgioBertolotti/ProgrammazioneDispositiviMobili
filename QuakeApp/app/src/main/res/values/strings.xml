@@ -129,6 +129,9 @@
     <string name="news_two"><a href="http://www.corriere.it">Corriere della Sera</a></string>
     <string name="news_three"><a href="http://www.cnn.com">CNN News</a></string>
     <string name="more_about"><u>Scopri di più su questo terremoto!</u></string>
+    <string name="richter"><b> indice Richter</b></string>
+    <string name="mercalli"><b> scala Mercalli</b></string>
+    <string name="from_surface"><b> dalla superficie</b></string>
 
     <!-- DASHBOARD -->
     <string name="home_last">Recenti</string>
@@ -158,6 +161,20 @@
     <string name="num_seismic_networks">%s reti sismiche</string>
     <string name="sn_search_hint">Cerca...</string>
 
+    <!-- EARTHQUAKE LIST -->
+    <string name="filtri">Filtri</string>
+    <string name="m_richter">Magnitudo Richter</string>
+    <string name="da_data">Da data</string>
+    <string name="data">data</string>
+    <string name="a_data">A data</string>
+    <string name="from">Da</string>
+    <string name="till">A</string>
+    <string name="richter_to_mercalli">Corrisposndenza Magnitudo Richter e Grado Mercalli</string>
+    <string name="close">CHIUDI</string>
+
+    <!-- COUNTRY LIST -->
+    <string name="country_selection">Seleziona un paese</string>
+
     <!-- SAFETY MEASURES -->
     <string name="outdoor_behavior"><b>Allontanati da costruzioni e linee elettriche.</b>\n\n<b>Stai lontano da impianti industriali.</b>\n\n<b>Stai lontano dai margini</b> dei laghi e delle spiaggie marinne, si possono verificare onde di tsunami.\n\n<b>Raggiungi le aree di attesa</b> individuate dal piano di emmergenza comunale.\n\n<b>Evita di usare il telefono e l\'automobile</b>, è necessario lasciare le linee telefoniche e le strade libere per non intralciare i soccorsi.\n\n<b>In auto non sostare in prossimità di ponti, terreni franosi e spiagge</b></string>
     <string name="indoor_behavior"><b>Cerca riparo nel vano di una porta</b> inserita in un muro portante o sotto una trave che ti può proteggere da eventuali crolli.\n\n<b>Riparati sotto un tavolo</b>, è pericoloso stare vicino a mobili, oggetti pesanti e vetri che potrebbero cadere.\n\n<b>Non precipitarti verso le scale o l\'ascensore</b>, talvolte le scale sono la parte più debole dell\'edificio. L\'ascensore può bloccarsi.\n\n<b>Tieni in casa una cassetta di primo soccorso</b> e assicurati che ogni componente della famiglia sappia dove è riposta</string>
@@ -165,6 +182,10 @@
     <string name="behavior_chiuso">Se ti trovi in un luogo <b>chiuso</b></string>
     <string name="behavior_after"><b>Dopo</b> un terremoto</string>
     <string name="behavior_dopo">Assicurati della salute delle persone intorno a te, se necessario, presta i primi soccorsi.\n\nEsci con prudenza, indossando le scarpe: in strada potresti ferirti con i vetri rotti.\n\nSe sei in una zona a rischio maremoto, allontanati dalla spiaggia e raggiungi un posto elevato.\n\nRaggiungi le aree di attesa previste dal Piano di protezione civile del tuo Comune.\n\nLimita, per quanto possibile, l’uso del telefono. Limita l’uso dell’auto per evitare di intralciare il passaggio dei mezzi di soccorso.</string>
+    <string name="title_behavior">Misure di Sicurezza</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
 </resources>

@@ -44,7 +44,7 @@ public class CountryList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         countryListSpinner = findViewById(R.id.country_list_spinner);
-        countryListSpinner.setTitle("Seleziona un paese");
+        countryListSpinner.setTitle(getString(R.string.country_selection));
         countryListSpinner.setPositiveButton("OK");
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

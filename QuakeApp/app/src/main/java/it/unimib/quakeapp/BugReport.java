@@ -45,7 +45,7 @@ public class BugReport extends AppCompatActivity {
 
     private void inviaEmail(Editable body) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        String[] recipient = {"prova@example.lol"};
+        String[] recipient = {"try@example.lol"};
         // per assicurare che vengano utilizzate solo le email apps per inviare il report
         intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, recipient);

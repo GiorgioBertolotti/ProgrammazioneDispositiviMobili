@@ -17,7 +17,7 @@ public class Behavior extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_behavior);
-        getSupportActionBar().setTitle("Misure di Sicurezza");
+        getSupportActionBar().setTitle(getString(R.string.title_behavior));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final boolean[] visibilities = {
