@@ -154,6 +154,7 @@
     <string name="sn_doi">DOI</string>
     <string name="sn_fdsn_code">FDSN_CODE</string>
     <string name="sn_fdsn_code_inline">FDSN: %s</string>
+    <string name="sn_empty_doi">DOI non disponibile</string>
     <string name="num_seismic_networks">%s reti sismiche</string>
     <string name="sn_search_hint">Cerca...</string>
 

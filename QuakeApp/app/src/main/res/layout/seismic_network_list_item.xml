@@ -27,9 +27,9 @@
 
             <TextView
                 android:id="@+id/sni_doi"
-                style="@style/Body2"
+                style="@style/CaptionMedium"
                 android:layout_width="wrap_content"
-                android:layout_height="31dp"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/sn_doi"

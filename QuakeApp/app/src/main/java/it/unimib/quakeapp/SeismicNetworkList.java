@@ -190,7 +190,7 @@ public class SeismicNetworkList extends Fragment implements AdapterView.OnItemSe
 
             View eqiDivider = listItem.findViewById(R.id.sni_divider);
 
-            snDoi.setText(seismicNetwork.doi);
+            snDoi.setText(seismicNetwork.doi.isEmpty() ? getString(R.string.sn_empty_doi) : seismicNetwork.doi);
             snFdsnCode.setText(String.format(getString(R.string.sn_fdsn_code_inline), seismicNetwork.fdsnCode));
 
             if (position == retriever.seismicNetworks().size() - 1) {
