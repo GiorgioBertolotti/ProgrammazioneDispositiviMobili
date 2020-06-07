@@ -24,6 +24,8 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import java.util.Arrays;
 
+import static it.unimib.quakeapp.MainActivity.MAPS_API_KEY;
+
 public class Recent extends Fragment {
 
     @Override
@@ -43,10 +45,7 @@ public class Recent extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String apiKey = "AIzaSyBNBlwRV0nS5Mb5zmMbNQa6Sz9-E7NNpQI";
-
-        Places.initialize(getActivity().getApplicationContext(), apiKey);
-        PlacesClient placesClient = Places.createClient(getActivity().getApplicationContext());
+        Places.initialize(getActivity().getApplicationContext(), MAPS_API_KEY);
 
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         autocompleteFragment.setTypeFilter(TypeFilter.CITIES);
@@ -63,21 +62,12 @@ public class Recent extends Fragment {
             }
         });
 
-        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(new LatLng(-33.880490, 151.184363),
-                new LatLng(-33.858754, 151.229596)));
-        autocompleteFragment.setCountries("IN");
+        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
+                new LatLng(-33.880490, 151.184363),
+                new LatLng(-33.858754, 151.229596))
+        );
+        //autocompleteFragment.setCountries("IN");
 
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-
-    }
-
-    @Nullable
-    private ActionBar getSupportActionBar() {
-        ActionBar actionBar = null;
-        if (getActivity() instanceof AppCompatActivity) {
-            AppCompatActivity activity = (AppCompatActivity) getActivity();
-            actionBar = activity.getSupportActionBar();
-        }
-        return actionBar;
     }
 }

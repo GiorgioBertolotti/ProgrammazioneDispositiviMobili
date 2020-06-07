@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class Maps extends FragmentActivity implements OnMapReadyCallback {
-
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView searchView;

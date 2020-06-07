@@ -86,11 +86,18 @@
             android:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/snd_map"
+            android:id="@+id/snd_map_container"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="@color/primaryColor"
-            android:orientation="vertical" />
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/snd_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/snd_seismographs_title"

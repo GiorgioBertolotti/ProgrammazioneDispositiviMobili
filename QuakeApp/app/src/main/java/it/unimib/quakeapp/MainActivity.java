@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     private AppBarConfiguration mAppBarConfiguration;
 
     public static final String TAG = "it.unimib.QuakeApp";
+    public static final String MAPS_API_KEY = "AIzaSyBNBlwRV0nS5Mb5zmMbNQa6Sz9-E7NNpQI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
