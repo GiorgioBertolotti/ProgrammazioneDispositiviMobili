@@ -1,12 +1,16 @@
 package it.unimib.quakeapp;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +27,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +48,7 @@ public class Home extends Fragment {
     private ListView earthquakeList;
     private EarthquakeListRetriever retriever;
     private EarthquakeAdapter listAdapter;
+    private ListView aoiList;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -109,8 +117,9 @@ public class Home extends Fragment {
         arrCountries = sharedPreferences.getStringSet("areasOfInterest", new TreeSet<String>());
 
         aoiAdapter = new AOIAdapter(getContext(), arrCountries);
-        ListView aoiList = root.findViewById(R.id.home_aoi_list);
+        aoiList = root.findViewById(R.id.home_aoi_list);
         aoiList.setAdapter(aoiAdapter);
+        justifyListViewHeightBasedOnChildren(aoiList);
 
         Button behaviorBtn = getView().findViewById(R.id.home_button_view);
         behaviorBtn.setOnClickListener(new View.OnClickListener(){
@@ -122,10 +131,43 @@ public class Home extends Fragment {
         });
 
         this.earthquakeList = getView().findViewById(R.id.home_earthquake_list);
-
         this.listAdapter = new EarthquakeAdapter(getContext());
         this.earthquakeList.setAdapter(this.listAdapter);
+       justifyListViewHeightBasedOnChildren(this.earthquakeList);
 
+        TextView moreBtn = getView().findViewById(R.id.home_more_earthquakes);
+        moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             EarthquakeList nextFrag= new EarthquakeList();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+    }
+    public void justifyListViewHeightBasedOnChildren (ListView myListView) {
+
+        ListAdapter myListAdapter=myListView.getAdapter();
+       if (myListAdapter==null) {
+            //do nothing return null
+            return;
+        }
+        //set listAdapter in loop for getting final size
+        int totalHeight=0;
+        for (int size=0; size < myListAdapter.getCount(); size++) {
+            View listItem=myListAdapter.getView(size, null, myListView);
+            listItem.measure(0, 0);
+            totalHeight+=listItem.getMeasuredHeight();
+        }
+        //setting listview item in adapter
+        ViewGroup.LayoutParams params=myListView.getLayoutParams();
+        params.height=totalHeight + (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
+        myListView.setLayoutParams(params);
+        // print height of adapter on log
+        Log.i("height of listItem:", String.valueOf(totalHeight));
     }
 
     public void deleteAoi(String country) {
@@ -139,6 +181,7 @@ public class Home extends Fragment {
         editor.commit();
 
         aoiAdapter.notifyDataSetChanged();
+        justifyListViewHeightBasedOnChildren(aoiList);
     }
 
     public class AOIAdapter extends ArrayAdapter<String> {
@@ -272,43 +315,33 @@ public class Home extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             final Earthquake earthquake = earthquakes.get(position);
 
-                    convertView = mInflater.inflate(R.layout.earthquake_list_item, null);
+            convertView = mInflater.inflate(R.layout.earthquake_list_item, null);
 
-                    TextView eqiDate = convertView.findViewById(R.id.eqi_date);
-                    TextView eqiLocation = convertView.findViewById(R.id.eqi_location);
-                    TextView eqiRichterMag = convertView.findViewById(R.id.eqi_richter_mag);
-                    TextView eqiMercalliMag = convertView.findViewById(R.id.eqi_mercalli_mag);
-                    View eqiDivider = convertView.findViewById(R.id.eqi_divider);
+            TextView eqiDate = convertView.findViewById(R.id.eqi_date);
+            TextView eqiLocation = convertView.findViewById(R.id.eqi_location);
+            TextView eqiRichterMag = convertView.findViewById(R.id.eqi_richter_mag);
+            TextView eqiMercalliMag = convertView.findViewById(R.id.eqi_mercalli_mag);
 
-                    final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-                    eqiDate.setText(sdf.format(earthquake.time));
+            final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+            eqiDate.setText(sdf.format(earthquake.time));
 
-                    eqiLocation.setText(earthquake.getPlaceDescWithoutKm());
+            eqiLocation.setText(earthquake.getPlaceDescWithoutKm());
 
-                    final String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
-                    final String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
-                    eqiRichterMag.setText(String.format("%s Richter", richter));
-                    eqiMercalliMag.setText(String.format("%s Mercalli", mercalli));
+            final String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
+            final String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
+            eqiRichterMag.setText(String.format("%s Richter", richter));
+            eqiMercalliMag.setText(String.format("%s Mercalli", mercalli));
 
-                  final View openBottomSheet = convertView.findViewById(R.id.layout_item);
-                    openBottomSheet.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            BottomSheet bottomSheet = new BottomSheet(earthquake);
-                            bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
-                        }
-                    });
+            final View openBottomSheet = convertView.findViewById(R.id.layout_item);
+            openBottomSheet.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    BottomSheet bottomSheet = new BottomSheet(earthquake);
+                    bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
+                }
+            });
 
             return convertView;
         }
-
-        boolean isSameDay(Date date1, Date date2) {
-            SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-            return fmt.format(date1).equals(fmt.format(date2));
-        }
-
-        String capitalizeFirst(String text) {
-            return text.substring(0, 1).toUpperCase() + text.substring(1);
-        }
     }
-
 }
+
