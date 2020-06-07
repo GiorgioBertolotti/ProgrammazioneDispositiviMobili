@@ -16,7 +16,7 @@
                     android:title="@string/menu_all_quakes" />
                 <item
                     android:id="@+id/nav_last"
-                    android:title="@string/menu_last" />
+                    android:title="@string/home_latest" />
                 <item
                     android:id="@+id/nav_seismic_network"
                     android:title="@string/menu_seismic_network" />

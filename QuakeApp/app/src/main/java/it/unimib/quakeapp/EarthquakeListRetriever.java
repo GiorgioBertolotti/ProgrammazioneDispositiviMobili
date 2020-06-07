@@ -26,6 +26,7 @@ import static it.unimib.quakeapp.MainActivity.TAG;
 
 public class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
     private final String EARTHQUAKE_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake";
+    private final String EARTHQUAKE_COUNT_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/count?format=geojson&starttime=%s&endtime=%s";
     private final int EARTHQUAKE_PER_REQUEST = 200;
     private int earthquakesLoaded = 0;
 
@@ -50,24 +51,6 @@ public class EarthquakeListRetriever extends AsyncTask<Void, Void, String> {
         this.adapter = adapter;
         this.context = context;
         this.url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, EARTHQUAKE_PER_REQUEST);
-        this.loading = showProgress;
-        this.callback = callback;
-        this.execute();
-    }
-
-    public void retrieveNext(@NonNull Context context, BaseAdapter adapter, Function<Void, Void> callback) {
-        this.adapter = adapter;
-        this.context = context;
-        this.url = String.format("%s&limit=%s&offset=%s", EARTHQUAKE_REQUEST_URL, EARTHQUAKE_PER_REQUEST, earthquakesLoaded);
-        this.loading = true;
-        this.callback = callback;
-        this.execute();
-    }
-
-    public void retrieveNext(@NonNull Context context, BaseAdapter adapter, Function<Void, Void> callback, boolean showProgress) {
-        this.adapter = adapter;
-        this.context = context;
-        this.url = String.format("%s&limit=%s&offset=%s", EARTHQUAKE_REQUEST_URL, EARTHQUAKE_PER_REQUEST, earthquakesLoaded);
         this.loading = showProgress;
         this.callback = callback;
         this.execute();

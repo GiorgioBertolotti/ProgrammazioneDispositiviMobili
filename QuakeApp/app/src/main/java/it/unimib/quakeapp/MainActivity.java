@@ -3,25 +3,19 @@ package it.unimib.quakeapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.RelativeLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -30,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import info.androidhive.fontawesome.FontDrawable;
-import it.unimib.quakeapp.Home;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -127,7 +120,7 @@ public class MainActivity extends AppCompatActivity
                 navigateTo(new SeismicNetworkList());
                 break;
             case R.id.nav_last:
-                getSupportActionBar().setTitle(getString(R.string.menu_last));
+                getSupportActionBar().setTitle(getString(R.string.menu_latest));
                 navigateTo(new Recent());
                 break;
             default:

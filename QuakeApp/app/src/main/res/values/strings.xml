@@ -16,7 +16,7 @@
     <!-- MENU FIRST PART -->
     <string name="menu_home">Home</string>
     <string name="menu_all_quakes">Tutti i terremoti</string>
-    <string name="menu_last">Recenti</string>
+    <string name="menu_latest">Terremoti recenti</string>
     <string name="menu_seismic_network">Reti sismiche</string>
 
     <!-- MENU SECOND PART -->
@@ -134,10 +134,10 @@
     <string name="from_surface"><b> dalla superficie</b></string>
 
     <!-- DASHBOARD -->
-    <string name="home_last">Recenti</string>
+    <string name="home_latest">Recenti</string>
     <string name="home_today">oggi</string>
     <string name="home_tremors">scosse</string>
-    <string name="home_this_week">questa settimana</string>
+    <string name="home_this_week">ultimi 7 giorni</string>
     <string name="home_more_about">Scopri di più</string>
     <string name="home_safety_measures">Misure di sicurezza</string>
     <string name="home_behaviors">Comportamenti da adottare\nin caso di terremoto</string>
@@ -211,9 +211,9 @@
     <!-- RECENTI -->
     <string name="recent_text_info">Tocca sull\'immagine per saperne di più.</string>
     <string name="recent_today">Oggi</string>
-    <string name="recent_show_all_quakes">Visuallizza più terremoti</string>
+    <string name="recent_show_all_quakes">Visualizza più terremoti</string>
     <string name="recent_notable" >Degno di nota</string>
-    <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epcientro a</string>
+    <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epicentro a</string>
     <string name="recent_magnitude_eq" >Magnitudo: x scala Mercalli e y scala Richter</string>
     <string name="recent_ipocenter_eq" >L\'ipocentro è stato a profondità di x km dalla superficie</string>
 
