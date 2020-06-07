@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity
                 getSupportActionBar().setTitle(getString(R.string.menu_seismic_network));
                 navigateTo(new SeismicNetworkList());
                 break;
+            case R.id.nav_last:
+                getSupportActionBar().setTitle(getString(R.string.menu_last));
+                navigateTo(new Recent());
+                break;
             default:
                 break;
         }
