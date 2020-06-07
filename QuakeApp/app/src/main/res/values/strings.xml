@@ -151,6 +151,8 @@
     <string name="alert">ALLERTA</string>
     <string name="emergency">EMERGENZA</string>
     <string name="home_recent_list_view">Recenti</string>
+    <string name="visualizza_tutti">Visualizza tutti</string>
+    <string name="message">"Ciao, volevo farti sapere che sto bene."</string>
 
     <!-- SEISMIC NETWORKS -->
     <string name="loading_seismic_networks">Sto caricando le reti sismiche</string>
@@ -189,7 +191,7 @@
     <string name="filtri">Filtri</string>
     <string name="m_richter">Magnitudo Richter</string>
     <string name="da_data">Da data</string>
-    <string name="data">data</string>
+    <string name="data">Data</string>
     <string name="a_data">A data</string>
     <string name="from">Da</string>
     <string name="till">A</string>
@@ -216,6 +218,7 @@
     <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epicentro a <b>%s</b></string>
     <string name="recent_magnitude_eq" >Magnitudo: <b>%s</b> scala Mercalli e <b>%s</b> scala Richter</string>
     <string name="recent_hypocentre_eq" >L\'ipocentro è stato a profondità di <b>%s</b> km dalla superficie</string>
+
 
 
 </resources>

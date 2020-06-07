@@ -42,7 +42,7 @@
     <string name="s_mercalli">Mercalli scale</string>
     <string name="i_richter">Richter scale</string>
     <string name="gps">Geolocalization</string>
-    <string name="notify">Notifies</string>
+    <string name="notify">Notifications</string>
     <string name="theme">Theme</string>
     <string name="lang">Language</string>
 
@@ -151,6 +151,8 @@
     <string name="alert">CRITIC</string>
     <string name="emergency">EMERGENCY</string>
     <string name="home_recent_list_view">Recent</string>
+    <string name="visualizza_tutti">Show all</string>
+    <string name="message">"Hi, I wanted to let you know that I am fine."</string>
 
     <!-- SEISMIC NETWORKS -->
     <string name="loading_seismic_networks">Loading seismic networks</string>
@@ -189,7 +191,7 @@
     <string name="filtri">Filters</string>
     <string name="m_richter">Richter magnitude</string>
     <string name="da_data">From</string>
-    <string name="data">date</string>
+    <string name="data">Date</string>
     <string name="a_data">To </string>
     <string name="from">From</string>
     <string name="till">To</string>

@@ -29,6 +29,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -200,6 +202,17 @@ public class Home extends Fragment {
                 ft.commit();
             }
         });
+        FloatingActionButton fab = getView().findViewById(R.id.floating_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.message));
+                startActivity(Intent.createChooser(sharingIntent,"Share using"));
+            }
+        });
+
     }
 
     public void justifyListViewHeightBasedOnChildren(ListView myListView) {

@@ -2,7 +2,7 @@
 <resources>
 
     <string-array name="order_options">
-        <item>Data</item>
+        <item>@string/data</item>
         <item>Richter</item>
         <item>Mercalli</item>
     </string-array>
