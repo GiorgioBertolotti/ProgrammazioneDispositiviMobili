@@ -1,0 +1,220 @@
+<resources>
+    <string name="app_name" translatable="false">QuakeApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">QuakeApp</string>
+    <string name="nav_header_subtitle">Stay safe!</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_earthquakes">Earthquakes</string>
+
+    <!-- MENU GROUP DIVIDERS -->
+    <string name="navigation">Navigation</string>
+    <string name="other">Other</string>
+
+    <!-- MENU FIRST PART -->
+    <string name="menu_home">Home</string>
+    <string name="menu_all_quakes">All earthquakes</string>
+    <string name="menu_last">Recent</string>
+    <string name="menu_seismic_network">Seismic networks</string>
+
+    <!-- MENU SECOND PART -->
+    <string name="menu_faq">FAQ</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_bugs">Report a bug</string>
+
+    <!--BUG REPORT -->
+    <string name="bug_text">Send text message describing the issue found:</string>
+    <string name="bug_edit_text">Enter the text here</string>
+    <string name="bug_mail">Message will be sent to prova@mail.lol\nThanks for the report!</string>
+    <string name="bug_send">SEND</string>
+
+    <string name="load">Loading</string>
+    <string name="loading_earthquakes">Loading earthquakes</string>
+    <string name="date">Date</string>
+    <string name="location">Position</string>
+    <string name="richter_mag">Richter</string>
+    <string name="mercalli_mag">Mercalli</string>
+
+    <string name="settings">Settings</string>
+    <string name="preferences">Preferences:</string>
+    <string name="s_mercalli">Mercalli scale</string>
+    <string name="i_richter">Richter scale</string>
+    <string name="gps">Geolocalization</string>
+    <string name="notify">Notifies</string>
+    <string name="theme">Theme</string>
+    <string name="lang">Language</string>
+
+    <string name="home_second">Home Second</string>
+
+    <!-- DATES -->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <string name="today">Today</string>
+
+    <!-- FAQ -->
+    <string name="toggle_question">Open/Close</string>
+    <string name="epicenter_image">Immagine epicentro/ipocentro</string>
+    <string name="question1">Quale associazione fornisce i <b>dati</b>?</string>
+    <string name="answer1">I dati presenti nell\'applicazione sono forniti da <b>USGS</b>.
+        Lo <b>United States Geological Survey (USGS)</b> è un\'agenzia scientifica del Governo degli USA.
+        L\'USGS è un organismo operativo e di ricerca, privo di poteri legali (non ha responsabilità normative)
+        che esegue ricerche sui fatti oggettivi relativi all\'ambiente.
+        L\'USGS gestisce il <b>National Earthquake Information Center</b> con sede a Golden (Colorado),
+        organismo in grado di individuare la posizione e la magnitudo dei terremoti di tutto il mondo.
+        Il motto dell\'USGS è <i>\"science for a changing world\"</i> (la scienza per un mondo in cambiamento).</string>
+    <string name="question_Richter">Cosa colcola l\'indice <b>Richter</b>?</string>
+    <string name="answer_Richter"><b>L\'indice Richter fornisce una valutazione obiettiva (magnitudo)
+        della quantità di energia liberata.</b> \n
+        Per calcolare la magnitudo si usa l\'indice Richter che non si misura in gradi,
+        ma rappresenta delle grandezze, corrispondenti all\'ampiezza delle onde sismiche
+        che un terremoto sprigiona al suo epicentro, elevate su base logaritmica.
+        Lo zero della scala equivale ad una energia liberata pari a 105 Joule.
+        Il massimo valore registrato, è stato di magnitudo 8.6 equivalente all\'energia di 1018 J.
+        \n\n<b><![CDATA[<3.5]]></b>: Generalmente non sentita, ma registrata. \n\n<b>3.5-5.4</b>: Spesso sentita,
+        ma raramente causa dei danni. \n\n<b>sotto 6.0</b>: Al massimo lievi danni a solidi edifici.
+        \n\n<b>6.1-6.9</b>: Può arrivare ad essere distruttiva in aree di quasi 100 km, attraversando
+        anche zone abitate. \n\n<b>7.0-7.9</b>: Terremoto maggiore. Causa seri danni su grandi aree.
+        \n\n<b><![CDATA[>=8]]></b>: Grande terremoto. Può causare seri danni su vaste aree di svariate centinaia km.</string>
+    <string name="question_Mercalli">Cosa calcola la scala <b>Mercalli</b>?</string>
+    <string name="answer_Mercalli">La scala Mercalli non è una grandezza ma una scala lineare che
+        valuta in gradi gli effetti distruttivi del sisma, da un minimo di zero, pari a nessun
+        effetto su popolazione, cose ed edifici, a un massimo di 12 gradi, pari alla distruzione totale.
+        La scala Mercalli dunque è un indice empirico, che, ad esempio, non si può calcolare in
+        un luogo desertico o disabitato, dove non c\'è niente da distruggere.
+        Essa <b>rappresenta l\'intensità con cui un terremoto si manifesta, in base alla sua capacità distruttiva.</b>
+        \n\n<b>I</b>: Strumentale \n<b>II</b>: Leggerissima \n<b>III</b>: Leggera \n<b>IV</b>: Mediocre \n<b>V</b>: Forte
+        \n<b>VI</b>: Molto forte \n<b>VII</b>: Fortissima \n<b>VIII</b>: Rovinosa \n<b>IX</b>: Disastrosa
+        \n<b>X</b>: Disastrosissima \n<b>XI</b>: Catastrofica \n<b>XII</b>: Grande catastrofe</string>
+    <string name="question4">Qual è la corrispondenza tra scala <b>Mercalli</b> e indice <b>Richter</b>?</string>
+    <string name="minore"><![CDATA[<3.5]]></string>
+    <string name="maggiore"><![CDATA[>8.1]]></string>
+    <string name="grado_mercalli"><b>Grado Mercalli</b></string>
+    <string name="magnitudo_richter"><b>Magnitudo Richter</b></string>
+    <string name="question5">Qual è la differenza tra <b>epicentro</b> e <b>ipocentro</b>?</string>
+    <string name="answer5"><b>L\’ipocentro</b> è il punto, situato in profondità all\’interno della Terra,
+        in cui avviene la rottura della faglia che genera il terremoto.
+        E\’ il punto da cui partono, in ogni direzione, le onde sismiche responsabili di quella
+        che chiamiamo “scossa sismica”.\n
+        <b>L\’epicentro</b> è invece il punto della superficie terrestre situato sulla verticale
+        dell\’ipocentro. Se dall\’ipocentro si tracciasse una linea verticale, questa incontrerebbe
+        la superficie in quello che noi chiamiamo epicentro.</string>
+    <string name="question6">Come aggiungo un Paese alla sezione <b>aree di interesse</b>?</string>
+    <string name="answer6">Per <b>aggiungere</b> un Paese alle proprie <i>Aree di interesse</i> bisogna cliccare
+        sul pulsante \'<b>+</b>\' accanto alla scritta \"<i>Aree di interesse</i>\" all\'interno della Home; a questo
+        punto si aprirà una pagina che permetterà la ricerca del Paese da <b>aggiungere</b> desiderato.</string>
+    <string name="question7">Come faccio a rimuovere un Paese dalla sezione <b>aree di interesse</b>?</string>
+    <string name="answer7">Per <b>rimuovere</b> un Paese dalla sezione riguardante le proprie <i>Aree di interesse</i>
+    bisogna cliccare sull\'icona a forma di cestino accanto al Paese che si vuole <b>eliminare</b> direttamente
+        dalla Home; in alternativa, è possibile cliccare sul pulsante \'<b>+</b>\' accanto alla scritta \"<i>Aree di interesse</i>\"
+    sempre all\'interno della Home; a questo punto si può <b>cancellare</b> dalla propria <i>Aree di interesse</i>
+    il Paese desiderato semplicemente selezionando l\'icona a forma di cestino che compare in corrispondenza
+        del Paese in questione.</string>
+    <string name="question8">Cosa indicano gli stati <b>sicuro</b>, <b>allerta</b> e <b>emergenza</b>?</string>
+    <string name="answer8" />
+
+    <!-- BOTTOM SHEET -->
+    <string name="bs_epicenter">Epicentre</string>
+    <string name="bs_hypocenter">Hypocentre</string>
+    <string name="bs_magnitude">Magnitude</string>
+    <string name="bs_news">News</string>
+    <string name="news_one"><a href="http://www.google.com">Google</a></string>
+    <string name="news_two"><a href="http://www.corriere.it">Corriere della Sera</a></string>
+    <string name="news_three"><a href="http://www.cnn.com">CNN News</a></string>
+    <string name="more_about"><u>Find out more abut this earthquake</u></string>
+    <string name="richter"><b> Richter scale</b></string>
+    <string name="mercalli"><b> Mercalli scale</b></string>
+    <string name="from_surface"><b> from surface</b></string>
+
+    <!-- DASHBOARD -->
+    <string name="home_last">Recent</string>
+    <string name="home_today">today</string>
+    <string name="home_tremors">tremors</string>
+    <string name="home_this_week">this week</string>
+    <string name="home_more_about">More about</string>
+    <string name="home_safety_measures">Safety measures</string>
+    <string name="home_behaviors">Best practices</string>
+    <string name="home_view">Show</string>
+    <string name="home_areas_of_interest">Areas of interest</string>
+    <string name="home_safe">SAFE</string>
+    <string name="home_critic">CRITIC</string>
+    <string name="home_emergency">EMERGENCY</string>
+    <string name="fragent_earthquake_list_filtri">Filters</string>
+    <string name="safe">SAFE</string>
+    <string name="alert">CRITIC</string>
+    <string name="emergency">EMERGENCY</string>
+    <string name="home_recent_list_view">Recent</string>
+
+    <!-- SEISMIC NETWORKS -->
+    <string name="loading_seismic_networks">Loading seismic networks</string>
+    <string name="fragment_seismic_network_list_filtri">Filters</string>
+    <string name="sn_doi">DOI</string>
+    <string name="sn_fdsn_code">FDSN_CODE</string>
+    <string name="sn_fdsn_code_inline">FDSN: %s</string>
+    <string name="sn_empty_doi">DOI not available</string>
+    <string name="num_seismic_networks">%s seismic networks</string>
+    <string name="sn_search_hint">Search...</string>
+
+    <!-- SEISMIC NETWORK DETAIL -->
+    <string name="loading_seismic_network">Loading data from the network</string>
+    <string name="snd_title_default">Name seismic network</string>
+    <string name="snd_start_date">start date:</string>
+    <string name="snd_start_date_default">01/01/2000</string>
+    <string name="snd_end_date">end date:</string>
+    <string name="snd_end_date_default">01/01/2000</string>
+    <string name="snd_end_date_empty">---</string>
+    <string name="snd_seismographs">Seismographs</string>
+    <string name="snd_seismographs_empty">No information over seismographs in this network…</string>
+    <string name="sndi_identify">Identify</string>
+    <string name="sndi_latitude">Latitude:</string>
+    <string name="sndi_latitude_default">0.0</string>
+    <string name="sndi_longitude">Longitude:</string>
+    <string name="sndi_longitude_default">0.0</string>
+    <string name="sndi_elevation">Height:</string>
+    <string name="sndi_elevation_default">0.0</string>
+    <string name="sndi_start_date">Start date:</string>
+    <string name="sndi_start_date_default">01/01/2000</string>
+    <string name="sndi_end_date">End date:</string>
+    <string name="sndi_end_date_default">01/01/2000</string>
+    <string name="sndi_end_date_empty">---</string>
+
+    <!-- EARTHQUAKE LIST -->
+    <string name="filtri">Filters</string>
+    <string name="m_richter">Richter magnitude</string>
+    <string name="da_data">From</string>
+    <string name="data">date</string>
+    <string name="a_data">To </string>
+    <string name="from">From</string>
+    <string name="till">To</string>
+    <string name="richter_to_mercalli">Corrisposndenza Magnitudo Richter e Grado Mercalli</string>
+    <string name="close">CLOSE</string>
+
+    <!-- COUNTRY LIST -->
+    <string name="country_selection">Select a country</string>
+
+    <!-- SAFETY MEASURES -->
+    <string name="outdoor_behavior"><b>Allontanati da costruzioni e linee elettriche.</b>\n\n<b>Stai lontano da impianti industriali.</b>\n\n<b>Stai lontano dai margini</b> dei laghi e delle spiaggie marinne, si possono verificare onde di tsunami.\n\n<b>Raggiungi le aree di attesa</b> individuate dal piano di emmergenza comunale.\n\n<b>Evita di usare il telefono e l\'automobile</b>, è necessario lasciare le linee telefoniche e le strade libere per non intralciare i soccorsi.\n\n<b>In auto non sostare in prossimità di ponti, terreni franosi e spiagge</b></string>
+    <string name="indoor_behavior"><b>Cerca riparo nel vano di una porta</b> inserita in un muro portante o sotto una trave che ti può proteggere da eventuali crolli.\n\n<b>Riparati sotto un tavolo</b>, è pericoloso stare vicino a mobili, oggetti pesanti e vetri che potrebbero cadere.\n\n<b>Non precipitarti verso le scale o l\'ascensore</b>, talvolte le scale sono la parte più debole dell\'edificio. L\'ascensore può bloccarsi.\n\n<b>Tieni in casa una cassetta di primo soccorso</b> e assicurati che ogni componente della famiglia sappia dove è riposta</string>
+    <string name="behavior_aperto">Se ti trovi in un luogo <b>aperto</b></string>
+    <string name="behavior_chiuso">Se ti trovi in un luogo <b>chiuso</b></string>
+    <string name="behavior_after"><b>Dopo</b> un terremoto</string>
+    <string name="behavior_dopo">Assicurati della salute delle persone intorno a te, se necessario, presta i primi soccorsi.\n\nEsci con prudenza, indossando le scarpe: in strada potresti ferirti con i vetri rotti.\n\nSe sei in una zona a rischio maremoto, allontanati dalla spiaggia e raggiungi un posto elevato.\n\nRaggiungi le aree di attesa previste dal Piano di protezione civile del tuo Comune.\n\nLimita, per quanto possibile, l’uso del telefono. Limita l’uso dell’auto per evitare di intralciare il passaggio dei mezzi di soccorso.</string>
+    <string name="title_behavior">Safety Measures</string>
+
+    <!-- RECENTI -->
+    <string name="recent_text_info">Tap on the card for more details.</string>
+    <string name="recent_today">Today</string>
+    <string name="recent_show_all_quakes">Show more earthquakes</string>
+    <string name="recent_notable">Notable earthquake</string>
+    <string name="recent_most_violent_eq">Il terremoto più violento questa settimana ha avuto epcientro a</string>
+    <string name="recent_magnitude_eq">Magnitudo: x scala Mercalli e y scala Richter</string>
+    <string name="recent_ipocenter_eq">L\'ipocentro è stato a profondità di x km dalla superficie</string>
+
+</resources>
