@@ -81,6 +81,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Terremoti");
 
         String url = String.format("%s&limit=%s", EARTHQUAKE_REQUEST_URL, EARTHQUAKE_PER_REQUEST);
 
