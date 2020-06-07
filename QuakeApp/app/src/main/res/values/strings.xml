@@ -213,9 +213,9 @@
     <string name="recent_today">Oggi</string>
     <string name="recent_show_all_quakes">Visualizza più terremoti</string>
     <string name="recent_notable" >Degno di nota</string>
-    <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epicentro a</string>
-    <string name="recent_magnitude_eq" >Magnitudo: x scala Mercalli e y scala Richter</string>
-    <string name="recent_ipocenter_eq" >L\'ipocentro è stato a profondità di x km dalla superficie</string>
+    <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epicentro a <b>%s</b></string>
+    <string name="recent_magnitude_eq" >Magnitudo: <b>%s</b> scala Mercalli e <b>%s</b> scala Richter</string>
+    <string name="recent_hypocentre_eq" >L\'ipocentro è stato a profondità di <b>%s</b> km dalla superficie</string>
 
 
 </resources>

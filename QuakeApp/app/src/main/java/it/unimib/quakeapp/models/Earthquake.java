@@ -1,27 +1,10 @@
 package it.unimib.quakeapp.models;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-
-import it.unimib.quakeapp.EarthquakeList;
-import it.unimib.quakeapp.R;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import static it.unimib.quakeapp.MainActivity.TAG;
 
 public class Earthquake {
     public String id;

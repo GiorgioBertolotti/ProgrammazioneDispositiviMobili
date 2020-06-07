@@ -16,7 +16,7 @@
     <!-- MENU FIRST PART -->
     <string name="menu_home">Home</string>
     <string name="menu_all_quakes">All earthquakes</string>
-    <string name="menu_last">Recent</string>
+    <string name="menu_latest">Recent</string>
     <string name="menu_seismic_network">Seismic networks</string>
 
     <!-- MENU SECOND PART -->
@@ -134,7 +134,7 @@
     <string name="from_surface"><b> from surface</b></string>
 
     <!-- DASHBOARD -->
-    <string name="home_last">Recent</string>
+    <string name="home_latest">Recent</string>
     <string name="home_today">today</string>
     <string name="home_tremors">tremors</string>
     <string name="home_this_week">this week</string>
@@ -213,8 +213,8 @@
     <string name="recent_today">Today</string>
     <string name="recent_show_all_quakes">Show more earthquakes</string>
     <string name="recent_notable">Notable earthquake</string>
-    <string name="recent_most_violent_eq">Il terremoto più violento questa settimana ha avuto epcientro a</string>
-    <string name="recent_magnitude_eq">Magnitudo: x scala Mercalli e y scala Richter</string>
-    <string name="recent_ipocenter_eq">L\'ipocentro è stato a profondità di x km dalla superficie</string>
+    <string name="recent_most_violent_eq">The strongest earthquake took place in <b>%s</b></string>
+    <string name="recent_magnitude_eq">Magnitude: <b>%s</b> Mercalli and <b>%s</b> Richter</string>
+    <string name="recent_hypocentre_eq">The hypocentre was at <b>%s</b> km of depth from the surface</string>
 
 </resources>

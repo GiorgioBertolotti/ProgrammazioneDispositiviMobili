@@ -1,19 +1,23 @@
 package it.unimib.quakeapp;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,28 +25,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.model.TypeFilter;
-import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import it.unimib.quakeapp.models.Earthquake;
-import it.unimib.quakeapp.models.Seismograph;
-
-import static it.unimib.quakeapp.MainActivity.MAPS_API_KEY;
-import static it.unimib.quakeapp.MainActivity.TAG;
 
 public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private EarthquakeListRetriever retriever;
     private GoogleMap map;
     private Map<Marker, Earthquake> markerEarthquakeMap = new HashMap<>();
+    private RelativeLayout rlAllEarthquake;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +46,7 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
             @Override
             public Object apply(Object input) {
                 showEarthquakesOnMap();
+                populateTopEarthquake();
                 return null;
             }
         });
@@ -72,6 +66,32 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        populateTopEarthquake();
+        
+        this.rlAllEarthquake = getActivity().findViewById(R.id.recent_all_quakes);
+        this.rlAllEarthquake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_earthquakes));
+                EarthquakeList nextFrag = new EarthquakeList();
+
+                View currentFocus = getActivity().getCurrentFocus();
+                if (currentFocus != null) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+                }
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStackImmediate();
+                }
+                ft.replace(R.id.nav_host_fragment, nextFrag);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
     }
 
     private void showEarthquakesOnMap() {
@@ -108,6 +128,31 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
 
             map.setOnMarkerClickListener(this);
         }
+    }
+
+    public void populateTopEarthquake() {
+        TextView tvEpicentre = getActivity().findViewById(R.id.recent_most_violent_eq);
+        TextView tvMagnitude = getActivity().findViewById(R.id.recent_magnitude_eq);
+        TextView tvHypocentre = getActivity().findViewById(R.id.recent_hypocentre_eq);
+
+        if (retriever == null || retriever.earthquakes == null || retriever.earthquakes.size() < 1) {
+            tvEpicentre.setText(Html.fromHtml(String.format(getString(R.string.recent_most_violent_eq), "...")));
+            tvMagnitude.setText(Html.fromHtml(String.format(getString(R.string.recent_magnitude_eq), "0.0", "0.0")));
+            tvHypocentre.setText(Html.fromHtml(String.format(getString(R.string.recent_hypocentre_eq), "0.0")));
+            return;
+        }
+
+        Earthquake topEarthquake = retriever.earthquakes.get(0);
+
+        for (Earthquake earthquake : retriever.earthquakes) {
+            if (earthquake.richter_mag > topEarthquake.richter_mag) {
+                topEarthquake = earthquake;
+            }
+        }
+
+        tvEpicentre.setText(Html.fromHtml(String.format(getString(R.string.recent_most_violent_eq), topEarthquake.placeDesc)));
+        tvMagnitude.setText(Html.fromHtml(String.format(getString(R.string.recent_magnitude_eq), String.valueOf(topEarthquake.mercalli), String.valueOf(topEarthquake.richter_mag))));
+        tvHypocentre.setText(Html.fromHtml(String.format(getString(R.string.recent_hypocentre_eq), String.valueOf(topEarthquake.coordinates.depth))));
     }
 
     @Override
