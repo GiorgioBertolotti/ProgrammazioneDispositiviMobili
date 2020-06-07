@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuakeApp</string>
+    <string name="app_name" translatable="false">QuakeApp</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">QuakeApp</string>
@@ -7,60 +7,60 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_earthquakes">Terremoti</string>
+    <string name="menu_earthquakes">Earthquakes</string>
 
     <!-- MENU GROUP DIVIDERS -->
-    <string name="navigation">Navigazione</string>
-    <string name="other">Altro</string>
+    <string name="navigation">Navigation</string>
+    <string name="other">Other</string>
 
     <!-- MENU FIRST PART -->
     <string name="menu_home">Home</string>
-    <string name="menu_all_quakes">Tutti i terremoti</string>
-    <string name="menu_latest">Terremoti recenti</string>
-    <string name="menu_seismic_network">Reti sismiche</string>
+    <string name="menu_all_quakes">All earthquakes</string>
+    <string name="menu_latest">Recent</string>
+    <string name="menu_seismic_network">Seismic networks</string>
 
     <!-- MENU SECOND PART -->
     <string name="menu_faq">FAQ</string>
-    <string name="menu_settings">Impostazioni</string>
-    <string name="menu_bugs">Segnala un problema</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_bugs">Report a bug</string>
 
     <!--BUG REPORT -->
-    <string name="bug_text">Mandaci un messaggio in cui riporti il problema che hai riscontrato:</string>
-    <string name="bug_edit_text">Inserisci qui il testo</string>
-    <string name="bug_mail">Il messaggio verra\' inviato a prova@mail.lol\nGrazie per la segnalazione!</string>
-    <string name="bug_send">INVIA</string>
+    <string name="bug_text">Send text message describing the issue found:</string>
+    <string name="bug_edit_text">Enter the text here</string>
+    <string name="bug_mail">Message will be sent to prova@mail.lol\nThanks for the report!</string>
+    <string name="bug_send">SEND</string>
 
-    <string name="load">Caricamento</string>
-    <string name="loading_earthquakes">Sto caricando i terremoti</string>
-    <string name="date">Data</string>
-    <string name="location">Posizione</string>
+    <string name="load">Loading</string>
+    <string name="loading_earthquakes">Loading earthquakes</string>
+    <string name="date">Date</string>
+    <string name="location">Position</string>
     <string name="richter_mag">Richter</string>
     <string name="mercalli_mag">Mercalli</string>
 
-    <string name="settings">Impostazioni</string>
-    <string name="preferences">Preferenza:</string>
-    <string name="s_mercalli">Scala Mercalli</string>
-    <string name="i_richter">Indice Richter</string>
-    <string name="gps">Geolocalizzazione</string>
-    <string name="notify">Notifiche</string>
-    <string name="theme">Tema</string>
-    <string name="lang">Lingua</string>
+    <string name="settings">Settings</string>
+    <string name="preferences">Preferences:</string>
+    <string name="s_mercalli">Mercalli scale</string>
+    <string name="i_richter">Richter scale</string>
+    <string name="gps">Geolocalization</string>
+    <string name="notify">Notifies</string>
+    <string name="theme">Theme</string>
+    <string name="lang">Language</string>
 
     <string name="home_second">Home Second</string>
 
     <!-- DATES -->
-    <string name="monday">Lunedì</string>
-    <string name="tuesday">Martedì</string>
-    <string name="wednesday">Mercoledì</string>
-    <string name="thursday">Giovedì</string>
-    <string name="friday">Venerdì</string>
-    <string name="saturday">Sabato</string>
-    <string name="sunday">Domenica</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 
-    <string name="today">Oggi</string>
+    <string name="today">Today</string>
 
     <!-- FAQ -->
-    <string name="toggle_question">Apri/Chiudi</string>
+    <string name="toggle_question">Open/Close</string>
     <string name="epicenter_image">Immagine epicentro/ipocentro</string>
     <string name="question1">Quale associazione fornisce i <b>dati</b>?</string>
     <string name="answer1">I dati presenti nell\'applicazione sono forniti da <b>USGS</b>.
@@ -121,83 +121,83 @@
     <string name="answer8" />
 
     <!-- BOTTOM SHEET -->
-    <string name="bs_epicenter">Epicentro</string>
-    <string name="bs_hypocenter">Ipocentro</string>
-    <string name="bs_magnitude">Magnitudo</string>
-    <string name="bs_news">Notizie</string>
+    <string name="bs_epicenter">Epicentre</string>
+    <string name="bs_hypocenter">Hypocentre</string>
+    <string name="bs_magnitude">Magnitude</string>
+    <string name="bs_news">News</string>
     <string name="news_one"><a href="http://www.google.com">Google</a></string>
     <string name="news_two"><a href="http://www.corriere.it">Corriere della Sera</a></string>
     <string name="news_three"><a href="http://www.cnn.com">CNN News</a></string>
-    <string name="more_about"><u>Scopri di più su questo terremoto!</u></string>
-    <string name="richter"><b> indice Richter</b></string>
-    <string name="mercalli"><b> scala Mercalli</b></string>
-    <string name="from_surface"><b> dalla superficie</b></string>
+    <string name="more_about"><u>Find out more abut this earthquake</u></string>
+    <string name="richter"><b> Richter scale</b></string>
+    <string name="mercalli"><b> Mercalli scale</b></string>
+    <string name="from_surface"><b> from surface</b></string>
 
     <!-- DASHBOARD -->
-    <string name="home_latest">Recenti</string>
-    <string name="home_today">oggi</string>
-    <string name="home_tremors">scosse</string>
-    <string name="home_this_week">ultimi 7 giorni</string>
-    <string name="home_more_about">Scopri di più</string>
-    <string name="home_safety_measures">Misure di sicurezza</string>
-    <string name="home_behaviors">Comportamenti da adottare\nin caso di terremoto</string>
-    <string name="home_view">Visualizza</string>
-    <string name="home_areas_of_interest">Aree di interesse</string>
-    <string name="home_safe">SICURO</string>
-    <string name="home_critic">ALLERTA</string>
-    <string name="home_emergency">EMERGENZA</string>
-    <string name="fragent_earthquake_list_filtri">Filtri</string>
-    <string name="safe">SICURO</string>
-    <string name="alert">ALLERTA</string>
-    <string name="emergency">EMERGENZA</string>
-    <string name="home_recent_list_view">Recenti</string>
+    <string name="home_latest">Recent</string>
+    <string name="home_today">today</string>
+    <string name="home_tremors">tremors</string>
+    <string name="home_this_week">this week</string>
+    <string name="home_more_about">More about</string>
+    <string name="home_safety_measures">Safety measures</string>
+    <string name="home_behaviors">Best practices</string>
+    <string name="home_view">Show</string>
+    <string name="home_areas_of_interest">Areas of interest</string>
+    <string name="home_safe">SAFE</string>
+    <string name="home_critic">CRITIC</string>
+    <string name="home_emergency">EMERGENCY</string>
+    <string name="fragent_earthquake_list_filtri">Filters</string>
+    <string name="safe">SAFE</string>
+    <string name="alert">CRITIC</string>
+    <string name="emergency">EMERGENCY</string>
+    <string name="home_recent_list_view">Recent</string>
 
     <!-- SEISMIC NETWORKS -->
-    <string name="loading_seismic_networks">Sto caricando le reti sismiche</string>
-    <string name="fragment_seismic_network_list_filtri">Filtri</string>
+    <string name="loading_seismic_networks">Loading seismic networks</string>
+    <string name="fragment_seismic_network_list_filtri">Filters</string>
     <string name="sn_doi">DOI</string>
     <string name="sn_fdsn_code">FDSN_CODE</string>
     <string name="sn_fdsn_code_inline">FDSN: %s</string>
-    <string name="sn_empty_doi">DOI non disponibile</string>
-    <string name="num_seismic_networks">%s reti sismiche</string>
-    <string name="sn_search_hint">Cerca...</string>
+    <string name="sn_empty_doi">DOI not available</string>
+    <string name="num_seismic_networks">%s seismic networks</string>
+    <string name="sn_search_hint">Search...</string>
 
     <!-- SEISMIC NETWORK DETAIL -->
-    <string name="loading_seismic_network">Sto caricando i dati della rete</string>
-    <string name="snd_title_default">Nome rete sismica</string>
-    <string name="snd_start_date">data inizio:</string>
+    <string name="loading_seismic_network">Loading data from the network</string>
+    <string name="snd_title_default">Name seismic network</string>
+    <string name="snd_start_date">start date:</string>
     <string name="snd_start_date_default">01/01/2000</string>
-    <string name="snd_end_date">data fine:</string>
+    <string name="snd_end_date">end date:</string>
     <string name="snd_end_date_default">01/01/2000</string>
     <string name="snd_end_date_empty">---</string>
-    <string name="snd_seismographs">Sismografi</string>
-    <string name="snd_seismographs_empty">Non ci sono informazioni riguardo i sismografi di questa rete…</string>
-    <string name="sndi_identify">Identifica</string>
-    <string name="sndi_latitude">Latitudine:</string>
+    <string name="snd_seismographs">Seismographs</string>
+    <string name="snd_seismographs_empty">No information over seismographs in this network…</string>
+    <string name="sndi_identify">Identify</string>
+    <string name="sndi_latitude">Latitude:</string>
     <string name="sndi_latitude_default">0.0</string>
-    <string name="sndi_longitude">Longitudine:</string>
+    <string name="sndi_longitude">Longitude:</string>
     <string name="sndi_longitude_default">0.0</string>
-    <string name="sndi_elevation">Altitudine:</string>
+    <string name="sndi_elevation">Height:</string>
     <string name="sndi_elevation_default">0.0</string>
-    <string name="sndi_start_date">Data inizio:</string>
+    <string name="sndi_start_date">Start date:</string>
     <string name="sndi_start_date_default">01/01/2000</string>
-    <string name="sndi_end_date">Data fine:</string>
+    <string name="sndi_end_date">End date:</string>
     <string name="sndi_end_date_default">01/01/2000</string>
     <string name="sndi_end_date_empty">---</string>
 
     <!-- EARTHQUAKE LIST -->
-    <string name="filtri">Filtri</string>
-    <string name="m_richter">Magnitudo Richter</string>
-    <string name="da_data">Da data</string>
-    <string name="data">data</string>
-    <string name="a_data">A data</string>
-    <string name="from">Da</string>
-    <string name="till">A</string>
+    <string name="filtri">Filters</string>
+    <string name="m_richter">Richter magnitude</string>
+    <string name="da_data">From</string>
+    <string name="data">date</string>
+    <string name="a_data">To </string>
+    <string name="from">From</string>
+    <string name="till">To</string>
     <string name="richter_to_mercalli">Corrisposndenza Magnitudo Richter e Grado Mercalli</string>
-    <string name="close">CHIUDI</string>
+    <string name="close">CLOSE</string>
 
     <!-- COUNTRY LIST -->
-    <string name="country_selection">Seleziona un paese</string>
+    <string name="country_selection">Select a country</string>
 
     <!-- SAFETY MEASURES -->
     <string name="outdoor_behavior"><b>Allontanati da costruzioni e linee elettriche.</b>\n\n<b>Stai lontano da impianti industriali.</b>\n\n<b>Stai lontano dai margini</b> dei laghi e delle spiaggie marinne, si possono verificare onde di tsunami.\n\n<b>Raggiungi le aree di attesa</b> individuate dal piano di emmergenza comunale.\n\n<b>Evita di usare il telefono e l\'automobile</b>, è necessario lasciare le linee telefoniche e le strade libere per non intralciare i soccorsi.\n\n<b>In auto non sostare in prossimità di ponti, terreni franosi e spiagge</b></string>
@@ -206,16 +206,15 @@
     <string name="behavior_chiuso">Se ti trovi in un luogo <b>chiuso</b></string>
     <string name="behavior_after"><b>Dopo</b> un terremoto</string>
     <string name="behavior_dopo">Assicurati della salute delle persone intorno a te, se necessario, presta i primi soccorsi.\n\nEsci con prudenza, indossando le scarpe: in strada potresti ferirti con i vetri rotti.\n\nSe sei in una zona a rischio maremoto, allontanati dalla spiaggia e raggiungi un posto elevato.\n\nRaggiungi le aree di attesa previste dal Piano di protezione civile del tuo Comune.\n\nLimita, per quanto possibile, l’uso del telefono. Limita l’uso dell’auto per evitare di intralciare il passaggio dei mezzi di soccorso.</string>
-    <string name="title_behavior">Misure di Sicurezza</string>
+    <string name="title_behavior">Safety Measures</string>
 
     <!-- RECENTI -->
-    <string name="recent_text_info">Tocca sull\'immagine per saperne di più.</string>
-    <string name="recent_today">Oggi</string>
-    <string name="recent_show_all_quakes">Visualizza più terremoti</string>
-    <string name="recent_notable" >Degno di nota</string>
-    <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epicentro a <b>%s</b></string>
-    <string name="recent_magnitude_eq" >Magnitudo: <b>%s</b> scala Mercalli e <b>%s</b> scala Richter</string>
-    <string name="recent_hypocentre_eq" >L\'ipocentro è stato a profondità di <b>%s</b> km dalla superficie</string>
-
+    <string name="recent_text_info">Tap on the card for more details.</string>
+    <string name="recent_today">Today</string>
+    <string name="recent_show_all_quakes">Show more earthquakes</string>
+    <string name="recent_notable">Notable earthquake</string>
+    <string name="recent_most_violent_eq">The strongest earthquake took place in <b>%s</b></string>
+    <string name="recent_magnitude_eq">Magnitude: <b>%s</b> Mercalli and <b>%s</b> Richter</string>
+    <string name="recent_hypocentre_eq">The hypocentre was at <b>%s</b> km of depth from the surface</string>
 
 </resources>

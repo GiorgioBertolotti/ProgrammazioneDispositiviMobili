@@ -1,30 +1,49 @@
 package it.unimib.quakeapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Locale;
 
 import it.unimib.quakeapp.models.SeismicNetwork;
 import it.unimib.quakeapp.models.Seismograph;
 
-public class SeismicNetworkDetail extends AppCompatActivity {
+import static it.unimib.quakeapp.MainActivity.MAPS_API_KEY;
+
+public class SeismicNetworkDetail extends AppCompatActivity implements OnMapReadyCallback {
+    private GoogleMap map;
     private SeismicNetwork network;
     private SwipeRefreshLayout pullToRefresh;
     private SeismographsAdapter listAdapter;
@@ -36,6 +55,9 @@ public class SeismicNetworkDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seismic_network_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.snd_map);
+        mapFragment.getMapAsync(this);
 
         this.network = (SeismicNetwork) getIntent().getSerializableExtra("seismicNetwork");
         getSupportActionBar().setTitle(network.fdsnCode);
@@ -51,6 +73,8 @@ public class SeismicNetworkDetail extends AppCompatActivity {
                 } else {
                     showSeismographs();
                 }
+
+                showSeismographsOnMap();
                 return null;
             }
         });
@@ -77,6 +101,8 @@ public class SeismicNetworkDetail extends AppCompatActivity {
                         } else {
                             showSeismographs();
                         }
+
+                        showSeismographsOnMap();
                         return null;
                     }
                 });
@@ -97,10 +123,12 @@ public class SeismicNetworkDetail extends AppCompatActivity {
         } else {
             tvEndDate.setText(getString(R.string.snd_end_date_empty));
         }
+
+        Places.initialize(this, MAPS_API_KEY);
     }
 
     private void hideSeismographs() {
-        LinearLayout llMap = findViewById(R.id.snd_map);
+        LinearLayout llMap = findViewById(R.id.snd_map_container);
         llMap.setVisibility(View.GONE);
         TextView tvSeismographs = findViewById(R.id.snd_seismographs_title);
         tvSeismographs.setVisibility(View.GONE);
@@ -112,7 +140,7 @@ public class SeismicNetworkDetail extends AppCompatActivity {
     }
 
     private void showSeismographs() {
-        LinearLayout llMap = findViewById(R.id.snd_map);
+        LinearLayout llMap = findViewById(R.id.snd_map_container);
         llMap.setVisibility(View.VISIBLE);
         TextView tvSeismographs = findViewById(R.id.snd_seismographs_title);
         tvSeismographs.setVisibility(View.VISIBLE);
@@ -121,6 +149,32 @@ public class SeismicNetworkDetail extends AppCompatActivity {
 
         TextView tvSeismographsEmpty = findViewById(R.id.snd_seismographs_empty);
         tvSeismographsEmpty.setVisibility(View.GONE);
+    }
+
+    private void showSeismographsOnMap() {
+        if (map != null) {
+            double avgLat = 0;
+            double avgLng = 0;
+
+            for (Seismograph seismograph : retriever.seismographs) {
+                LatLng position = new LatLng(seismograph.latitude, seismograph.longitude);
+                map.addMarker(new MarkerOptions().position(position).title(seismograph.station));
+
+                avgLat += seismograph.latitude;
+                avgLng += seismograph.longitude;
+            }
+
+            avgLat = avgLat / retriever.seismographs.size();
+            avgLng = avgLng / retriever.seismographs.size();
+            LatLng center = new LatLng(avgLat, avgLng);
+
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 2));
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -174,6 +228,7 @@ public class SeismicNetworkDetail extends AppCompatActivity {
             TextView sndElev = listItem.findViewById(R.id.sndi_elev);
             TextView sndStartDate = listItem.findViewById(R.id.sndi_start_date);
             TextView sndEndDate = listItem.findViewById(R.id.sndi_end_date);
+            Button identifyButton = listItem.findViewById(R.id.sndi_identify_btn);
 
             sndTitle.setText(String.format("%s (%s)", seismograph.sitename, seismograph.station));
             sndLat.setText(String.valueOf(seismograph.latitude));
@@ -186,6 +241,16 @@ public class SeismicNetworkDetail extends AppCompatActivity {
             } else {
                 sndEndDate.setText(getString(R.string.sndi_end_date_empty));
             }
+
+            identifyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (map != null) {
+                        LatLng center = new LatLng(seismograph.latitude, seismograph.longitude);
+                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 8));
+                    }
+                }
+            });
 
             View eqiDivider = listItem.findViewById(R.id.sni_divider);
             if (position == retriever.seismographs.size() - 1) {

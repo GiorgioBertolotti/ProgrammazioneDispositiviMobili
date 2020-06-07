@@ -1,19 +1,17 @@
 package it.unimib.quakeapp;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -25,16 +23,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -50,6 +46,8 @@ public class Home extends Fragment {
     private EarthquakeListRetriever retriever;
     private EarthquakeAdapter listAdapter;
     private ListView aoiList;
+    private TextView dailyEQCounter;
+    private TextView weeklyEQCounter;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -69,18 +67,38 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        retriever = new EarthquakeListRetriever();
-        retriever.retrieve(getContext(), null, new Function() {
+        this.retriever = new EarthquakeListRetriever();
+        this.retriever.retrieve(getContext(), null, new Function() {
             @Override
             public Object apply(Object input) {
                 aoiAdapter.notifyDataSetChanged();
-                for (int i =0; i < Math.min(10,retriever.earthquakes.size()); i++){
+
+                for (int i = 0; i < Math.min(10, retriever.earthquakes.size()); i++) {
                     listAdapter.addItem(retriever.earthquakes.get(i));
                 }
                 listAdapter.notifyDataSetChanged();
+
+                if (dailyEQCounter != null && weeklyEQCounter != null) {
+                    final EarthquakeCountRetriever dailyRetriever = new EarthquakeCountRetriever();
+                    dailyRetriever.retrieveDaily(new Function() {
+                        @Override
+                        public Object apply(Object input) {
+                            dailyEQCounter.setText(String.valueOf(dailyRetriever.daily));
+                            return null;
+                        }
+                    });
+
+                    final EarthquakeCountRetriever weeklyRetriever = new EarthquakeCountRetriever();
+                    weeklyRetriever.retrieveWeekly(new Function() {
+                        @Override
+                        public Object apply(Object input) {
+                            weeklyEQCounter.setText(String.valueOf(weeklyRetriever.weekly));
+                            return null;
+                        }
+                    });
+                }
                 return null;
             }
-
         });
     }
 
@@ -92,16 +110,30 @@ public class Home extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     public void onViewCreated(final View root, @Nullable Bundle savedInstanceState) {
-        TextView todayEQ = root.findViewById(R.id.home_number_tremors);
-        //todayEQ.setText();
-        TextView weekEQ = root.findViewById(R.id.home_number_tremors_week);
-        //weekEQ.setText();
+        this.dailyEQCounter = root.findViewById(R.id.home_number_tremors);
+        this.weeklyEQCounter = root.findViewById(R.id.home_number_tremors_week);
 
         Button moreAbout = root.findViewById(R.id.home_button_more_about);
         moreAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open recent!!
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_latest));
+                Recent nextFrag = new Recent();
+
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStackImmediate();
+                }
+                ft.replace(R.id.nav_host_fragment, nextFrag);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 
@@ -123,8 +155,6 @@ public class Home extends Fragment {
             }
         });
 
-
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         arrCountries = sharedPreferences.getStringSet("areasOfInterest", new TreeSet<String>());
 
@@ -134,7 +164,7 @@ public class Home extends Fragment {
         justifyListViewHeightBasedOnChildren(aoiList);
 
         Button behaviorBtn = getView().findViewById(R.id.home_button_view);
-        behaviorBtn.setOnClickListener(new View.OnClickListener(){
+        behaviorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Behavior.class);
@@ -145,41 +175,51 @@ public class Home extends Fragment {
         this.earthquakeList = getView().findViewById(R.id.home_earthquake_list);
         this.listAdapter = new EarthquakeAdapter(getContext());
         this.earthquakeList.setAdapter(this.listAdapter);
-       justifyListViewHeightBasedOnChildren(this.earthquakeList);
+        justifyListViewHeightBasedOnChildren(this.earthquakeList);
 
         TextView moreBtn = getView().findViewById(R.id.home_more_earthquakes);
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             EarthquakeList nextFrag= new EarthquakeList();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(((ViewGroup)getView().getParent()).getId(), nextFrag, "findThisFragment")
-                        .addToBackStack(null)
-                        .commit();
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getString(R.string.menu_earthquakes));
+                EarthquakeList nextFrag = new EarthquakeList();
+
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStackImmediate();
+                }
+                ft.replace(R.id.nav_host_fragment, nextFrag);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
-
     }
-    public void justifyListViewHeightBasedOnChildren (ListView myListView) {
 
-        ListAdapter myListAdapter=myListView.getAdapter();
-       if (myListAdapter==null) {
+    public void justifyListViewHeightBasedOnChildren(ListView myListView) {
+
+        ListAdapter myListAdapter = myListView.getAdapter();
+        if (myListAdapter == null) {
             //do nothing return null
             return;
         }
         //set listAdapter in loop for getting final size
-        int totalHeight=0;
-        for (int size=0; size < myListAdapter.getCount(); size++) {
-            View listItem=myListAdapter.getView(size, null, myListView);
+        int totalHeight = 0;
+        for (int size = 0; size < myListAdapter.getCount(); size++) {
+            View listItem = myListAdapter.getView(size, null, myListView);
             listItem.measure(0, 0);
-            totalHeight+=listItem.getMeasuredHeight();
+            totalHeight += listItem.getMeasuredHeight();
         }
         //setting listview item in adapter
-        ViewGroup.LayoutParams params=myListView.getLayoutParams();
-        params.height=totalHeight + (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
+        ViewGroup.LayoutParams params = myListView.getLayoutParams();
+        params.height = totalHeight + (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
         myListView.setLayoutParams(params);
-        // print height of adapter on log
-        Log.i("height of listItem:", String.valueOf(totalHeight));
     }
 
     public void deleteAoi(String country) {
@@ -289,6 +329,7 @@ public class Home extends Fragment {
             return listItem;
         }
     }
+
     public class EarthquakeAdapter extends BaseAdapter {
 
         private ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();

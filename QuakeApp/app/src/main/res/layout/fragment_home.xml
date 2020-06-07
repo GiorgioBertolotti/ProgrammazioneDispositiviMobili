@@ -1,132 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/home_fragment_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_fragment_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroundColor"
+    android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".Home"
-    android:fillViewport="true">
+    tools:context=".Home">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
-    <HorizontalScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fadingEdge="none"
-        android:fillViewport="true"
-        android:isScrollContainer="true"
-        android:scrollbars="none">
+        <HorizontalScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fadingEdge="none"
+            android:fillViewport="true"
+            android:isScrollContainer="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/home_layout_cards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/earthquakes_card"
+                    android:layout_width="300dp"
+                    android:layout_height="140dp"
+                    android:layout_marginVertical="16dp"
+                    android:layout_marginStart="16dp" />
+
+                <include
+                    layout="@layout/safety_card"
+                    android:layout_width="300dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="16dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
-            android:id="@+id/home_layout_cards"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
-            <include
-                layout="@layout/earthquakes_card"
-                android:layout_width="300dp"
-                android:layout_height="140dp"
-                android:layout_marginVertical="16dp"
-                android:layout_marginStart="16dp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
-            <include
-                layout="@layout/safety_card"
-                android:layout_width="300dp"
-                android:layout_height="140dp"
-                android:layout_margin="16dp" />
+                <TextView
+                    android:id="@+id/home_areas_of_interest"
+                    style="@style/H6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/home_areas_of_interest" />
+
+                <info.androidhive.fontawesome.FontTextView
+                    android:id="@+id/home_icon_plus"
+                    style="@style/H6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:padding="8dp"
+                    android:text="@string/fa_plus_solid"
+                    android:textColor="@color/black"
+                    app:solid_icon="true" />
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/home_aoi_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:isScrollContainer="false"
+                android:paddingHorizontal="8dp" />
         </LinearLayout>
-    </HorizontalScrollView>
 
-    <LinearLayout
-        android:background="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/home_areas_of_interest"
                 style="@style/H6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/home_areas_of_interest" />
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="@string/home_recent_list_view" />
 
-            <info.androidhive.fontawesome.FontTextView
-                android:id="@+id/home_icon_plus"
-                style="@style/H6"
-                android:layout_width="wrap_content"
+            <ListView
+                android:id="@+id/home_earthquake_list"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="8dp"
-                android:text="@string/fa_plus_solid"
-                android:textColor="@color/black"
-                app:solid_icon="true" />
-        </RelativeLayout>
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:isScrollContainer="false" />
 
-        <ListView
-            android:id="@+id/home_aoi_list"
-            android:paddingHorizontal="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:isScrollContainer="false"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        android:background="@color/white">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/home_recent_list_view"
-            android:layout_centerVertical="true"
-            android:paddingStart="16dp"
-            android:paddingTop="4dp"
-            style="@style/H6"/>
-
-        </LinearLayout>
-
-        
-
-        <ListView
-            android:id="@+id/home_earthquake_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:isScrollContainer="false"/>
-
-        <TextView
-            android:id="@+id/home_more_earthquakes"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Visualizza tutti"
-            style="@style/Body1"
-            android:textColor="@color/primaryColor"
-            android:textAlignment="center"
-            android:clickable="true"
-            android:padding="16dp"/>
+            <TextView
+                android:id="@+id/home_more_earthquakes"
+                style="@style/Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:padding="16dp"
+                android:text="Visualizza tutti"
+                android:textAlignment="center"
+                android:textColor="@color/primaryColor" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
