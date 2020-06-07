@@ -10,10 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
@@ -23,14 +30,32 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import it.unimib.quakeapp.models.Earthquake;
+import it.unimib.quakeapp.models.Seismograph;
 
 import static it.unimib.quakeapp.MainActivity.MAPS_API_KEY;
+import static it.unimib.quakeapp.MainActivity.TAG;
 
-public class Recent extends Fragment {
+public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+    private EarthquakeListRetriever retriever;
+    private GoogleMap map;
+    private Map<Marker, Earthquake> markerEarthquakeMap = new HashMap<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.retriever = new EarthquakeListRetriever();
+        this.retriever.retrieve(getContext(), null, new Function() {
+            @Override
+            public Object apply(Object input) {
+                showEarthquakesOnMap();
+                return null;
+            }
+        });
     }
 
     @Nullable
@@ -45,29 +70,58 @@ public class Recent extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Places.initialize(getActivity().getApplicationContext(), MAPS_API_KEY);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
 
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment) getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-        autocompleteFragment.setTypeFilter(TypeFilter.CITIES);
-
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(@NonNull Place place) {
-                Log.i("TAG", "Place: " + place.getName() + ", " + place.getId());
+    private void showEarthquakesOnMap() {
+        if (map != null) {
+            for (Map.Entry<Marker, Earthquake> entry : markerEarthquakeMap.entrySet()) {
+                entry.getKey().remove();
             }
 
-            @Override
-            public void onError(@NonNull Status status) {
-                Log.i("TAG", "An error occured: " + status);
+            markerEarthquakeMap.clear();
+
+            double avgLat = 0;
+            double avgLng = 0;
+
+            for (Earthquake earthquake : retriever.earthquakes) {
+                LatLng position = new LatLng(earthquake.coordinates.lat, earthquake.coordinates.lng);
+
+                MarkerOptions options = new MarkerOptions();
+                options.position(position);
+                options.title(earthquake.placeDesc);
+
+                Marker marker = map.addMarker(options);
+
+                avgLat += earthquake.coordinates.lat;
+                avgLng += earthquake.coordinates.lng;
+
+                markerEarthquakeMap.put(marker, earthquake);
             }
-        });
 
-        autocompleteFragment.setLocationBias(RectangularBounds.newInstance(
-                new LatLng(-33.880490, 151.184363),
-                new LatLng(-33.858754, 151.229596))
-        );
-        //autocompleteFragment.setCountries("IN");
+            avgLat = avgLat / retriever.earthquakes.size();
+            avgLng = avgLng / retriever.earthquakes.size();
+            LatLng center = new LatLng(avgLat, avgLng);
 
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 2));
+
+            map.setOnMarkerClickListener(this);
+        }
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        Earthquake earthquake = markerEarthquakeMap.get(marker);
+
+        BottomSheet bottomSheet = new BottomSheet(earthquake);
+        bottomSheet.show(getParentFragmentManager(), "open bottom sheet");
+        return true;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        showEarthquakesOnMap();
     }
 }
