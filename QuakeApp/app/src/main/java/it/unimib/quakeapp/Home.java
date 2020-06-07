@@ -61,6 +61,7 @@ public class Home extends Fragment {
             aoiAdapter.setCountries(arrCountries);
 
             aoiAdapter.notifyDataSetChanged();
+            justifyListViewHeightBasedOnChildren(aoiList);
         }
     }
 
@@ -118,8 +119,10 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), CountryList.class);
                 startActivityForResult(i, AOI_CODE);
+
             }
         });
+
 
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -303,6 +306,7 @@ public class Home extends Fragment {
         public void addItem(final Earthquake item) {
             earthquakes.add(item);
             notifyDataSetChanged();
+            justifyListViewHeightBasedOnChildren(earthquakeList);
         }
 
 
