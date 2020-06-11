@@ -53,25 +53,9 @@ public class Settings extends AppCompatActivity {
                 }
                 String language = (String) parentView.getItemAtPosition(position);
                 if (language.equalsIgnoreCase("Inglese")) {
-                    Configuration config = getBaseContext().getResources().getConfiguration();
-                    Locale locale = new Locale("en");
-                    Locale.setDefault(locale);
-                    config.locale = locale;
-                    getBaseContext().getResources().updateConfiguration(config,
-                            getBaseContext().getResources().getDisplayMetrics());
-                    Intent refresh = new Intent(getApplicationContext(), MainActivity.class);
-                    finish();
-                    startActivity(refresh);
+                    refresh("en");
                 } else {
-                    Configuration config = getBaseContext().getResources().getConfiguration();
-                    Locale locale = new Locale("it");
-                    Locale.setDefault(locale);
-                    config.locale = locale;
-                    getBaseContext().getResources().updateConfiguration(config,
-                            getBaseContext().getResources().getDisplayMetrics());
-                    Intent refresh = new Intent(getApplicationContext(), MainActivity.class);
-                    finish();
-                    startActivity(refresh);
+                    refresh("it");
                 }
             }
 
@@ -80,6 +64,17 @@ public class Settings extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void refresh(String language) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+        Intent refresh = new Intent(getApplicationContext(), MainActivity.class);
+        refresh.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(refresh);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
