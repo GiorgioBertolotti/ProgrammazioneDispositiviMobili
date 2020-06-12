@@ -218,7 +218,8 @@
     <string name="recent_most_violent_eq" >Il terremoto più violento questa settimana ha avuto epicentro a <b>%s</b></string>
     <string name="recent_magnitude_eq" >Magnitudo: <b>%s</b> scala Mercalli e <b>%s</b> scala Richter</string>
     <string name="recent_hypocentre_eq" >L\'ipocentro è stato a profondità di <b>%s</b> km dalla superficie</string>
-
-
+    <string name="recent_card_magnitude">Magnitudo</string>
+    <string name="recent_card_epicenter">Epicentro</string>
+    <string name="recent_card_position">Posizione</string>
 
 </resources>

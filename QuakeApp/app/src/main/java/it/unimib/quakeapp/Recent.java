@@ -26,6 +26,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +66,8 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //setCards();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -169,4 +174,21 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
         map = googleMap;
         showEarthquakesOnMap();
     }
+
+    /*public void setCards() {
+        TextView richter = getActivity().findViewById(R.id.recent_card_magnitude_richter);
+        TextView mercalli = getActivity().findViewById(R.id.recent_card_magnitude_mercalli);
+        TextView epicentre = getActivity().findViewById(R.id.recent_card_epicentre);
+
+        Earthquake[] earthquakes = new Earthquake[5];
+        for (int i = 0; i < 5; i++) {
+            earthquakes[i] = retriever.earthquakes.get(i);
+        }
+
+        for (int j = 0; j < 5; j++) {
+            richter.setText((int) earthquakes[j].richter_mag + " Richter");
+            mercalli.setText((int) earthquakes[j].mercalli + "Mercalli");
+            epicentre.setText(Html.fromHtml(String.valueOf(earthquakes[j].coordinates.depth)));
+        }
+    }*/
 }

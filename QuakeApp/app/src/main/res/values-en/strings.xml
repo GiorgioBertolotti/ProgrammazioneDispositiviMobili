@@ -218,5 +218,8 @@
     <string name="recent_most_violent_eq">The strongest earthquake took place in <b>%s</b></string>
     <string name="recent_magnitude_eq">Magnitude: <b>%s</b> Mercalli and <b>%s</b> Richter</string>
     <string name="recent_hypocentre_eq">The hypocentre was at <b>%s</b> km of depth from the surface</string>
+    <string name="recent_card_magnitude">Magnitude</string>
+    <string name="recent_card_epicenter">Epicenter</string>
+    <string name="recent_card_position">Location</string>
 
 </resources>
