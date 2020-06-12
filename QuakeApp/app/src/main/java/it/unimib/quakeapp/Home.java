@@ -353,10 +353,6 @@ public class Home extends Fragment {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        public void clear() {
-            earthquakes.clear();
-        }
-
         public void addItem(final Earthquake item) {
             earthquakes.add(item);
             notifyDataSetChanged();

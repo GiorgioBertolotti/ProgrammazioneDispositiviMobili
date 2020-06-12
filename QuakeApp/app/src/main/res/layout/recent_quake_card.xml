@@ -6,7 +6,8 @@
     android:layout_height="100dp"
     android:theme="@style/Theme.MaterialComponents.Light"
     app:cardCornerRadius="12dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    android:layout_margin="8dp">
 
     <LinearLayout
         android:id="@+id/home_layout_card_more_about"

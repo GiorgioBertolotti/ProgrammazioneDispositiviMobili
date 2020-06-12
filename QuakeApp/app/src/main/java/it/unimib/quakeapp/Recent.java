@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import androidx.arch.core.util.Function;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,10 +43,13 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
     private GoogleMap map;
     private Map<Marker, Earthquake> markerEarthquakeMap = new HashMap<>();
     private RelativeLayout rlAllEarthquake;
+    private CardsAdapter cardsAdapter;
+    private ArrayList<Earthquake> earthquakesList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        earthquakesList = new ArrayList<Earthquake>();
 
         this.retriever = new EarthquakeListRetriever();
         this.retriever.retrieve(getContext(), null, new Function() {
@@ -50,6 +57,10 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
             public Object apply(Object input) {
                 showEarthquakesOnMap();
                 populateTopEarthquake();
+                for (int i = 0; i < Math.min(10, retriever.earthquakes.size()); i++) {
+                    earthquakesList.add(retriever.earthquakes.get(i));
+                }
+                cardsAdapter.notifyDataSetChanged();
                 return null;
             }
         });
@@ -67,7 +78,12 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //setCards();
+        RecyclerView recyclerView = getActivity().findViewById(R.id.recyclerView);
+        this.cardsAdapter = new CardsAdapter(earthquakesList);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
+        mLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(cardsAdapter);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -175,20 +191,52 @@ public class Recent extends Fragment implements OnMapReadyCallback, GoogleMap.On
         showEarthquakesOnMap();
     }
 
-    /*public void setCards() {
-        TextView richter = getActivity().findViewById(R.id.recent_card_magnitude_richter);
-        TextView mercalli = getActivity().findViewById(R.id.recent_card_magnitude_mercalli);
-        TextView epicentre = getActivity().findViewById(R.id.recent_card_epicentre);
+    public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
+        private ArrayList<Earthquake> earthquakes;
+        private LayoutInflater mInflater;
+        class MyViewHolder extends RecyclerView.ViewHolder {
+            TextView location, magRichter, magMercalli, epicentre;
+            MyViewHolder(View view) {
+                super(view);
+                location = view.findViewById(R.id.recent_card_title);
+                magRichter = view.findViewById(R.id.recent_card_magnitude_richter);
+                magMercalli = view.findViewById(R.id.recent_card_magnitude_mercalli);
+                epicentre = view.findViewById(R.id.recent_card_epicentre);
 
-        Earthquake[] earthquakes = new Earthquake[5];
-        for (int i = 0; i < 5; i++) {
-            earthquakes[i] = retriever.earthquakes.get(i);
+
+            }
+        }
+        public CardsAdapter(ArrayList <Earthquake> earthquakes) {
+            this.earthquakes = earthquakes;
         }
 
-        for (int j = 0; j < 5; j++) {
-            richter.setText((int) earthquakes[j].richter_mag + " Richter");
-            mercalli.setText((int) earthquakes[j].mercalli + "Mercalli");
-            epicentre.setText(Html.fromHtml(String.valueOf(earthquakes[j].coordinates.depth)));
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.recent_quake_card, parent, false);
+            return new MyViewHolder(itemView);
         }
-    }*/
+        @Override
+        public void onBindViewHolder(MyViewHolder holder, int position) {
+            Earthquake earthquake = earthquakes.get(position);
+            holder.location.setText(earthquake.getPlaceDescWithoutKm());
+            final String richter = Integer.toString((int) Math.floor(earthquake.richter_mag));
+            final String mercalli = Integer.toString((int) Math.floor(earthquake.mercalli));
+            final String depth = Integer.toString((int)Math.floor(earthquake.coordinates.depth));
+            holder.magRichter.setText(String.format("%s Richter", richter));
+            holder.magMercalli.setText(String.format("%s Mercalli", mercalli));
+            holder.epicentre.setText(String.format("%s km", depth));
+        }
+        @Override
+        public int getItemCount() {
+            return earthquakes.size();
+        }
+        public void addItem(final Earthquake item) {
+            earthquakes.add(item);
+            notifyDataSetChanged();
+        }
+    }
+
 }

@@ -56,62 +56,10 @@
             android:layout_marginVertical="8dp"
             android:text="@string/recent_today" />
 
-        <HorizontalScrollView
-            android:id="@+id/scroll_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fadingEdge="none"
-            android:fillViewport="true"
-            android:isScrollContainer="true"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/home_layout_cards"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <include
-                    android:id="@+id/recent_card_one"
-                    layout="@layout/recent_quake_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:layout_marginStart="16dp" />
-
-                <include
-                    android:id="@+id/recent_card_two"
-                    layout="@layout/recent_quake_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:layout_marginStart="8dp" />
-
-                <include
-                    android:id="@+id/recent_card_three"
-                    layout="@layout/recent_quake_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:layout_marginStart="8dp" />
-
-                <include
-                    android:id="@+id/recent_card_four"
-                    layout="@layout/recent_quake_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:layout_marginStart="8dp" />
-
-                <include
-                    android:id="@+id/recent_card_five"
-                    layout="@layout/recent_quake_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-        </HorizontalScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <RelativeLayout
             android:id="@+id/recent_all_quakes"
