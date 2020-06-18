@@ -66,63 +66,53 @@
 
     <!-- FAQ -->
     <string name="toggle_question">Open/Close</string>
-    <string name="epicenter_image">Immagine epicentro/ipocentro</string>
-    <string name="question1">Quale associazione fornisce i <b>dati</b>?</string>
-    <string name="answer1">I dati presenti nell\'applicazione sono forniti da <b>USGS</b>.
-        Lo <b>United States Geological Survey (USGS)</b> è un\'agenzia scientifica del Governo degli USA.
-        L\'USGS è un organismo operativo e di ricerca, privo di poteri legali (non ha responsabilità normative)
-        che esegue ricerche sui fatti oggettivi relativi all\'ambiente.
-        L\'USGS gestisce il <b>National Earthquake Information Center</b> con sede a Golden (Colorado),
-        organismo in grado di individuare la posizione e la magnitudo dei terremoti di tutto il mondo.
-        Il motto dell\'USGS è <i>\"science for a changing world\"</i> (la scienza per un mondo in cambiamento).</string>
-    <string name="question_Richter">Cosa colcola l\'indice <b>Richter</b>?</string>
-    <string name="answer_Richter"><b>L\'indice Richter fornisce una valutazione obiettiva (magnitudo)
-        della quantità di energia liberata.</b> \n
-        Per calcolare la magnitudo si usa l\'indice Richter che non si misura in gradi,
-        ma rappresenta delle grandezze, corrispondenti all\'ampiezza delle onde sismiche
-        che un terremoto sprigiona al suo epicentro, elevate su base logaritmica.
-        Lo zero della scala equivale ad una energia liberata pari a 105 Joule.
-        Il massimo valore registrato, è stato di magnitudo 8.6 equivalente all\'energia di 1018 J.
-        \n\n<b><![CDATA[<3.5]]></b>: Generalmente non sentita, ma registrata. \n\n<b>3.5-5.4</b>: Spesso sentita,
-        ma raramente causa dei danni. \n\n<b>sotto 6.0</b>: Al massimo lievi danni a solidi edifici.
-        \n\n<b>6.1-6.9</b>: Può arrivare ad essere distruttiva in aree di quasi 100 km, attraversando
-        anche zone abitate. \n\n<b>7.0-7.9</b>: Terremoto maggiore. Causa seri danni su grandi aree.
-        \n\n<b><![CDATA[>=8]]></b>: Grande terremoto. Può causare seri danni su vaste aree di svariate centinaia km.</string>
-    <string name="question_Mercalli">Cosa calcola la scala <b>Mercalli</b>?</string>
-    <string name="answer_Mercalli">La scala Mercalli non è una grandezza ma una scala lineare che
-        valuta in gradi gli effetti distruttivi del sisma, da un minimo di zero, pari a nessun
-        effetto su popolazione, cose ed edifici, a un massimo di 12 gradi, pari alla distruzione totale.
-        La scala Mercalli dunque è un indice empirico, che, ad esempio, non si può calcolare in
-        un luogo desertico o disabitato, dove non c\'è niente da distruggere.
-        Essa <b>rappresenta l\'intensità con cui un terremoto si manifesta, in base alla sua capacità distruttiva.</b>
-        \n\n<b>I</b>: Strumentale \n<b>II</b>: Leggerissima \n<b>III</b>: Leggera \n<b>IV</b>: Mediocre \n<b>V</b>: Forte
-        \n<b>VI</b>: Molto forte \n<b>VII</b>: Fortissima \n<b>VIII</b>: Rovinosa \n<b>IX</b>: Disastrosa
-        \n<b>X</b>: Disastrosissima \n<b>XI</b>: Catastrofica \n<b>XII</b>: Grande catastrofe</string>
-    <string name="question4">Qual è la corrispondenza tra scala <b>Mercalli</b> e indice <b>Richter</b>?</string>
+    <string name="epicenter_image">Epicenter/ipocenter image</string>
+    <string name="question1">Which organisation provides the <b>data</b>?</string>
+    <string name="answer1">All information used in the application is provided by<b>USGS</b>.
+        <b>United States Geological Survey (USGS)</b> is a scientific agency of the US government.
+        USGS is an operational and research organisation, devoid of legal powers (it has no regulatory responsibility)
+        that carries out research on objective facts relating to the environment. USGS manages
+        the <b>National Earthquake Information Center</b> based in Golden (Colorado), an organization
+        capable of identifying the location and magnitude of earthquakes around the world.
+        The USGS motto is <i>\"science for a changing world\" </i> (science for a changing world).</string>
+    <string name="question_Richter">What does the <b>Richter</b> scale measure?</string>
+    <string name="answer_Richter"><b>The Richter index provides an objective assessment (magnitude)
+        of the amount of energy released.</b> \n
+        The Richter index is used to calculate the magnitude: it is not measured in degrees, but represents quantities
+        corresponding to the amplitude of the seismic waves that an earthquake releases at its epicenter,
+        elevated on a logarithmic basis. The zero on the scale is equivalent to a released energy of 105 Joules.
+        The maximum recorded value was of magnitude 8.6 equivalent to the energy of 1018 J.
+        \n\n<b><![CDATA[<3.5]]></b>: Usually not felt, but registered. \n\n<b>3.5-5.4</b>: Often felt,
+        but rarely causes damage. \n\n<b>under 6.0</b>: At most slight damage to solid buildings.
+        \n\n<b>6.1-6.9</b>: It can be destructive to areas within 100 km. \n\n<b>7.0-7.9</b>: Major earthquake. Causes serious damage over large areas.
+        \n\n<b><![CDATA[>=8]]></b>: Major earthquake. It can cause serious damage over large areas of several hundred km.</string>
+    <string name="question_Mercalli">What does the <b>Mercalli</b> scale measure?</string>
+    <string name="answer_Mercalli">The Mercalli scale is not a magnitude but a linear scale that evaluates the destructive effects
+        of the earthquake in degrees, from a minimum of zero, equivalent to no effect on the population, things and buildings,
+        to a maximum of 12 degrees, equivalent to total destruction. The Mercalli scale is therefore an empirical index,
+        which, for example, cannot be calculated in a desert or uninhabited place, where there is nothing that can be destroy.
+        It <b>represents the intensity with which an earthquake occurs, based on its destructive capacity.</b>
+        \n\n<b>I</b>: Active \n<b>II</b>: Very light \n<b>III</b>: Light \n<b>IV</b>: Mediocre \n<b>V</b>: Strong
+        \n<b>VI</b>: Very strong \n<b>VII</b>: Intense \n<b>VIII</b>: Ruinous \n<b>IX</b>: Disastrous
+        \n<b>X</b>: Devastating \n<b>XI</b>: Catastrophic \n<b>XII</b>: Huge catastrophe</string>
+    <string name="question4">What is the correspondence between the <b>Mercalli</b> scale and the <b>Richter</b> index?</string>
     <string name="minore"><![CDATA[<3.5]]></string>
     <string name="maggiore"><![CDATA[>8.1]]></string>
-    <string name="grado_mercalli"><b>Grado Mercalli</b></string>
-    <string name="magnitudo_richter"><b>Magnitudo Richter</b></string>
-    <string name="question5">Qual è la differenza tra <b>epicentro</b> e <b>ipocentro</b>?</string>
-    <string name="answer5"><b>L\’ipocentro</b> è il punto, situato in profondità all\’interno della Terra,
-        in cui avviene la rottura della faglia che genera il terremoto.
-        E\’ il punto da cui partono, in ogni direzione, le onde sismiche responsabili di quella
-        che chiamiamo “scossa sismica”.\n
-        <b>L\’epicentro</b> è invece il punto della superficie terrestre situato sulla verticale
-        dell\’ipocentro. Se dall\’ipocentro si tracciasse una linea verticale, questa incontrerebbe
-        la superficie in quello che noi chiamiamo epicentro.</string>
-    <string name="question6">Come aggiungo un Paese alla sezione <b>aree di interesse</b>?</string>
-    <string name="answer6">Per <b>aggiungere</b> un Paese alle proprie <i>Aree di interesse</i> bisogna cliccare
-        sul pulsante \'<b>+</b>\' accanto alla scritta \"<i>Aree di interesse</i>\" all\'interno della Home; a questo
-        punto si aprirà una pagina che permetterà la ricerca del Paese da <b>aggiungere</b> desiderato.</string>
-    <string name="question7">Come faccio a rimuovere un Paese dalla sezione <b>aree di interesse</b>?</string>
-    <string name="answer7">Per <b>rimuovere</b> un Paese dalla sezione riguardante le proprie <i>Aree di interesse</i>
-    bisogna cliccare sull\'icona a forma di cestino accanto al Paese che si vuole <b>eliminare</b> direttamente
-        dalla Home; in alternativa, è possibile cliccare sul pulsante \'<b>+</b>\' accanto alla scritta \"<i>Aree di interesse</i>\"
-    sempre all\'interno della Home; a questo punto si può <b>cancellare</b> dalla propria <i>Aree di interesse</i>
-    il Paese desiderato semplicemente selezionando l\'icona a forma di cestino che compare in corrispondenza
-        del Paese in questione.</string>
-    <string name="question8">Cosa indicano gli stati <b>sicuro</b>, <b>allerta</b> e <b>emergenza</b>?</string>
+    <string name="grado_mercalli"><b>Mercalli degree</b></string>
+    <string name="magnitudo_richter"><b>Richter magnitude</b></string>
+    <string name="question5">What is the difference between <b>epicenter</b> and <b>hypocenter</b>?</string>
+    <string name="answer5"><b>Hypocenter</b> is the point, located deep inside the Earth, where the fault that generates the earthquake breaks.
+        It is the point from which the seismic waves, responsible for a "seismic shock", start.\n
+        <b>Epicenter</b> is the point of the earth\'s surface located on the vertical of the hypocenter.
+        If a vertical line is drawn from the hypocenter, this would meet the surface in what we call the epicenter.</string>
+    <string name="question6">How can you add a country in section <b>Areas of interest</b>?</string>
+    <string name="answer6">To <b>add</b> a country to your <i>Areas of interest</i> you need to click on the \'<b>+</b>\' button
+        next to \"<i>Area of interest</i>\" on Home page; at this point a new page opens which allows to search for the country you want to add.</string>
+    <string name="question7">How can i remove a country from list <b>Areas of interest</b>?</string>
+    <string name="answer7">To <b>remove</b> a country from your <i>Areas of interest</i>, directly from home page, you need to click on the bin shaped icon next
+        to the name of country you want to <b>remove</b>. Otherwise, you can click on the \'<b>+</b>\' button next to \"<i>Areas of interest</i>\" on the Home page;
+        at this point you can <b>delete</b> the country you want from your list by simply clicking on the bin shaped icon next to the name of the country.</string>
+    <string name="question8">What do the tags <b>safe</b>, <b>critic</b> and <b>emergency</b> mean?</string>
     <string name="answer8" />
 
     <!-- BOTTOM SHEET -->
@@ -200,19 +190,21 @@
     <string name="a_data">To </string>
     <string name="from">From</string>
     <string name="till">To</string>
-    <string name="richter_to_mercalli">Corrisposndenza Magnitudo Richter e Grado Mercalli</string>
+    <string name="richter_to_mercalli">Correspondence between Richter magnitude and Mercalli scale</string>
     <string name="close">CLOSE</string>
 
     <!-- COUNTRY LIST -->
     <string name="country_selection">Select a country</string>
 
     <!-- SAFETY MEASURES -->
-    <string name="outdoor_behavior"><b>Allontanati da costruzioni e linee elettriche.</b>\n\n<b>Stai lontano da impianti industriali.</b>\n\n<b>Stai lontano dai margini</b> dei laghi e delle spiaggie marinne, si possono verificare onde di tsunami.\n\n<b>Raggiungi le aree di attesa</b> individuate dal piano di emmergenza comunale.\n\n<b>Evita di usare il telefono e l\'automobile</b>, è necessario lasciare le linee telefoniche e le strade libere per non intralciare i soccorsi.\n\n<b>In auto non sostare in prossimità di ponti, terreni franosi e spiagge</b></string>
-    <string name="indoor_behavior"><b>Cerca riparo nel vano di una porta</b> inserita in un muro portante o sotto una trave che ti può proteggere da eventuali crolli.\n\n<b>Riparati sotto un tavolo</b>, è pericoloso stare vicino a mobili, oggetti pesanti e vetri che potrebbero cadere.\n\n<b>Non precipitarti verso le scale o l\'ascensore</b>, talvolte le scale sono la parte più debole dell\'edificio. L\'ascensore può bloccarsi.\n\n<b>Tieni in casa una cassetta di primo soccorso</b> e assicurati che ogni componente della famiglia sappia dove è riposta</string>
-    <string name="behavior_aperto">Se ti trovi in un luogo <b>aperto</b></string>
-    <string name="behavior_chiuso">Se ti trovi in un luogo <b>chiuso</b></string>
-    <string name="behavior_after"><b>Dopo</b> un terremoto</string>
-    <string name="behavior_dopo">Assicurati della salute delle persone intorno a te, se necessario, presta i primi soccorsi.\n\nEsci con prudenza, indossando le scarpe: in strada potresti ferirti con i vetri rotti.\n\nSe sei in una zona a rischio maremoto, allontanati dalla spiaggia e raggiungi un posto elevato.\n\nRaggiungi le aree di attesa previste dal Piano di protezione civile del tuo Comune.\n\nLimita, per quanto possibile, l’uso del telefono. Limita l’uso dell’auto per evitare di intralciare il passaggio dei mezzi di soccorso.</string>
+    <string name="outdoor_behavior"><b>Drop to the ground in a clear spot away from buildings, trees and power lines.</b>\n\n<b>If you are driving</b> – pull over, stop and set your parking brake. Avoid overpasses, bridges, power lines, trees, signs, buildings, vehicles and other things that may fall on your car.</string>
+    <string name="indoor_behavior"><b>Drop down and take cover under a desk or table.</b> Be prepared to hold on until the shaking stops. \n\n<b>Stay inside</b> until the shaking stops and it is safe to exit.\n\n<b>Stay away from stairs and lifts</b>, usually
+        stairs are the most fragile part of the building. The lift can get blocked.\n\n<b>Keep a first aid box at home.</b> and make sure that everyone in the family knows where it is. \n\nStay away from bookcases and other furniture that can fall on you. \n\nStay away from windows and light fixtures.</string>
+    <string name="behavior_aperto">If you are <b>outdoors</b></string>
+    <string name="behavior_chiuso">If you are <b>indoors</b></string>
+    <string name="behavior_after"><b>After</b> an earthquake</string>
+    <string name="behavior_dopo">Help injured or trapped people, but do not move seriously injured people unless they are in immediate danger of sustaining more injuries. Give first aid as appropriate.\n\nIf you are inside, exit the building and go to an open space far from any damage and other buildings.\n\nBe aware of possible tsunamis if you live in a coastal area, and stay away from the beach. If a tsunami warning is issued, assume that dangerous waves are on the way.
+        \n\nGo to a designated shelter if your home is no longer safe.\n\nPut on long pants, a long-sleeved shirt, sturdy shoes and work gloves to protect yourself against broken objects.</string>
     <string name="title_behavior">Safety Measures</string>
 
     <!-- RECENTI -->
