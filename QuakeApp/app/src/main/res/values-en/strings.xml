@@ -24,6 +24,11 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_bugs">Report a bug</string>
 
+    <!-- HOME -->
+    <string name="share">SHARE</string>
+    <string name="share_with">Share using</string>
+    <string name="share_message"><b>Let your friends know that you are okay!</b></string>
+
     <!--BUG REPORT -->
     <string name="bug_text">Send text message describing the issue found:</string>
     <string name="bug_edit_text">Enter the text here</string>

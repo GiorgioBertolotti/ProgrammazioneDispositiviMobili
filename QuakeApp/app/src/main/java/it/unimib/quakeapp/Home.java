@@ -1,6 +1,8 @@
 package it.unimib.quakeapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -206,13 +208,32 @@ public class Home extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.message));
-                startActivity(Intent.createChooser(sharingIntent,"Share using"));
+                showDialog();
             }
         });
 
+
+    }
+    public void showDialog(){
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this.getActivity());
+        View mView = getLayoutInflater().inflate(R.layout.share_dialog, null, false);
+        mBuilder.setView(mView);
+        mBuilder.setNegativeButton(getString(R.string.share), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getString(R.string.message));
+                startActivity(Intent.createChooser(sharingIntent,getString(R.string.share_with)));
+            }
+        });
+        mBuilder.setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
     }
 
     public void justifyListViewHeightBasedOnChildren(ListView myListView) {
