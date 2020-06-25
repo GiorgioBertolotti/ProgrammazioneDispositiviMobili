@@ -219,4 +219,10 @@
     <string name="recent_card_epicenter">Epicenter</string>
     <string name="recent_card_position">Location</string>
 
+    <!-- IMPOSTAZIONI -->
+    <string name="language_select">Select</string>
+    <string name="language_italian">Italian</string>
+    <string name="language_english">English</string>
+
+
 </resources>

@@ -28,7 +28,6 @@ import java.util.Set;
 
 public class Settings extends AppCompatActivity {
 
-    private static final String[] LANGUAGES = {"", "Italiano", "Inglese"};
     private boolean initialized = false;
 
     @Override
@@ -39,6 +38,8 @@ public class Settings extends AppCompatActivity {
         getSupportActionBar().setTitle(getString(R.string.settings));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        final String[] LANGUAGES = {getString(R.string.language_select), getString(R.string.language_italian), getString(R.string.language_english)};
         Spinner spinner = findViewById(R.id.spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, LANGUAGES);

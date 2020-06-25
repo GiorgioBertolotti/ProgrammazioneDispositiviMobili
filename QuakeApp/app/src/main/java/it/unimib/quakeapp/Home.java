@@ -150,7 +150,7 @@ public class Home extends Fragment {
         iconHat.setTypeface(fontAwesome);
 
         TextView iconPlus = root.findViewById(R.id.home_icon_plus);
-        iconPlus.setOnClickListener(new View.OnClickListener() {
+       iconPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), CountryList.class);
@@ -235,7 +235,6 @@ public class Home extends Fragment {
         AlertDialog dialog = mBuilder.create();
         dialog.show();
     }
-
     public void justifyListViewHeightBasedOnChildren(ListView myListView) {
 
         ListAdapter myListAdapter = myListView.getAdapter();

@@ -227,5 +227,10 @@
     <string name="recent_card_epicenter">Epicentro</string>
     <string name="recent_card_position">Posizione</string>
 
+    <!-- IMPOSTAZIONI -->
+    <string name="language_select">Seleziona</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_english">Inglese</string>
+
 
 </resources>

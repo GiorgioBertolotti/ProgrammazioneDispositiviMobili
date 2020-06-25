@@ -47,7 +47,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:paddingStart="66dp"
+                        android:paddingStart="70dp"
                         android:text="@string/fa_chevron_down_solid"
                         android:textColor="@color/black"
                         android:textSize="14sp"
