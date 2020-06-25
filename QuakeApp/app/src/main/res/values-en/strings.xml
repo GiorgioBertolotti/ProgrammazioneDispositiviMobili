@@ -27,7 +27,7 @@
     <!-- HOME -->
     <string name="share">SHARE</string>
     <string name="share_with">Share using</string>
-    <string name="share_message"><b>Let your friends know that you are okay!</b></string>
+    <string name="share_message">Let your friends know that you are okay!</string>
 
     <!--BUG REPORT -->
     <string name="bug_text">Send text message describing the issue found:</string>
@@ -113,7 +113,9 @@
         to the name of country you want to <b>remove</b>. Otherwise, you can click on the \'<b>+</b>\' button next to \"<i>Areas of interest</i>\" on the Home page;
         at this point you can <b>delete</b> the country you want from your list by simply clicking on the bin shaped icon next to the name of the country.</string>
     <string name="question8">What do the tags <b>safe</b>, <b>critic</b> and <b>emergency</b> mean?</string>
-    <string name="answer8" />
+    <string name="answer8"><b> Safe:</b> no earthquake happened recently.\n
+        <b>Critic:</b> there was a recent earthquake and there could be aftershocks.\n
+        <b>Emergency:</b> an earthquake just occurred.</string>
 
     <!-- BOTTOM SHEET -->
     <string name="bs_epicenter">Epicentre</string>

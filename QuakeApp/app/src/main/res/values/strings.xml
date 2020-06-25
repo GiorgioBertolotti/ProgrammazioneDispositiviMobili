@@ -27,7 +27,7 @@
     <!-- HOME -->
     <string name="share">CONDIVDI</string>
     <string name="share_with">Condividi con</string>
-    <string name="share_message"><b>Fai sapere ai tuoi amici che stai bene!</b></string>
+    <string name="share_message">Fai sapere ai tuoi amici che stai bene!</string>
 
     <!--BUG REPORT -->
     <string name="bug_text">Mandaci un messaggio in cui riporti il problema che hai riscontrato:</string>
@@ -123,7 +123,10 @@
     il Paese desiderato semplicemente selezionando l\'icona a forma di cestino che compare in corrispondenza
         del Paese in questione.</string>
     <string name="question8">Cosa indicano gli stati <b>sicuro</b>, <b>allerta</b> e <b>emergenza</b>?</string>
-    <string name="answer8" />
+    <string name="answer8"><b>Sicuro:</b> non ci sono terremoti recenti nella zona.\n
+        <b>Allerta:</b> ci sono stati terremoti recentemente, e ci possono essere scosse di assestamento.\n
+        <b>Emergenza:</b> si è appena verificato un terremoto.</string>
+
 
     <!-- BOTTOM SHEET -->
     <string name="bs_epicenter">Epicentro</string>
