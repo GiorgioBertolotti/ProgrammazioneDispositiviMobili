@@ -56,7 +56,7 @@ import okhttp3.Response;
 import static it.unimib.quakeapp.MainActivity.TAG;
 
 
-public class EarthquakeList extends Fragment implements AdapterView.OnItemSelectedListener,DatePickerDialog.OnDateSetListener{
+public class EarthquakeList extends Fragment implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
 
     enum SortBy {
@@ -75,7 +75,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     private SwipeRefreshLayout pullToRefresh;
     private RangeSeekBar rangeSeekbar;
     private int cur = 0, filterNum = 0;
-    private String DateFrom= "", DateTill = "";
+    private String DateFrom = "", DateTill = "";
     private int minMag = 0, maxMag = 10;
 
     @Override
@@ -115,96 +115,96 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               filtersDrawer.openDrawer(Gravity.RIGHT, false);
+                filtersDrawer.openDrawer(Gravity.RIGHT, false);
             }
         });
 
-       rangeSeekbar = getView().findViewById(R.id.elfs_range_seekbar);
+        rangeSeekbar = getView().findViewById(R.id.elfs_range_seekbar);
         final TextView minMagnitude = getView().findViewById(R.id.elfs_seekbar_min);
         final TextView maxMagnitude = getView().findViewById(R.id.elfs_seekbar_max);
         final TextView filterMin = getView().findViewById(R.id.tag_richter_maggiore);
         final TextView filterMax = getView().findViewById(R.id.tag_filtri_richter_minore);
-       rangeSeekbar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
-           @Override
-           public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
+        rangeSeekbar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
+            @Override
+            public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
 
 
-               minMag = (int)bar.getSelectedMinValue();
-               maxMag = (int)bar.getSelectedMaxValue();
+                minMag = (int) bar.getSelectedMinValue();
+                maxMag = (int) bar.getSelectedMaxValue();
 
-                    minMagnitude.setText("Min: " + bar.getSelectedMinValue());
-                    maxMagnitude.setText("Max: " + bar.getSelectedMaxValue());
-                    if(minMag!= 0) {
-                        filterMin.setVisibility(View.VISIBLE);
-                        filterMin.setText("Richter > " + minMag);
-                    }else {
-                        filterMin.setVisibility(View.GONE);
-                    }
-                    if(maxMag != 10) {
-                        filterMax.setVisibility(View.VISIBLE);
-                        filterMax.setText("Richter < " + maxMag);
-                    }else {
-                        filterMax.setVisibility(View.GONE);
+                minMagnitude.setText("Min: " + bar.getSelectedMinValue());
+                maxMagnitude.setText("Max: " + bar.getSelectedMaxValue());
+                if (minMag != 0) {
+                    filterMin.setVisibility(View.VISIBLE);
+                    filterMin.setText("Richter > " + minMag);
+                } else {
+                    filterMin.setVisibility(View.GONE);
+                }
+                if (maxMag != 10) {
+                    filterMax.setVisibility(View.VISIBLE);
+                    filterMax.setText("Richter < " + maxMag);
+                } else {
+                    filterMax.setVisibility(View.GONE);
+                }
+                filter();
+
+            }
+        });
+
+        int[] checkBoxes = {
+                R.id.elfs_checkbox_till_date,
+                R.id.elf_checkbox_from_date,
+        };
+        int[] dateViews = {
+                R.id.elfs_till,
+                R.id.elfs_from,
+        };
+        int[] filterTags = {
+                R.id.tag_filtri_till_date,
+                R.id.tag_filtri_from_date,
+        };
+        for (int i = 0; i < checkBoxes.length; i++) {
+            final TextView date = getView().findViewById(dateViews[i]);
+            final CheckBox checkBox = getView().findViewById(checkBoxes[i]);
+            final TextView dateTag = getView().findViewById(filterTags[i]);
+            final int finalI = i;
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        String dateToShow = Calendar.getInstance().get(Calendar.YEAR) + "-" +
+                                (Calendar.getInstance().get(Calendar.MONTH) + 1) + "-" +
+                                Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                        date.setText(dateToShow);
+                        filterNum++;
+                        date.setVisibility(View.VISIBLE);
+                        if (finalI == 1) {
+                            DateFrom = dateToShow;
+                            final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
+                            dateTag.setText(getString(R.string.from) + ": " + dateToShow);
+                            dateTag.setVisibility(View.VISIBLE);
+                        }
+                        if (finalI == 0) {
+                            DateTill = Calendar.getInstance().get(Calendar.YEAR) + "-" +
+                                    (Calendar.getInstance().get(Calendar.MONTH) + 1) + "-" +
+                                    (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1);
+                            final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
+                            dateTag.setText(getString(R.string.till) + ": " + dateToShow);
+                            dateTag.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        date.setVisibility(View.GONE);
+                        dateTag.setVisibility(View.GONE);
+                        if (finalI == 1) DateFrom = "";
+                        if (finalI == 0) DateTill = "";
+                        filterNum--;
                     }
                     filter();
-
-           }
-       });
-
-       int[] checkBoxes = {
-               R.id.elfs_checkbox_till_date,
-               R.id.elf_checkbox_from_date,
-       };
-       int[] dateViews = {
-               R.id.elfs_till,
-               R.id.elfs_from,
-       };
-       int[] filterTags = {
-               R.id.tag_filtri_till_date,
-               R.id.tag_filtri_from_date,
-       };
-       for (int i = 0; i < checkBoxes.length; i++){
-           final TextView date = getView().findViewById(dateViews[i]);
-           final CheckBox checkBox = getView().findViewById(checkBoxes[i]);
-           final TextView dateTag = getView().findViewById(filterTags[i]);
-           final int finalI = i;
-           checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-               @Override
-               public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                   if (isChecked) {
-                       String dateToShow = Calendar.getInstance().get(Calendar.YEAR) + "-" +
-                               (Calendar.getInstance().get(Calendar.MONTH) +1) + "-"+
-                               Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-                       date.setText(dateToShow);
-                       filterNum++;
-                       date.setVisibility(View.VISIBLE);
-                       if(finalI== 1) {
-                           DateFrom = dateToShow;
-                           final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
-                           dateTag.setText(getString(R.string.from)+ ": " + dateToShow);
-                           dateTag.setVisibility(View.VISIBLE);
-                       }
-                       if(finalI == 0) {
-                           DateTill = Calendar.getInstance().get(Calendar.YEAR) + "-" +
-                                   (Calendar.getInstance().get(Calendar.MONTH) +1) + "-"+
-                                   (Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+1);
-                           final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
-                           dateTag.setText(getString(R.string.till)+ ": " + dateToShow);
-                           dateTag.setVisibility(View.VISIBLE);
-                       }
-                   } else {
-                       date.setVisibility(View.GONE);
-                       dateTag.setVisibility(View.GONE);
-                       if(finalI == 1) DateFrom = "";
-                       if(finalI == 0) DateTill = "";
-                       filterNum--;
-                   }
-                   filter();
-               }
-           });
-       }
-       final TextView dateFromV =  getView().findViewById(R.id.elfs_from);
-        final TextView dateTillV =  getView().findViewById(R.id.elfs_till);
+                }
+            });
+        }
+        final TextView dateFromV = getView().findViewById(R.id.elfs_from);
+        final TextView dateTillV = getView().findViewById(R.id.elfs_till);
         dateFromV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,7 +232,7 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                String url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
+                String url = String.format("%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
                         EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill, earthquakesLoaded);
 
                 final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url, false);
@@ -262,8 +262,8 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-    private void showDatePickerDialogue(){
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(),this,
+    private void showDatePickerDialogue() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(), this,
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
@@ -273,46 +273,57 @@ public class EarthquakeList extends Fragment implements AdapterView.OnItemSelect
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String dateToShow = year + "-" + (month+1) + "-" + dayOfMonth;
-        if(cur == 1){
+        String dateToShow = year + "-" + (month + 1) + "-" + dayOfMonth;
+        if (cur == 1) {
             final TextView dateText = getView().findViewById(R.id.elfs_from);
             dateText.setText(dateToShow);
             final TextView dateTag = getView().findViewById(R.id.tag_filtri_from_date);
-            dateTag.setText(getString(R.string.from) +": " + dateToShow);
+            dateTag.setText(getString(R.string.from) + ": " + dateToShow);
             dateTag.setVisibility(View.VISIBLE);
-            DateFrom = year + "-" + (month+1) + "-" + dayOfMonth;
+            DateFrom = year + "-" + (month + 1) + "-" + dayOfMonth;
         }
-        if(cur == 2){
+        if (cur == 2) {
             final TextView dateText = getView().findViewById(R.id.elfs_till);
             dateText.setText(dateToShow);
             final TextView dateTag = getView().findViewById(R.id.tag_filtri_till_date);
-            dateTag.setText(getString(R.string.till)+ ": " + dateToShow);
+            dateTag.setText(getString(R.string.till) + ": " + dateToShow);
             dateTag.setVisibility(View.VISIBLE);
-            DateTill = year + "-" + (month+1) + "-" + (dayOfMonth + 1);
+
+            /*
+            String tmpDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+            if (tmpDate.equals(DateFrom)) {
+                DateTill = year + "-" + (month + 1) + "-" + (dayOfMonth + 1);
+            } else {
+                DateTill = year + "-" + (month + 1) + "-" + dayOfMonth;
+            }
+            */
+
+            DateTill = year + "-" + (month + 1) + "-" + (dayOfMonth + 1);
         }
         filter();
     }
 
-    public void filter(){
+    public void filter() {
         TextView filtersNum = getView().findViewById(R.id.number_filters_applied);
         int temp_filters = filterNum;
         FontTextView filterIcon = getView().findViewById(R.id.filter_icon);
-        String url = String.format( "%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
+        String url = String.format("%s&minmagnitude=%s&maxmagnitude=%s&starttime=%s&endtime=%s&limit=%s",
                 EARTHQUAKE_REQUEST_URL, minMag, maxMag, DateFrom, DateTill, earthquakesLoaded);
-        if(minMag != 0) temp_filters++;
-        if(maxMag != 10) temp_filters++;
-      if(temp_filters != 0){
+        if (minMag != 0) temp_filters++;
+        if (maxMag != 10) temp_filters++;
+        if (temp_filters != 0) {
             filterIcon.setVisibility(View.GONE);
             filtersNum.setText("" + temp_filters);
             filtersNum.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             filterIcon.setVisibility(View.VISIBLE);
             filtersNum.setVisibility(View.GONE);
         }
         final EarthquakeListRetriever retriever = new EarthquakeListRetriever(url);
         retriever.execute();
     }
-    public void showDialog(){
+
+    public void showDialog() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this.getActivity());
         View mView = getLayoutInflater().inflate(R.layout.filter_dialog, null, false);
         mBuilder.setView(mView);

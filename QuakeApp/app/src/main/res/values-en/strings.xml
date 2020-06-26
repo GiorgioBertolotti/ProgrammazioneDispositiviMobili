@@ -210,7 +210,7 @@
     <string name="title_behavior">Safety Measures</string>
 
     <!-- RECENTI -->
-    <string name="recent_text_info">Tap on the card for more details.</string>
+    <string name="recent_text_info">Tap on the map for more details.</string>
     <string name="recent_today">Today</string>
     <string name="recent_show_all_quakes">Show more earthquakes</string>
     <string name="recent_notable">Notable earthquake</string>

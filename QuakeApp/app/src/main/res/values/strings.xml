@@ -219,7 +219,7 @@
     <string name="title_behavior">Misure di Sicurezza</string>
 
     <!-- RECENTI -->
-    <string name="recent_text_info">Tocca sull\'immagine per saperne di più.</string>
+    <string name="recent_text_info">Tocca sulla mappa per saperne di più.</string>
     <string name="recent_today">Oggi</string>
     <string name="recent_show_all_quakes">Visualizza più terremoti</string>
     <string name="recent_notable" >Degno di nota</string>
